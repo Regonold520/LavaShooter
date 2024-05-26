@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm5klo4h7uwx8"]
+
+[ext_resource type="AudioStream" uid="uid://odkeyba2pcka" path="res://hitHurt.wav" id="1_dou6x"]
+[ext_resource type="Script" path="res://EnemyDeath.gd" id="2_84jid"]
+
+[node name="EnemyDeath" type="AudioStreamPlayer2D"]
+stream = ExtResource("1_dou6x")
+volume_db = 1.0
+script = ExtResource("2_84jid")

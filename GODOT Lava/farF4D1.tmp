@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfdrx7c206e4x"]
+
+[ext_resource type="Texture2D" uid="uid://jqaqsiom0vyt" path="res://Sprites/Farming/Pots/Pot_1.png" id="1_obcuf"]
+[ext_resource type="Script" path="res://Pot.gd" id="1_tjt5k"]
+[ext_resource type="Texture2D" uid="uid://co43gn6xft16c" path="res://Sprites/Farming/Crops/Carrot_1.png" id="2_5h78x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13kbp"]
+size = Vector2(248, 165)
+
+[node name="FarmingUI" type="Control"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Pot" type="Area2D" parent="."]
+priority = 100
+script = ExtResource("1_tjt5k")
+
+[node name="Pot" type="Sprite2D" parent="Pot"]
+position = Vector2(138, 94)
+texture = ExtResource("1_obcuf")
+
+[node name="Crop" type="Sprite2D" parent="Pot/Pot"]
+position = Vector2(-4, -56)
+texture = ExtResource("2_5h78x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pot"]
+position = Vector2(138, 93.5)
+shape = SubResource("RectangleShape2D_13kbp")
+
+[connection signal="body_shape_exited" from="Pot" to="Pot" method="_on_body_shape_exited"]
+[connection signal="mouse_entered" from="Pot" to="Pot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Pot" to="Pot" method="_on_mouse_exited"]

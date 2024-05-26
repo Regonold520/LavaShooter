@@ -1,0 +1,74 @@
+[gd_scene load_steps=10 format=3 uid="uid://b3rbgty0dohqo"]
+
+[ext_resource type="Texture2D" uid="uid://8ml0gx00pxd3" path="res://Sprites/Enemies/Drop/Drop_Idle1.png" id="1_evo7h"]
+[ext_resource type="Script" path="res://drop_enemy.gd" id="1_okwsd"]
+[ext_resource type="Texture2D" uid="uid://bf8fsje436j3p" path="res://Sprites/Enemies/Drop/Drop_Idle2.png" id="2_ydvhl"]
+[ext_resource type="Texture2D" uid="uid://cpj4mnggdq7dm" path="res://Sprites/Enemies/Drop/Drop_Idle3.png" id="3_oojr4"]
+[ext_resource type="Texture2D" uid="uid://chgv1b6s3q7gw" path="res://Sprites/Enemies/Drop/Drop_Idle4.png" id="4_yk8db"]
+[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_1shta"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_evo7h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_ydvhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_oojr4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_yk8db")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
+size = Vector2(14, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
+radius = 1119.19
+
+[node name="DropEnemy" type="Area2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_okwsd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+sprite_frames = SubResource("SpriteFrames_o8ikx")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.500075
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ndmxe")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_bmap6")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Signal" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0.501961)
+z_index = -1
+texture_filter = 1
+scale = Vector2(0.101529, 0.101529)
+texture = ExtResource("6_1shta")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]

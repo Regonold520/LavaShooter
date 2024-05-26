@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://cfdrx7c206e4x"]
+
+[ext_resource type="Texture2D" uid="uid://jqaqsiom0vyt" path="res://Sprites/Farming/Pots/Pot_1.png" id="1_obcuf"]
+[ext_resource type="Script" path="res://Pot.gd" id="1_tjt5k"]
+[ext_resource type="Texture2D" uid="uid://co43gn6xft16c" path="res://Sprites/Farming/Crops/Carrot_1.png" id="2_5h78x"]
+[ext_resource type="Script" path="res://PotOutline.gd" id="4_y7pa4"]
+[ext_resource type="Texture2D" uid="uid://chponchd3ee8v" path="res://Sprites/Farming/Pots/Pot_Outline.png" id="5_qkj0b"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_13kbp"]
+size = Vector2(248, 165)
+
+[node name="FarmingUI" type="CanvasLayer"]
+process_mode = 1
+
+[node name="Container" type="HBoxContainer" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+alignment = 1
+
+[node name="Pot" type="Area2D" parent="Container"]
+process_mode = 1
+position = Vector2(82, -57)
+scale = Vector2(0.62872, 0.62872)
+priority = 100
+script = ExtResource("1_tjt5k")
+
+[node name="Pot" type="Sprite2D" parent="Container/Pot"]
+texture_filter = 1
+texture = ExtResource("1_obcuf")
+
+[node name="Crop" type="Sprite2D" parent="Container/Pot/Pot"]
+texture_filter = 1
+position = Vector2(-4, -56)
+texture = ExtResource("2_5h78x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/Pot"]
+shape = SubResource("RectangleShape2D_13kbp")
+
+[node name="PotOutline" type="Area2D" parent="Container"]
+process_mode = 1
+position = Vector2(245, -57)
+scale = Vector2(0.62872, 0.62872)
+priority = 100
+script = ExtResource("4_y7pa4")
+
+[node name="Pot" type="Sprite2D" parent="Container/PotOutline"]
+texture_filter = 1
+position = Vector2(9.5432, -1.59053)
+texture = ExtResource("5_qkj0b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Container/PotOutline"]
+shape = SubResource("RectangleShape2D_13kbp")
+
+[connection signal="body_shape_exited" from="Container/Pot" to="Container/Pot" method="_on_body_shape_exited"]
+[connection signal="mouse_entered" from="Container/Pot" to="Container/Pot" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Container/Pot" to="Container/Pot" method="_on_mouse_exited"]
+[connection signal="body_shape_exited" from="Container/PotOutline" to="Container/PotOutline" method="_on_body_shape_exited"]
+[connection signal="mouse_entered" from="Container/PotOutline" to="Container/PotOutline" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Container/PotOutline" to="Container/PotOutline" method="_on_mouse_exited"]

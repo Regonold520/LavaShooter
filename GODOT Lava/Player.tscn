@@ -1,0 +1,97 @@
+[gd_scene load_steps=14 format=3 uid="uid://d0vq34rsncrwv"]
+
+[ext_resource type="Script" path="res://Player.gd" id="1_y1mu5"]
+[ext_resource type="Texture2D" uid="uid://dfgsgjdhyrpml" path="res://Sprites/Lava Boi/Lava_Idle1.png" id="2_jaj55"]
+[ext_resource type="Texture2D" uid="uid://c7h8whtioa13" path="res://Sprites/Lava Boi/Lava_Walk1.png" id="2_q7dp6"]
+[ext_resource type="Texture2D" uid="uid://twiu8fjx4une" path="res://Sprites/Lava Boi/Lava_Idle2.png" id="3_dpauv"]
+[ext_resource type="Texture2D" uid="uid://dtnb0oweee15e" path="res://Sprites/Lava Boi/Lava_Walk2.png" id="3_pa50k"]
+[ext_resource type="Texture2D" uid="uid://bhgrtynhwsvkh" path="res://Sprites/Lava Boi/Lava_Walk3.png" id="4_hykhl"]
+[ext_resource type="Texture2D" uid="uid://dhe2051woc7ok" path="res://Sprites/Lava Boi/Lava_Walk4.png" id="5_jr5rd"]
+[ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Rifle.png" id="6_2uajk"]
+[ext_resource type="Script" path="res://Gun.gd" id="9_camyv"]
+[ext_resource type="AudioStream" uid="uid://c4vpvt36m0yoy" path="res://laserShoot.wav" id="10_ekfio"]
+[ext_resource type="AudioStream" uid="uid://odkeyba2pcka" path="res://hitHurt.wav" id="11_p66hi"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_820f4"]
+size = Vector2(14, 15)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ari48"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_jaj55")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_dpauv")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_q7dp6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_pa50k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_hykhl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jr5rd")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 10.0
+}]
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_y1mu5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_820f4")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+sprite_frames = SubResource("SpriteFrames_ari48")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.906479
+
+[node name="GunPoint" type="Node2D" parent="."]
+
+[node name="Gun" type="Node2D" parent="GunPoint"]
+position = Vector2(0, -13)
+rotation = 1.5708
+scale = Vector2(0.149795, 0.149795)
+script = ExtResource("9_camyv")
+
+[node name="Cooldown" type="Timer" parent="GunPoint/Gun"]
+one_shot = true
+
+[node name="FirePoint" type="Node2D" parent="GunPoint/Gun"]
+position = Vector2(-53.4063, 0.00019333)
+
+[node name="GunSprite" type="Sprite2D" parent="GunPoint/Gun"]
+texture_filter = 1
+position = Vector2(1.90735e-06, -4.76837e-07)
+scale = Vector2(1.01515, 1.01515)
+texture = ExtResource("6_2uajk")
+
+[node name="AnimChange" type="Timer" parent="."]
+wait_time = 0.2
+autostart = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("10_ekfio")
+
+[node name="EnemyDeath" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_p66hi")
+
+[connection signal="timeout" from="GunPoint/Gun/Cooldown" to="GunPoint/Gun" method="_on_cooldown_timeout"]
+[connection signal="timeout" from="AnimChange" to="." method="_on_anim_change_timeout"]

@@ -1,0 +1,144 @@
+[gd_scene load_steps=6 format=3 uid="uid://crnsdgouo73wh"]
+
+[ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
+[ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
+[ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="3_8ia1s"]
+[ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
+[ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
+
+[node name="Game" type="Node2D"]
+position = Vector2(545, 303)
+scale = Vector2(4.92548, 4.92548)
+
+[node name="Player" parent="." instance=ExtResource("1_swvio")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.452887, 0.608306)
+zoom = Vector2(0.75, 0.75)
+
+[node name="FarmingUI" parent="Camera2D" instance=ExtResource("2_7oqqd")]
+
+[node name="MainUI" type="CanvasLayer" parent="Camera2D"]
+
+[node name="WaveText" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -228.0
+offset_top = 14.0
+offset_right = 224.0
+offset_bottom = 189.0
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+text = "Wave 0"
+scroll_active = false
+
+[node name="WaveTime" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 35.0
+offset_top = 16.0
+offset_right = 487.0
+offset_bottom = 191.0
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+text = "00:00"
+scroll_active = false
+
+[node name="Health" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+offset_left = 9.0
+offset_top = 27.0
+offset_right = 461.0
+offset_bottom = 202.0
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 60
+text = "Health: 100"
+scroll_active = false
+
+[node name="WaveManager" type="Node" parent="."]
+script = ExtResource("4_p8g81")
+
+[node name="WaveTime" type="Timer" parent="WaveManager"]
+wait_time = 100.0
+autostart = true
+
+[node name="SummonTimer" type="Timer" parent="WaveManager"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="WaveManager"]
+
+[node name="TopRight" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 280.0
+offset_top = -253.0
+offset_right = 280.0
+offset_bottom = -253.0
+grow_horizontal = 0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/TopRight"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="TopLeft" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = -301.0
+offset_top = -272.0
+offset_right = -301.0
+offset_bottom = -272.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/TopLeft"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="BottomRight" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = 1440.0
+offset_top = 819.0
+offset_right = 1440.0
+offset_bottom = 819.0
+size_flags_horizontal = 10
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/BottomRight"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="BottomLeft" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = -348.0
+offset_top = 795.0
+offset_right = -348.0
+offset_bottom = 795.0
+size_flags_horizontal = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/BottomLeft"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="IntermissionTimer" type="Timer" parent="WaveManager"]
+wait_time = 20.0
+one_shot = true
+
+[node name="PauseManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("5_4pqwp")
+
+[connection signal="timeout" from="WaveManager/WaveTime" to="WaveManager" method="_on_wave_time_timeout"]
+[connection signal="timeout" from="WaveManager/SummonTimer" to="WaveManager" method="_on_summon_timer_timeout"]
+[connection signal="timeout" from="WaveManager/IntermissionTimer" to="WaveManager" method="_on_intermission_timer_timeout"]

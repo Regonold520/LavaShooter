@@ -1,0 +1,72 @@
+[gd_scene load_steps=10 format=3 uid="uid://cojs3xdtd4gug"]
+
+[ext_resource type="Script" path="res://twins_enemy.gd" id="1_up4ec"]
+[ext_resource type="Texture2D" uid="uid://dwq1f36gsgn31" path="res://Sprites/Enemies/Twins/Twins_1.png" id="2_racvn"]
+[ext_resource type="Texture2D" uid="uid://d0qw5cq0tkdv3" path="res://Sprites/Enemies/Twins/Twins_2.png" id="3_w7jh0"]
+[ext_resource type="Texture2D" uid="uid://cdkdl2w7cf8kw" path="res://Sprites/Enemies/Twins/Twins_3.png" id="4_fd547"]
+[ext_resource type="Texture2D" uid="uid://c8glfa44mkglr" path="res://Sprites/Enemies/Twins/Twins_4.png" id="5_vtv4v"]
+[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_u26u3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_qe8be"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_racvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_w7jh0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_fd547")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_vtv4v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 7.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
+size = Vector2(25, 25)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
+radius = 1119.19
+
+[node name="TwinsEnemy" type="Area2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_up4ec")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+sprite_frames = SubResource("SpriteFrames_qe8be")
+autoplay = "default"
+frame_progress = 0.767606
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_ndmxe")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+visible = false
+shape = SubResource("CircleShape2D_bmap6")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="Signal" type="Sprite2D" parent="."]
+modulate = Color(1, 0, 0, 0.501961)
+z_index = -1
+texture_filter = 1
+scale = Vector2(0.125307, 0.125307)
+texture = ExtResource("6_u26u3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]

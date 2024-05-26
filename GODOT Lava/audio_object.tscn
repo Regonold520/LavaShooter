@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://curna5yf4m22e"]
+
+[ext_resource type="PackedScene" uid="uid://cm5klo4h7uwx8" path="res://enemy_death.tscn" id="1_oilys"]
+
+[node name="AudioObject" type="Node"]
+
+[node name="EnemyDeath" parent="." instance=ExtResource("1_oilys")]
