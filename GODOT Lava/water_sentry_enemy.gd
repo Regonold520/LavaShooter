@@ -7,10 +7,12 @@ var SPEED : float
 var start_finished = false
 var is_start
 
+var possible_spawns = [Enemies.drop]
+
+var health = 3
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var tween = create_tween()
 	SPEED = randf_range(15,25)
 	
 	var rand_pos_x = rng.randf_range(-348,1432)
@@ -41,13 +43,6 @@ func _process(delta):
 		$Signal.modulate.a8 = 0
 		var player = get_tree().current_scene.find_child('Player')
 		_update_anim(player)
-		tween = create_tween()
-		var distance := position.distance_to(player.position)
-		var tween_time = distance / SPEED
-		
-		tween.tween_property($".",'position', player.position,tween_time)
-	
-
 
 func _update_anim(player):
 	if player.position > position:
@@ -69,6 +64,16 @@ func _on_body_entered(body):
 	PlayerVars.Health -= 5
 	
 func _on_death():
+	health -= 1
 	var player = get_tree().current_scene.find_child('Player')
 	player.find_child('EnemyDeath').play()
-	queue_free()
+	
+	if health == 0:
+		queue_free()
+
+
+func _on_spawn_timer_timeout():
+	possible_spawns.shuffle()
+	var spawn = possible_spawns[0].instantiate()
+	get_tree().current_scene.add_child(spawn)
+	spawn.position = position

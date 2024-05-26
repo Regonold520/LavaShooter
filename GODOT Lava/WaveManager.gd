@@ -4,18 +4,22 @@ var screensize : Vector2
 var rng = RandomNumberGenerator.new()
 
 var Wave_1_enemies = [Enemies.drop]
-var Wave_2_enemies = [Enemies.twins,Enemies.puddle]
+var Wave_2_enemies = [Enemies.drop,Enemies.puddle]
+var Wave_3_enemies = [Enemies.drop,Enemies.twins]
+var Wave_4_enemies = [Enemies.drop,Enemies.puddle,Enemies.twins]
+var Wave_5_enemies = [Enemies.drop,Enemies.puddle,Enemies.w_sentry]
+
 var enemy : Node
 
 var Wave = 2
-var End_Wave = 3
+var End_Wave = 6
 var Wave_time = 100.0
 var Total_enemies = 50.0
 var Active_enemies : int
 var intermission_time = 20.0
 
-var Wave_time_a : PackedFloat64Array = [0,60,65]
-var Total_enemies_a : PackedFloat64Array = [0,45,35]
+var Wave_time_a : PackedFloat64Array = [0,60,65,65,65,60]
+var Total_enemies_a : PackedFloat64Array = [0,45,35,40,45,40]
 
 var Enemies_s = 0
 
@@ -55,11 +59,23 @@ func _summon_enemy():
 	if Wave == 1:
 		Wave_1_enemies.shuffle()
 		var chosen = Wave_1_enemies[0]
-		enemy = chosen.instantiate()
-		
-	if Wave == 2:
+		enemy = chosen.instantiate()	
+	elif Wave == 2:
 		Wave_2_enemies.shuffle()
 		var chosen = Wave_2_enemies[0]
+		enemy = chosen.instantiate()
+	elif Wave == 3:
+		Wave_3_enemies.shuffle()
+		var chosen = Wave_3_enemies[0]
+		enemy = chosen.instantiate()
+		
+	elif Wave == 4:
+		Wave_4_enemies.shuffle()
+		var chosen = Wave_4_enemies[0]
+		enemy = chosen.instantiate()
+	elif Wave == 5:
+		Wave_5_enemies.shuffle()
+		var chosen = Wave_5_enemies[0]
 		enemy = chosen.instantiate()
 	
 	var assignment = rng.randi_range(1,4) #

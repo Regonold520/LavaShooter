@@ -63,11 +63,12 @@ func _on_detection_body_exited(body):
 func _on_body_entered(body):
 	_on_death()
 	PlayerVars.Health -= 10
-	queue_free()
 	
 func _on_death():
 	var audio = Enemies.enemy_audio.instantiate()
 	get_tree().current_scene.add_child(audio)
+	
+	queue_free()
 	
 	var drop1 = drop_scene.instantiate()
 	var drop2 = drop_scene.instantiate()

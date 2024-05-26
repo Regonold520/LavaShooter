@@ -65,8 +65,8 @@ func _on_detection_body_exited(body):
 func _on_body_entered(body):
 	_on_death()
 	PlayerVars.Health -= 5
-	queue_free()
 	
 func _on_death():
 	var player = get_tree().current_scene.find_child('Player')
 	player.find_child('EnemyDeath').play()
+	queue_free()

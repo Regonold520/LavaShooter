@@ -1,26 +1,26 @@
 [gd_scene load_steps=10 format=3 uid="uid://b3rbgty0dohqo"]
 
-[ext_resource type="Texture2D" uid="uid://8ml0gx00pxd3" path="res://Sprites/Enemies/Drop/Drop_Idle1.png" id="1_evo7h"]
 [ext_resource type="Script" path="res://drop_enemy.gd" id="1_okwsd"]
-[ext_resource type="Texture2D" uid="uid://bf8fsje436j3p" path="res://Sprites/Enemies/Drop/Drop_Idle2.png" id="2_ydvhl"]
-[ext_resource type="Texture2D" uid="uid://cpj4mnggdq7dm" path="res://Sprites/Enemies/Drop/Drop_Idle3.png" id="3_oojr4"]
-[ext_resource type="Texture2D" uid="uid://chgv1b6s3q7gw" path="res://Sprites/Enemies/Drop/Drop_Idle4.png" id="4_yk8db"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_1shta"]
+[ext_resource type="Texture2D" uid="uid://8ml0gx00pxd3" path="res://Sprites/Enemies/Drop/Drop_Idle1.png" id="2_m47c8"]
+[ext_resource type="Texture2D" uid="uid://bf8fsje436j3p" path="res://Sprites/Enemies/Drop/Drop_Idle2.png" id="3_fpx3h"]
+[ext_resource type="Texture2D" uid="uid://cpj4mnggdq7dm" path="res://Sprites/Enemies/Drop/Drop_Idle3.png" id="4_hy6k7"]
+[ext_resource type="Texture2D" uid="uid://chgv1b6s3q7gw" path="res://Sprites/Enemies/Drop/Drop_Idle4.png" id="5_gnc4n"]
+[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_t84vv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_evo7h")
+"texture": ExtResource("2_m47c8")
 }, {
 "duration": 1.0,
-"texture": ExtResource("2_ydvhl")
+"texture": ExtResource("3_fpx3h")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_oojr4")
+"texture": ExtResource("4_hy6k7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_yk8db")
+"texture": ExtResource("5_gnc4n")
 }],
 "loop": true,
 "name": &"Idle",
@@ -65,7 +65,7 @@ modulate = Color(1, 0, 0, 0.501961)
 z_index = -1
 texture_filter = 1
 scale = Vector2(0.101529, 0.101529)
-texture = ExtResource("6_1shta")
+texture = ExtResource("6_t84vv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]

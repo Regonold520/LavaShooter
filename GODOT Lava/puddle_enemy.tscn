@@ -1,18 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://wlr5sh363dc5"]
+[gd_scene load_steps=9 format=3 uid="uid://wlr5sh363dc5"]
 
 [ext_resource type="Script" path="res://puddle_enemy.gd" id="1_i7t1o"]
-[ext_resource type="Texture2D" uid="uid://cbl7ke6rquteq" path="res://Sprites/Enemies/Puddle/Puddle_2.png" id="3_uj3xd"]
-[ext_resource type="Texture2D" uid="uid://df18ly8l3jfmj" path="res://Sprites/Enemies/Puddle/Puddle_3.png" id="4_ixxso"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_reqpg"]
+[ext_resource type="Texture2D" uid="uid://da8nn3kad78rq" path="res://Sprites/Enemies/Puddle/Puddle_1.png" id="2_8kar2"]
+[ext_resource type="Texture2D" uid="uid://cbl7ke6rquteq" path="res://Sprites/Enemies/Puddle/Puddle_2.png" id="3_lsaxa"]
+[ext_resource type="Texture2D" uid="uid://df18ly8l3jfmj" path="res://Sprites/Enemies/Puddle/Puddle_3.png" id="4_wryt2"]
+[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="5_lwbbm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ithyj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_uj3xd")
+"texture": ExtResource("2_8kar2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_ixxso")
+"texture": ExtResource("3_lsaxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_wryt2")
 }],
 "loop": true,
 "name": &"default",
@@ -35,7 +39,8 @@ texture_filter = 1
 scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_ithyj")
 autoplay = "default"
-frame_progress = 0.371749
+frame = 2
+frame_progress = 0.414364
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -55,8 +60,8 @@ debug_color = Color(0, 0.6, 0.701961, 0)
 modulate = Color(1, 0, 0, 0.501961)
 z_index = -1
 texture_filter = 1
-scale = Vector2(0.101529, 0.101529)
-texture = ExtResource("6_reqpg")
+scale = Vector2(0.0812611, 0.0812611)
+texture = ExtResource("5_lwbbm")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]

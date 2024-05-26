@@ -1,26 +1,26 @@
 [gd_scene load_steps=10 format=3 uid="uid://cojs3xdtd4gug"]
 
 [ext_resource type="Script" path="res://twins_enemy.gd" id="1_up4ec"]
-[ext_resource type="Texture2D" uid="uid://dwq1f36gsgn31" path="res://Sprites/Enemies/Twins/Twins_1.png" id="2_racvn"]
-[ext_resource type="Texture2D" uid="uid://d0qw5cq0tkdv3" path="res://Sprites/Enemies/Twins/Twins_2.png" id="3_w7jh0"]
-[ext_resource type="Texture2D" uid="uid://cdkdl2w7cf8kw" path="res://Sprites/Enemies/Twins/Twins_3.png" id="4_fd547"]
-[ext_resource type="Texture2D" uid="uid://c8glfa44mkglr" path="res://Sprites/Enemies/Twins/Twins_4.png" id="5_vtv4v"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_u26u3"]
+[ext_resource type="Texture2D" uid="uid://dwq1f36gsgn31" path="res://Sprites/Enemies/Twins/Twins_1.png" id="2_cdq3m"]
+[ext_resource type="Texture2D" uid="uid://d0qw5cq0tkdv3" path="res://Sprites/Enemies/Twins/Twins_2.png" id="3_100cd"]
+[ext_resource type="Texture2D" uid="uid://cdkdl2w7cf8kw" path="res://Sprites/Enemies/Twins/Twins_3.png" id="4_bkl7o"]
+[ext_resource type="Texture2D" uid="uid://c8glfa44mkglr" path="res://Sprites/Enemies/Twins/Twins_4.png" id="5_6j6ac"]
+[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_iesdi"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_qe8be"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_racvn")
+"texture": ExtResource("2_cdq3m")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_w7jh0")
+"texture": ExtResource("3_100cd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_fd547")
+"texture": ExtResource("4_bkl7o")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_vtv4v")
+"texture": ExtResource("5_6j6ac")
 }],
 "loop": true,
 "name": &"default",
@@ -43,7 +43,8 @@ texture_filter = 1
 scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_qe8be")
 autoplay = "default"
-frame_progress = 0.767606
+frame = 1
+frame_progress = 0.916318
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.5, 0.5)
@@ -63,7 +64,7 @@ modulate = Color(1, 0, 0, 0.501961)
 z_index = -1
 texture_filter = 1
 scale = Vector2(0.125307, 0.125307)
-texture = ExtResource("6_u26u3")
+texture = ExtResource("6_iesdi")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
