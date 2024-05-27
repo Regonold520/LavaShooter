@@ -11,14 +11,14 @@ var Wave_5_enemies = [Enemies.drop,Enemies.puddle,Enemies.w_sentry]
 
 var enemy : Node
 
-var Wave = 2
+var Wave = 1
 var End_Wave = 6
 var Wave_time = 100.0
 var Total_enemies = 50.0
 var Active_enemies : int
 var intermission_time = 20.0
 
-var Wave_time_a : PackedFloat64Array = [0,60,65,65,65,60]
+var Wave_time_a : PackedFloat64Array = [0,1,65,65,65,60]
 var Total_enemies_a : PackedFloat64Array = [0,45,35,40,45,40]
 
 var Enemies_s = 0
