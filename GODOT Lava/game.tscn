@@ -1,10 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://crnsdgouo73wh"]
+[gd_scene load_steps=8 format=3 uid="uid://crnsdgouo73wh"]
 
 [ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
 [ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
 [ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="3_8ia1s"]
+[ext_resource type="Texture2D" uid="uid://b72pvvge05eh" path="res://Sprites/Lava Boi/Heart_UI.png" id="4_ivyuw"]
 [ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
 [ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
+[ext_resource type="Texture2D" uid="uid://o2cahuc8d1kh" path="res://Sprites/Enemies/Essence/Essence_1.png" id="5_wvfi5"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(545, 303)
@@ -22,13 +24,15 @@ zoom = Vector2(0.75, 0.75)
 
 [node name="WaveText" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -121.0
-offset_top = 4.0
-offset_right = 331.0
-offset_bottom = 179.0
+anchors_preset = -1
+anchor_left = 0.339
+anchor_top = 0.006
+anchor_right = 0.617
+anchor_bottom = 0.194
+offset_left = 0.471985
+offset_top = -5.888
+offset_right = 132.216
+offset_bottom = 47.288
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
 theme_override_fonts/normal_font = ExtResource("3_8ia1s")
@@ -42,13 +46,14 @@ text_direction = 1
 
 [node name="WaveTime" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -121.0
-offset_top = 69.0
-offset_right = 331.0
-offset_bottom = 244.0
+anchors_preset = -1
+anchor_left = 0.339
+anchor_right = 0.617
+anchor_bottom = 0.295
+offset_left = 0.471985
+offset_top = 63.0
+offset_right = 132.216
+offset_bottom = 46.84
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
 theme_override_fonts/normal_font = ExtResource("3_8ia1s")
@@ -62,29 +67,57 @@ text_direction = 1
 
 [node name="Health" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
-offset_left = 9.0
-offset_top = 11.0
-offset_right = 461.0
-offset_bottom = 186.0
+anchors_preset = -1
+anchor_right = 0.332
+anchor_bottom = 0.211
+offset_left = 62.0
+offset_top = 9.0
+offset_right = 131.536
+offset_bottom = 47.272
 scale = Vector2(0.707786, 0.730772)
 theme_override_fonts/normal_font = ExtResource("3_8ia1s")
 theme_override_font_sizes/normal_font_size = 60
-text = "Health: 100"
+text = "100"
 fit_content = true
 scroll_active = false
 
 [node name="Essence" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
-offset_left = 9.0
-offset_top = 69.0
-offset_right = 461.0
-offset_bottom = 244.0
+anchors_preset = -1
+anchor_right = 0.332
+anchor_bottom = 0.313
+offset_left = 62.0
+offset_top = 75.0
+offset_right = 131.536
+offset_bottom = 47.176
 scale = Vector2(0.707786, 0.730772)
 theme_override_fonts/normal_font = ExtResource("3_8ia1s")
 theme_override_font_sizes/normal_font_size = 60
-text = "Essence: 0"
+text = "0"
 fit_content = true
 scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/MainUI"]
+anchors_preset = -1
+anchor_right = 0.045
+anchor_bottom = 0.082
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 1152.16
+offset_bottom = 1151.86
+scale = Vector2(0.0401163, 0.0401163)
+texture = ExtResource("4_ivyuw")
+
+[node name="TextureRect2" type="TextureRect" parent="Camera2D/MainUI"]
+anchors_preset = -1
+anchor_right = 0.045
+anchor_bottom = 0.181
+offset_left = 4.0
+offset_top = 69.0
+offset_right = 1152.16
+offset_bottom = 1151.71
+scale = Vector2(0.0401163, 0.0401163)
+texture = ExtResource("5_wvfi5")
 
 [node name="WaveManager" type="Node" parent="."]
 script = ExtResource("4_p8g81")

@@ -22,8 +22,8 @@ func _process(delta):
 
 	
 func _update_stats():
-	$"../Camera2D/MainUI/Health".text = 'Health: ' + str(Health)
-	$"../Camera2D/MainUI/Essence".text = 'Essence: ' + str(PlayerVars.Essence_stat)
+	$"../Camera2D/MainUI/Health".text =  str(Health)
+	$"../Camera2D/MainUI/Essence".text = str(PlayerVars.Essence_stat)
 	
 func _gun_rotation():
 	$GunPoint.look_at(get_global_mouse_position())

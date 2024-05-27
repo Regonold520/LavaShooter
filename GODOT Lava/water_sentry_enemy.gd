@@ -84,3 +84,12 @@ func _on_spawn_timer_timeout():
 	var spawn = possible_spawns[0].instantiate()
 	get_tree().current_scene.add_child(spawn)
 	spawn.position = position
+	
+	var signal1 = spawn.find_child('Signal')
+	
+	signal1.modulate.r8 = 0
+	signal1.modulate.g8 = 140
+	signal1.modulate.b8 = 255
+	
+	signal1.position.y = 4
+	signal1.scale = Vector2(0.202,0.162)
