@@ -66,7 +66,13 @@ func _on_body_entered(body):
 	_on_death()
 	PlayerVars.Health -= 5
 	
+func _essence():
+	var essence = PlayerVars.Essence.instantiate()
+	essence.position = position
+	get_tree().current_scene.add_child(essence)
+	
 func _on_death():
 	var player = get_tree().current_scene.find_child('Player')
 	player.find_child('EnemyDeath').play()
+	
 	queue_free()

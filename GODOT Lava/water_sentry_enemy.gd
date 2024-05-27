@@ -71,6 +71,13 @@ func _on_death():
 	if health == 0:
 		queue_free()
 
+func _essence():
+	if health == 0:
+		for i in 3:
+			var essence = PlayerVars.Essence.instantiate()
+			essence.position = position
+			get_tree().current_scene.add_child(essence)
+	
 
 func _on_spawn_timer_timeout():
 	possible_spawns.shuffle()

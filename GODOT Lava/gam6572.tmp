@@ -1,10 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://crnsdgouo73wh"]
+[gd_scene load_steps=10 format=3 uid="uid://crnsdgouo73wh"]
 
 [ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
 [ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
 [ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="3_8ia1s"]
 [ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
 [ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
+[ext_resource type="Texture2D" uid="uid://nn8u2lxelsok" path="res://icon.svg" id="6_2gri5"]
+[ext_resource type="Script" path="res://Item.gd" id="6_evrnr"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w1klj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xxr0"]
 
 [node name="Game" type="Node2D"]
 position = Vector2(545, 303)
@@ -63,27 +69,13 @@ text_direction = 1
 [node name="Health" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
 offset_left = 9.0
-offset_top = 11.0
+offset_top = 27.0
 offset_right = 461.0
-offset_bottom = 186.0
+offset_bottom = 202.0
 scale = Vector2(0.707786, 0.730772)
 theme_override_fonts/normal_font = ExtResource("3_8ia1s")
 theme_override_font_sizes/normal_font_size = 60
 text = "Health: 100"
-fit_content = true
-scroll_active = false
-
-[node name="Essence" type="RichTextLabel" parent="Camera2D/MainUI"]
-texture_filter = 1
-offset_left = 9.0
-offset_top = 69.0
-offset_right = 461.0
-offset_bottom = 244.0
-scale = Vector2(0.707786, 0.730772)
-theme_override_fonts/normal_font = ExtResource("3_8ia1s")
-theme_override_font_sizes/normal_font_size = 60
-text = "Essence: 0"
-fit_content = true
 scroll_active = false
 
 [node name="WaveManager" type="Node" parent="."]
@@ -160,6 +152,20 @@ one_shot = true
 [node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("5_4pqwp")
+
+[node name="Item" type="RigidBody2D" parent="."]
+position = Vector2(-31.469, -11.1664)
+scale = Vector2(0.143699, 0.148366)
+collision_layer = 8
+collision_mask = 8
+physics_material_override = SubResource("PhysicsMaterial_w1klj")
+script = ExtResource("6_evrnr")
+
+[node name="Sprite2D" type="Sprite2D" parent="Item"]
+texture = ExtResource("6_2gri5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Item"]
+shape = SubResource("RectangleShape2D_0xxr0")
 
 [connection signal="timeout" from="WaveManager/WaveTime" to="WaveManager" method="_on_wave_time_timeout"]
 [connection signal="timeout" from="WaveManager/SummonTimer" to="WaveManager" method="_on_summon_timer_timeout"]

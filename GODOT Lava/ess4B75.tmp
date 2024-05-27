@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://b1qjkmctxricn"]
+
+[ext_resource type="Script" path="res://Item.gd" id="1_xqptc"]
+[ext_resource type="Texture2D" uid="uid://o2cahuc8d1kh" path="res://Sprites/Enemies/Essence/Essence_1.png" id="2_1sudl"]
+[ext_resource type="Texture2D" uid="uid://di5hxdejcwxaf" path="res://Sprites/Enemies/Essence/Essence_2.png" id="3_gg3ht"]
+[ext_resource type="Texture2D" uid="uid://cde4upy377lq0" path="res://Sprites/Enemies/Essence/Essence_3.png" id="4_h54a5"]
+[ext_resource type="Texture2D" uid="uid://6oiy1mhuwadi" path="res://Sprites/Enemies/Essence/Essence_4.png" id="5_0ur04"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_w1klj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_pfsnm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_1sudl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_gg3ht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_h54a5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_0ur04")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y8df5"]
+radius = 215.834
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0xxr0"]
+
+[node name="Essence" type="RigidBody2D"]
+position = Vector2(-1.90735e-06, 9.53674e-07)
+scale = Vector2(0.143699, 0.148366)
+collision_layer = 8
+collision_mask = 8
+physics_material_override = SubResource("PhysicsMaterial_w1klj")
+gravity_scale = 3.5
+script = ExtResource("1_xqptc")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
+scale = Vector2(0.489897, 0.489897)
+sprite_frames = SubResource("SpriteFrames_pfsnm")
+autoplay = "default"
+frame_progress = 0.540697
+
+[node name="Detector" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_layer = 0
+collision_mask = 4
+
+[node name="PlayerDetector" type="CollisionShape2D" parent="Detector"]
+scale = Vector2(1, 1)
+shape = SubResource("CircleShape2D_y8df5")
+
+[node name="Collector" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collector"]
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_0xxr0")
+
+[connection signal="body_entered" from="Detector" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_entered" from="Collector" to="." method="_on_collector_body_entered"]

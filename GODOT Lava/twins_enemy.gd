@@ -64,6 +64,11 @@ func _on_body_entered(body):
 	_on_death()
 	PlayerVars.Health -= 10
 	
+func _essence():
+	var essence = PlayerVars.Essence.instantiate()
+	essence.position = position
+	get_tree().current_scene.add_child(essence)
+	
 func _on_death():
 	var audio = Enemies.enemy_audio.instantiate()
 	get_tree().current_scene.add_child(audio)

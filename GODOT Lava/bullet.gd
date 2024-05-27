@@ -11,4 +11,5 @@ func _process(delta):
 
 func _on_area_entered(area):
 	area._on_death()
+	area._essence()
 	queue_free()

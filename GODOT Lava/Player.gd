@@ -17,13 +17,14 @@ func _process(delta):
 	
 	Health = PlayerVars.Health
 	_gun_rotation()
-	_update_health()
+	_update_stats()
 	
 
 	
-func _update_health():
+func _update_stats():
 	$"../Camera2D/MainUI/Health".text = 'Health: ' + str(Health)
-
+	$"../Camera2D/MainUI/Essence".text = 'Essence: ' + str(PlayerVars.Essence_stat)
+	
 func _gun_rotation():
 	$GunPoint.look_at(get_global_mouse_position())
 	$GunPoint.rotation_degrees += 90
