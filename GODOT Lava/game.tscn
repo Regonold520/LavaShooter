@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://crnsdgouo73wh"]
+[gd_scene load_steps=12 format=3 uid="uid://crnsdgouo73wh"]
 
 [ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
 [ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
@@ -7,6 +7,14 @@
 [ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
 [ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
 [ext_resource type="Texture2D" uid="uid://o2cahuc8d1kh" path="res://Sprites/Enemies/Essence/Essence_1.png" id="5_wvfi5"]
+[ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Rifle.png" id="6_l8qt0"]
+[ext_resource type="Script" path="res://GunUI.gd" id="6_t0otx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1y6h"]
+size = Vector2(127, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u756"]
+radius = 66.0681
 
 [node name="Game" type="Node2D"]
 position = Vector2(545, 303)
@@ -119,6 +127,65 @@ offset_bottom = 1151.71
 scale = Vector2(0.0401163, 0.0401163)
 texture = ExtResource("5_wvfi5")
 
+[node name="GunUI" type="CanvasLayer" parent="Camera2D"]
+script = ExtResource("6_t0otx")
+
+[node name="Container" type="Control" parent="Camera2D/GunUI"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_top = -648.0
+offset_right = -1112.0
+offset_bottom = -608.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ReloadHolder" type="Area2D" parent="Camera2D/GunUI/Container"]
+position = Vector2(1223, 473)
+
+[node name="WaveText2" type="RichTextLabel" parent="Camera2D/GunUI/Container/ReloadHolder"]
+z_index = -1
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 28.8
+anchor_top = 16.189
+anchor_right = 28.8
+anchor_bottom = 16.189
+offset_left = -71.0
+offset_top = -21.0
+offset_right = 341.0
+offset_bottom = 79.0
+grow_horizontal = 2
+scale = Vector2(0.38869, 0.401313)
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center] Reload:  [/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+text_direction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
+shape = SubResource("RectangleShape2D_y1y6h")
+
+[node name="TextureHolder" type="Area2D" parent="Camera2D/GunUI/Container"]
+position = Vector2(1068, 568)
+
+[node name="GunTexture" type="Sprite2D" parent="Camera2D/GunUI/Container/TextureHolder"]
+texture = ExtResource("6_l8qt0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/GunUI/Container/TextureHolder"]
+shape = SubResource("CircleShape2D_8u756")
+
 [node name="WaveManager" type="Node" parent="."]
 script = ExtResource("4_p8g81")
 
@@ -194,6 +261,10 @@ one_shot = true
 process_mode = 3
 script = ExtResource("5_4pqwp")
 
+[connection signal="mouse_entered" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_entered"]
+[connection signal="mouse_exited" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_exited"]
+[connection signal="mouse_entered" from="Camera2D/GunUI/Container/TextureHolder" to="Camera2D/GunUI" method="_on_texture_holder_mouse_entered"]
+[connection signal="mouse_exited" from="Camera2D/GunUI/Container/TextureHolder" to="Camera2D/GunUI" method="_on_texture_holder_mouse_exited"]
 [connection signal="timeout" from="WaveManager/WaveTime" to="WaveManager" method="_on_wave_time_timeout"]
 [connection signal="timeout" from="WaveManager/SummonTimer" to="WaveManager" method="_on_summon_timer_timeout"]
 [connection signal="timeout" from="WaveManager/IntermissionTimer" to="WaveManager" method="_on_intermission_timer_timeout"]
