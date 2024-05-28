@@ -1,4 +1,5 @@
 using Godot;
+using Godot.Collections;
 
 public partial class EnemyAI : CharacterBody2D
 {
@@ -6,6 +7,9 @@ public partial class EnemyAI : CharacterBody2D
 	private bool start_finished = false;
 
 	private float speed;
+
+	[ExportGroup("Reward Stuff")] 
+	[Export] private int EssenceCount = 1;
 	
 	[ExportGroup("Movement Stuff")]
 	[Export] private float MinSpeed = 4600f;
@@ -13,6 +17,8 @@ public partial class EnemyAI : CharacterBody2D
 	
 	[ExportGroup("Damage Stuff")]
 	[Export] private int Damage = 5;
+
+	[Export] private int Health = 1;
 
 	public override void _Ready()
 	{
@@ -34,6 +40,12 @@ public partial class EnemyAI : CharacterBody2D
 	{
 		if(start_finished) Move(delta);
 		
+		var Collider = GetNode<Area2D>("Area2D").GetOverlappingBodies();
+		var SingleBody = Collider[0].Name;
+
+		if (SingleBody != "Player"); OnBodyEntered();
+
+
 	}
 
 	protected virtual void Move(double delta)
@@ -50,15 +62,34 @@ public partial class EnemyAI : CharacterBody2D
 
 	protected virtual void OnDeath()
 	{
-		var player = (Node2D) GetTree().CurrentScene.FindChild("Player");
-		player.GetNode<AudioStreamPlayer2D>("EnemyDeath").Play();
-		QueueFree();
+		PlayHitSfx();
 		
 		var EssenceScene = GD.Load<PackedScene>("res://essence.tscn");
+
+		for (int i = 0; i < EssenceCount; i++)
+		{
+			var essence = (Node2D) EssenceScene.Instantiate();
+			GetTree().CurrentScene.AddChild(essence);
+			essence.GlobalPosition = GlobalPosition;
+			
+		}
 		
-		var essence = (Node2D) EssenceScene.Instantiate();
-		GetTree().CurrentScene.AddChild(essence);
-		essence.GlobalPosition = GlobalPosition;
+		QueueFree();
+	}
+	
+
+	protected virtual void OnHit()
+	{
+		Health--;
+		
+		if(Health == 0) OnDeath(); PlayHitSfx();
+
+	}
+
+	private void PlayHitSfx()
+	{
+		var player = (Node2D) GetTree().CurrentScene.FindChild("Player");
+		player.GetNode<AudioStreamPlayer2D>("EnemyDeath").Play();
 	}
 
 	private void FlipSprite(Node2D player)
@@ -111,11 +142,11 @@ public partial class EnemyAI : CharacterBody2D
 		signal.Modulate = c;
 	}
 	
-	private void _OnBodyEntered(Node2D body)
+	private void OnBodyEntered()
 	{
-		GD.Print($"Just hit: {body.Name}! Taking away {Damage} HP!");
-		
 		_playerVariables.Health -= Damage;
+		
+		PlayHitSfx();
 		
 		QueueFree();
 	}

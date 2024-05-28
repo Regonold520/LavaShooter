@@ -13,7 +13,7 @@ var enemy : Node
 
 @onready var Pv = $"/root/PlayerVariables"
 
-var Wave = 1
+var Wave = 5
 var End_Wave = 6
 var Wave_time = 100.0
 var Total_enemies = 50.0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://wlr5sh363dc5"]
 
-[ext_resource type="Script" path="res://puddle_enemy.gd" id="1_i7t1o"]
+[ext_resource type="Script" path="res://C# Scripts/PuddleEnemy.cs" id="1_c35mg"]
 [ext_resource type="Texture2D" uid="uid://da8nn3kad78rq" path="res://Sprites/Enemies/Puddle/Puddle_1.png" id="2_8kar2"]
 [ext_resource type="Texture2D" uid="uid://cbl7ke6rquteq" path="res://Sprites/Enemies/Puddle/Puddle_2.png" id="3_lsaxa"]
 [ext_resource type="Texture2D" uid="uid://df18ly8l3jfmj" path="res://Sprites/Enemies/Puddle/Puddle_3.png" id="4_wryt2"]
@@ -23,16 +23,18 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_bk6op"]
+radius = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4do18"]
 size = Vector2(14, 10)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
-radius = 1119.19
-
-[node name="PuddleEnemy" type="Area2D" groups=["enemy"]]
+[node name="PuddleEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
 collision_mask = 5
-script = ExtResource("1_i7t1o")
+script = ExtResource("1_c35mg")
+MinSpeed = 24000.0
+MaxSpeed = 25000.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -45,16 +47,8 @@ frame_progress = 0.414364
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
 position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_ndmxe")
-
-[node name="Detection" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-visible = false
-shape = SubResource("CircleShape2D_bmap6")
-debug_color = Color(0, 0.6, 0.701961, 0)
+shape = SubResource("CircleShape2D_bk6op")
+debug_color = Color(0, 0.6, 0.701961, 0.505882)
 
 [node name="Signal" type="Sprite2D" parent="."]
 modulate = Color(1, 0, 0, 0.501961)
@@ -63,8 +57,11 @@ texture_filter = 1
 scale = Vector2(0.0812611, 0.0812611)
 texture = ExtResource("5_lwbbm")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
-[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
-[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+z_index = 1
+shape = SubResource("RectangleShape2D_4do18")

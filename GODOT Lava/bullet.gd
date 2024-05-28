@@ -10,5 +10,5 @@ func _process(delta):
 
 
 func _on_area_entered(area):
-	area.get_parent().OnDeath()
+	area.get_parent().OnHit()
 	queue_free()
