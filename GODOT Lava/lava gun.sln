@@ -1,0 +1,19 @@
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lava gun", "lava gun.csproj", "{57A72B02-1D06-41C3-840F-699AD676BEFF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{57A72B02-1D06-41C3-840F-699AD676BEFF}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+	EndGlobalSection
+EndGlobal

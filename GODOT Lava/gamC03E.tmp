@@ -1,0 +1,278 @@
+[gd_scene load_steps=14 format=3 uid="uid://crnsdgouo73wh"]
+
+[ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
+[ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
+[ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="3_8ia1s"]
+[ext_resource type="Texture2D" uid="uid://b72pvvge05eh" path="res://Sprites/Lava Boi/Heart_UI.png" id="4_ivyuw"]
+[ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
+[ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
+[ext_resource type="Texture2D" uid="uid://o2cahuc8d1kh" path="res://Sprites/Enemies/Essence/Essence_1.png" id="5_wvfi5"]
+[ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Rifle.png" id="6_l8qt0"]
+[ext_resource type="Script" path="res://GunUI.gd" id="6_t0otx"]
+[ext_resource type="Texture2D" uid="uid://nn8u2lxelsok" path="res://icon.svg" id="10_f46hu"]
+[ext_resource type="Script" path="res://EnemyAI.cs" id="11_5il78"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y1y6h"]
+size = Vector2(127, 40)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8u756"]
+radius = 66.0681
+
+[node name="Game" type="Node2D"]
+position = Vector2(545, 303)
+scale = Vector2(4.92548, 4.92548)
+
+[node name="Player" parent="." instance=ExtResource("1_swvio")]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.452887, 0.608306)
+zoom = Vector2(0.75, 0.75)
+
+[node name="FarmingUI" parent="Camera2D" instance=ExtResource("2_7oqqd")]
+
+[node name="MainUI" type="CanvasLayer" parent="Camera2D"]
+
+[node name="WaveText" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.339
+anchor_top = 0.006
+anchor_right = 0.617
+anchor_bottom = 0.194
+offset_left = 0.471985
+offset_top = -5.888
+offset_right = 132.216
+offset_bottom = 47.288
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center] Wave 0 [/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+text_direction = 1
+
+[node name="WaveTime" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.339
+anchor_right = 0.617
+anchor_bottom = 0.295
+offset_left = 0.471985
+offset_top = 63.0
+offset_right = 132.216
+offset_bottom = 46.84
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center]00:00[/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+text_direction = 1
+
+[node name="Health" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 0.332
+anchor_bottom = 0.211
+offset_left = 62.0
+offset_top = 9.0
+offset_right = 131.536
+offset_bottom = 47.272
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 60
+text = "100"
+fit_content = true
+scroll_active = false
+
+[node name="Essence" type="RichTextLabel" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_right = 0.332
+anchor_bottom = 0.313
+offset_left = 62.0
+offset_top = 75.0
+offset_right = 131.536
+offset_bottom = 47.176
+scale = Vector2(0.707786, 0.730772)
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 60
+text = "0"
+fit_content = true
+scroll_active = false
+
+[node name="TextureRect" type="TextureRect" parent="Camera2D/MainUI"]
+anchors_preset = -1
+anchor_right = 0.045
+anchor_bottom = 0.082
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 1152.16
+offset_bottom = 1151.86
+scale = Vector2(0.0401163, 0.0401163)
+texture = ExtResource("4_ivyuw")
+
+[node name="TextureRect2" type="TextureRect" parent="Camera2D/MainUI"]
+anchors_preset = -1
+anchor_right = 0.045
+anchor_bottom = 0.181
+offset_left = 4.0
+offset_top = 69.0
+offset_right = 1152.16
+offset_bottom = 1151.71
+scale = Vector2(0.0401163, 0.0401163)
+texture = ExtResource("5_wvfi5")
+
+[node name="GunUI" type="CanvasLayer" parent="Camera2D"]
+script = ExtResource("6_t0otx")
+
+[node name="Container" type="Control" parent="Camera2D/GunUI"]
+layout_mode = 3
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1152.0
+offset_top = -648.0
+offset_right = -1112.0
+offset_bottom = -608.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="ReloadHolder" type="Area2D" parent="Camera2D/GunUI/Container"]
+position = Vector2(1223, 473)
+
+[node name="WaveText2" type="RichTextLabel" parent="Camera2D/GunUI/Container/ReloadHolder"]
+z_index = -1
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 28.8
+anchor_top = 16.189
+anchor_right = 28.8
+anchor_bottom = 16.189
+offset_left = -71.0
+offset_top = -21.0
+offset_right = 341.0
+offset_bottom = 79.0
+grow_horizontal = 2
+scale = Vector2(0.38869, 0.401313)
+mouse_filter = 2
+mouse_force_pass_scroll_events = false
+theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_font_sizes/normal_font_size = 100
+bbcode_enabled = true
+text = "[center] Reload:  [/center]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+text_direction = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
+shape = SubResource("RectangleShape2D_y1y6h")
+
+[node name="TextureHolder" type="Area2D" parent="Camera2D/GunUI/Container"]
+position = Vector2(1068, 568)
+
+[node name="GunTexture" type="Sprite2D" parent="Camera2D/GunUI/Container/TextureHolder"]
+texture = ExtResource("6_l8qt0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Camera2D/GunUI/Container/TextureHolder"]
+shape = SubResource("CircleShape2D_8u756")
+
+[node name="WaveManager" type="Node" parent="."]
+script = ExtResource("4_p8g81")
+
+[node name="WaveTime" type="Timer" parent="WaveManager"]
+wait_time = 100.0
+autostart = true
+
+[node name="SummonTimer" type="Timer" parent="WaveManager"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="WaveManager"]
+
+[node name="TopRight" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 280.0
+offset_top = -253.0
+offset_right = 280.0
+offset_bottom = -253.0
+grow_horizontal = 0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/TopRight"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="TopLeft" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = -301.0
+offset_top = -272.0
+offset_right = -301.0
+offset_bottom = -272.0
+size_flags_horizontal = 2
+size_flags_vertical = 0
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/TopLeft"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="BottomRight" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = 1440.0
+offset_top = 819.0
+offset_right = 1440.0
+offset_bottom = 819.0
+size_flags_horizontal = 10
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/BottomRight"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="BottomLeft" type="HBoxContainer" parent="WaveManager/CanvasLayer"]
+offset_left = -348.0
+offset_top = 795.0
+offset_right = -348.0
+offset_bottom = 795.0
+size_flags_horizontal = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="Marker2D" type="Marker2D" parent="WaveManager/CanvasLayer/BottomLeft"]
+position = Vector2(-3, 1)
+gizmo_extents = 37.0
+
+[node name="IntermissionTimer" type="Timer" parent="WaveManager"]
+wait_time = 20.0
+one_shot = true
+
+[node name="PauseManager" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("5_4pqwp")
+
+[node name="TestC#" type="Sprite2D" parent="."]
+position = Vector2(-58.6745, 1.82723)
+scale = Vector2(0.11838, 0.11838)
+texture = ExtResource("10_f46hu")
+script = ExtResource("11_5il78")
+
+[connection signal="mouse_entered" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_entered"]
+[connection signal="mouse_exited" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_exited"]
+[connection signal="mouse_entered" from="Camera2D/GunUI/Container/TextureHolder" to="Camera2D/GunUI" method="_on_texture_holder_mouse_entered"]
+[connection signal="mouse_exited" from="Camera2D/GunUI/Container/TextureHolder" to="Camera2D/GunUI" method="_on_texture_holder_mouse_exited"]
+[connection signal="timeout" from="WaveManager/WaveTime" to="WaveManager" method="_on_wave_time_timeout"]
+[connection signal="timeout" from="WaveManager/SummonTimer" to="WaveManager" method="_on_summon_timer_timeout"]
+[connection signal="timeout" from="WaveManager/IntermissionTimer" to="WaveManager" method="_on_intermission_timer_timeout"]
