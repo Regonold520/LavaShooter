@@ -40,6 +40,8 @@ func _gun_rotation():
 		$GunPoint.scale.x = 1
 	elif flip_pos.x < 0:
 		$GunPoint.scale.x = -1
+		
+		
 func _update_anim():
 	if velocity == Vector2(0, 0):
 		$Sprite2D.animation = 'Idle'

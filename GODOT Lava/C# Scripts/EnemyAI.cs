@@ -1,49 +1,49 @@
 using Godot;
 using Godot.Collections;
 
-public partial class EnemyAI : CharacterBody2D
+public partial class EnemyAi : CharacterBody2D
 {
 	private PlayerVariables _playerVariables;
-	private bool start_finished = false;
+	private bool _startFinished = false;
 
-	private float speed;
+	private float _speed;
 
 	[ExportGroup("Reward Stuff")] 
-	[Export] private int EssenceCount = 1;
+	[Export] private int _essenceCount = 1;
 	
 	[ExportGroup("Movement Stuff")]
-	[Export] private float MinSpeed = 4600f;
-	[Export] private float MaxSpeed = 9700f;
+	[Export] private float _minSpeed = 4600f;
+	[Export] private float _maxSpeed = 9700f;
 	
 	[ExportGroup("Damage Stuff")]
-	[Export] private int Damage = 5;
+	[Export] private int _damage = 5;
 
-	[Export] private int Health = 1;
+	[Export] private int _health = 1;
 
 	public override void _Ready()
 	{
 		_playerVariables = GetNode<PlayerVariables>("/root/PlayerVariables");
 		
-		speed = (float) GD.RandRange(MinSpeed, MaxSpeed);
+		_speed = (float) GD.RandRange(_minSpeed, _maxSpeed);
 		
-		GD.Print($"Spawned in with a speed of {speed} ({MinSpeed} to {MaxSpeed})!");
+		GD.Print($"Spawned in with a speed of {_speed} ({_minSpeed} to {_maxSpeed})!");
 		
-		var rand_pos_x = GD.RandRange(0, GetWindow().Size.X);
-		var rand_pos_y = GD.RandRange(0, GetWindow().Size.Y);
+		var randPosX = GD.RandRange(0, GetWindow().Size.X);
+		var randPosY = GD.RandRange(0, GetWindow().Size.Y);
 
-		GlobalPosition = new Vector2(rand_pos_x, rand_pos_y);
+		GlobalPosition = new Vector2(randPosX, randPosY);
 		
 		StartAnim();
 	}
 
 	public override void _Process(double delta)
 	{
-		if(start_finished) Move(delta);
+		if(_startFinished) Move(delta);
 		
-		var Collider = GetNode<Area2D>("Area2D").GetOverlappingBodies();
-		var SingleBody = Collider[0].Name;
+		var collider = GetNode<Area2D>("Area2D").GetOverlappingBodies();
+		var singleBody = collider[0].Name;
 
-		if (SingleBody != "Player"); OnBodyEntered();
+		if (singleBody != "Player"); OnBodyEntered();
 
 
 	}
@@ -54,7 +54,7 @@ public partial class EnemyAI : CharacterBody2D
 
 		var pDirectionTo = GlobalPosition.DirectionTo(player.GlobalPosition) * (float) delta;
 		
-		Velocity = pDirectionTo * speed;
+		Velocity = pDirectionTo * _speed;
 		MoveAndSlide();
 		
 		FlipSprite(player);
@@ -64,11 +64,11 @@ public partial class EnemyAI : CharacterBody2D
 	{
 		PlayHitSfx();
 		
-		var EssenceScene = GD.Load<PackedScene>("res://essence.tscn");
+		var essenceScene = GD.Load<PackedScene>("res://essence.tscn");
 
-		for (int i = 0; i < EssenceCount; i++)
+		for (int i = 0; i < _essenceCount; i++)
 		{
-			var essence = (Node2D) EssenceScene.Instantiate();
+			var essence = (Node2D) essenceScene.Instantiate();
 			GetTree().CurrentScene.AddChild(essence);
 			essence.GlobalPosition = GlobalPosition;
 			
@@ -80,9 +80,9 @@ public partial class EnemyAI : CharacterBody2D
 
 	protected virtual void OnHit()
 	{
-		Health--;
+		_health--;
 		
-		if(Health == 0) OnDeath(); PlayHitSfx();
+		if(_health == 0) OnDeath(); PlayHitSfx();
 
 	}
 
@@ -96,13 +96,13 @@ public partial class EnemyAI : CharacterBody2D
 	{
 		if (player.GlobalPosition > GlobalPosition)
 		{
-			var Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-			Sprite.Scale = new Vector2(-0.184f, 0.184f);
+			var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			sprite.Scale = new Vector2(-0.184f, 0.184f);
 		}
 		else if (player.GlobalPosition < GlobalPosition)
 		{
-			var Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-			Sprite.Scale = new Vector2(0.184f, 0.184f);
+			var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			sprite.Scale = new Vector2(0.184f, 0.184f);
 		}
 	}
 	
@@ -136,7 +136,7 @@ public partial class EnemyAI : CharacterBody2D
 		await ToSignal(tween, "finished");
 
 		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
-		start_finished = true;
+		_startFinished = true;
 		
 		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = c2;
 		signal.Modulate = c;
@@ -144,7 +144,7 @@ public partial class EnemyAI : CharacterBody2D
 	
 	private void OnBodyEntered()
 	{
-		_playerVariables.Health -= Damage;
+		_playerVariables.Health -= _damage;
 		
 		PlayHitSfx();
 		

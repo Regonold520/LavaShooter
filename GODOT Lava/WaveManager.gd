@@ -3,7 +3,7 @@ extends Node
 var screensize : Vector2
 var rng = RandomNumberGenerator.new()
 
-var Wave_1_enemies = [Enemies.drop]
+var Wave_1_enemies = [Enemies.w_sentry]
 var Wave_2_enemies = [Enemies.drop,Enemies.puddle]
 var Wave_3_enemies = [Enemies.drop,Enemies.twins]
 var Wave_4_enemies = [Enemies.drop,Enemies.puddle,Enemies.twins]
@@ -13,7 +13,7 @@ var enemy : Node
 
 @onready var Pv = $"/root/PlayerVariables"
 
-var Wave = 5
+var Wave = 1
 var End_Wave = 6
 var Wave_time = 100.0
 var Total_enemies = 50.0

@@ -1,10 +1,12 @@
 using Godot;
 
+namespace lavagun.C__Scripts;
+
 public partial class PlayerVariables : Node
 {
 	[Export] public int Health = 110;
 
-	[Export] public int EssenceStat = 0;
+	[Export] private int _essenceStat = 0;
 
 	[Export] public bool IsPaused = false;
 
