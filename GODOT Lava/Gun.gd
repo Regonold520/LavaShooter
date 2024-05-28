@@ -3,10 +3,15 @@ extends Node2D
 var Bullet = preload("res://bullet.tscn")
 var can_shoot = true
 
+var Active_gun = "Pistol"
+
 @export var cooldown = 1.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
+	$GunSprite.texture = load("res://Sprites/Weapons/" + Active_gun + ".png")
+
 	var ActiveAmmo = GunVars._get_ammo_type()
 	var AmmoAmmount = GunVars.get(ActiveAmmo)
 	if Input.is_action_just_pressed("Input") and AmmoAmmount > 0 and can_shoot and GunVars.stop_shoot == false:

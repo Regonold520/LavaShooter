@@ -1,6 +1,7 @@
-namespace lavagun.C__Scripts;
+using Godot;
+using System;
 
-public partial class DropEnemy : EnemyAi
+public partial class DropEnemy : EnemyAI
 {
 	
 }

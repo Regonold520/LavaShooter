@@ -37,6 +37,7 @@ size = Vector2(14, 10)
 collision_layer = 2
 collision_mask = 5
 script = ExtResource("1_c2b2i")
+EssenceCount = 10
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -66,6 +67,7 @@ collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 z_index = 1
+rotation = -0.00215529
 shape = SubResource("RectangleShape2D_ndmxe")
 
 [connection signal="body_entered" from="Area2D" to="." method="_OnBodyEntered"]

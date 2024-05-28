@@ -1,8 +1,8 @@
 using Godot;
+using System;
+using System.Threading.Tasks;
 
-namespace lavagun.C__Scripts;
-
-public partial class WaterSentryEnemy : EnemyAi
+public partial class WaterSentryEnemy : EnemyAI
 {
 
 	protected override void Move(double delta)
@@ -13,27 +13,14 @@ public partial class WaterSentryEnemy : EnemyAi
 	
 	private void SpawnDrop()
 	{
-		
-		var c = new Color()
-		{
-			R8 = 0,
-			G8 = 140,
-			B8 = 255
-		};
-		
-		var dropScene = GD.Load<PackedScene>("res://drop_enemy.tscn");
+		var DropScene = GD.Load<PackedScene>("res://drop_enemy.tscn");
 
-		var drop = (Node2D) dropScene.Instantiate();
+		var drop = (Node2D) DropScene.Instantiate();
 			
 		GetTree().CurrentScene.AddChild(drop);
 
 		drop.GlobalPosition = GlobalPosition;
-
-		var signal = (Node2D) drop.FindChild("Signal");
-
-		signal.Modulate = c;
-		signal.Position = new Vector2(0,4);
-		signal.Scale = new Vector2(0.202f, 0.162f);
 	}
 	
 }
+

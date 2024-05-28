@@ -3,7 +3,10 @@ extends CanvasLayer
 var idle_finished = false
 
 var is_mouseover_area = false
-var is_mouseover_reload = false
+var is_mouseover_smg = false
+var is_mouseover_pistol = false
+
+var smg_bought = false
 
 var gun_active = false
 
@@ -21,20 +24,32 @@ func _process(delta):
 		idle_finished = true
 	if !Pv.WaveIntermission:
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),1)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),0.25).set_ease(Tween.EASE_OUT)
 		
 	if Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and !gun_active:
 		gun_active = true
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1011,470.25),1)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(1011,470.25),0.25).set_ease(Tween.EASE_OUT)
 	elif Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and gun_active:
 		gun_active = false
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),1)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),0.25).set_ease(Tween.EASE_OUT)
 		
-
-	if gun_active and is_mouseover_reload and Input.is_action_just_pressed("Input"):
-		$"../../Player".find_child('GunPoint').find_child('Gun').cooldown = 0.1
+	if gun_active and is_mouseover_smg and Input.is_action_just_pressed("Input") and smg_bought:
+		$"../../Player".find_child('GunPoint').find_child('Gun').cooldown = 0.35
+		$"../../Player".find_child('GunPoint').find_child('Gun').Active_gun = "Smg"
+		
+	if gun_active and is_mouseover_smg and Input.is_action_just_pressed("Input") and !smg_bought and Pv.EssenceStat >= 100:
+		Pv.EssenceStat -= 100
+		smg_bought = true
+		$Container/ReloadHolder/SmgArea/Label.visible = false
+		
+	$Container/TextureHolder/GunTexture.texture = $"../../Player".find_child('GunPoint').find_child('Gun').find_child('GunSprite').texture
+		
+	if gun_active and is_mouseover_pistol and Input.is_action_just_pressed("Input"):
+		$"../../Player".find_child('GunPoint').find_child('Gun').cooldown = 1
+		$"../../Player".find_child('GunPoint').find_child('Gun').Active_gun = "Pistol"
+		
 		
 func _gun_idle():
 	var tween = create_tween()
@@ -59,11 +74,23 @@ func _on_texture_holder_mouse_exited():
 	GunVars.stop_shoot = false
 
 
-func _on_reload_holder_mouse_entered():
-	is_mouseover_reload = true
+
+
+func _on_smg_area_mouse_entered():
+	is_mouseover_smg = true
 	GunVars.stop_shoot = true
 
 
-func _on_reload_holder_mouse_exited():
-	is_mouseover_reload = false
+func _on_smg_area_mouse_exited():
+	is_mouseover_smg = false
+	GunVars.stop_shoot = false
+
+
+func _on_pistol_area_mouse_entered():
+	is_mouseover_pistol = true
+	GunVars.stop_shoot = true
+
+
+func _on_pistol_area_mouse_exited():
+	is_mouseover_pistol = false
 	GunVars.stop_shoot = false

@@ -51,3 +51,4 @@ func _update_anim():
 
 func _on_anim_change_timeout():
 	_update_anim()
+

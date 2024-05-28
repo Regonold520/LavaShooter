@@ -1,49 +1,49 @@
 using Godot;
 using Godot.Collections;
 
-public partial class EnemyAi : CharacterBody2D
+public partial class EnemyAI : CharacterBody2D
 {
 	private PlayerVariables _playerVariables;
-	private bool _startFinished = false;
+	private bool start_finished = false;
 
-	private float _speed;
+	private float speed;
 
 	[ExportGroup("Reward Stuff")] 
-	[Export] private int _essenceCount = 1;
+	[Export] private int EssenceCount = 1;
 	
 	[ExportGroup("Movement Stuff")]
-	[Export] private float _minSpeed = 4600f;
-	[Export] private float _maxSpeed = 9700f;
+	[Export] private float MinSpeed = 4600f;
+	[Export] private float MaxSpeed = 9700f;
 	
 	[ExportGroup("Damage Stuff")]
-	[Export] private int _damage = 5;
+	[Export] private int Damage = 5;
 
-	[Export] private int _health = 1;
+	[Export] private int Health = 1;
 
 	public override void _Ready()
 	{
 		_playerVariables = GetNode<PlayerVariables>("/root/PlayerVariables");
 		
-		_speed = (float) GD.RandRange(_minSpeed, _maxSpeed);
+		speed = (float) GD.RandRange(MinSpeed, MaxSpeed);
 		
-		GD.Print($"Spawned in with a speed of {_speed} ({_minSpeed} to {_maxSpeed})!");
+		GD.Print($"Spawned in with a speed of {speed} ({MinSpeed} to {MaxSpeed})!");
 		
-		var randPosX = GD.RandRange(0, GetWindow().Size.X);
-		var randPosY = GD.RandRange(0, GetWindow().Size.Y);
+		var rand_pos_x = GD.RandRange(0, GetWindow().Size.X);
+		var rand_pos_y = GD.RandRange(0, GetWindow().Size.Y);
 
-		GlobalPosition = new Vector2(randPosX, randPosY);
+		GlobalPosition = new Vector2(rand_pos_x, rand_pos_y);
 		
 		StartAnim();
 	}
 
 	public override void _Process(double delta)
 	{
-		if(_startFinished) Move(delta);
+		if(start_finished) Move(delta);
 		
-		var collider = GetNode<Area2D>("Area2D").GetOverlappingBodies();
-		var singleBody = collider[0].Name;
+		var Collider = GetNode<Area2D>("Area2D").GetOverlappingBodies();
+		var SingleBody = Collider[0].Name;
 
-		if (singleBody != "Player"); OnBodyEntered();
+		if (SingleBody != "Player"); OnBodyEntered();
 
 
 	}
@@ -54,7 +54,7 @@ public partial class EnemyAi : CharacterBody2D
 
 		var pDirectionTo = GlobalPosition.DirectionTo(player.GlobalPosition) * (float) delta;
 		
-		Velocity = pDirectionTo * _speed;
+		Velocity = pDirectionTo * speed;
 		MoveAndSlide();
 		
 		FlipSprite(player);
@@ -64,11 +64,11 @@ public partial class EnemyAi : CharacterBody2D
 	{
 		PlayHitSfx();
 		
-		var essenceScene = GD.Load<PackedScene>("res://essence.tscn");
+		var EssenceScene = GD.Load<PackedScene>("res://essence.tscn");
 
-		for (int i = 0; i < _essenceCount; i++)
+		for (int i = 0; i < EssenceCount; i++)
 		{
-			var essence = (Node2D) essenceScene.Instantiate();
+			var essence = (Node2D) EssenceScene.Instantiate();
 			GetTree().CurrentScene.AddChild(essence);
 			essence.GlobalPosition = GlobalPosition;
 			
@@ -77,12 +77,11 @@ public partial class EnemyAi : CharacterBody2D
 		QueueFree();
 	}
 	
-
 	protected virtual void OnHit()
 	{
-		_health--;
+		Health--;
 		
-		if(_health == 0) OnDeath(); PlayHitSfx();
+		if(Health == 0) OnDeath(); PlayHitSfx();
 
 	}
 
@@ -96,13 +95,13 @@ public partial class EnemyAi : CharacterBody2D
 	{
 		if (player.GlobalPosition > GlobalPosition)
 		{
-			var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-			sprite.Scale = new Vector2(-0.184f, 0.184f);
+			var Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			Sprite.Scale = new Vector2(-0.184f, 0.184f);
 		}
 		else if (player.GlobalPosition < GlobalPosition)
 		{
-			var sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
-			sprite.Scale = new Vector2(0.184f, 0.184f);
+			var Sprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
+			Sprite.Scale = new Vector2(0.184f, 0.184f);
 		}
 	}
 	
@@ -124,19 +123,22 @@ public partial class EnemyAi : CharacterBody2D
 
 		var tween = CreateTween();
 		var signal = GetNode<Sprite2D>("Signal");
+
+		var Area2D = (Area2D)GetNode<Area2D>("Area2D");
+		var CollisionShape = (CollisionShape2D) Area2D.GetNode<CollisionShape2D>("CollisionShape2D2");
 		
 		if (_playerVariables.IsPaused == false)
 		{
 			signal.Modulate = c;
 			GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = c;
-			GetNode<CollisionShape2D>("CollisionShape2D").Disabled = true;
+			CollisionShape.Disabled = true;
 		}
 
 		tween.TweenProperty(signal, "modulate:a", 1, 1);
 		await ToSignal(tween, "finished");
 
-		GetNode<CollisionShape2D>("CollisionShape2D").Disabled = false;
-		_startFinished = true;
+		CollisionShape.Disabled = false;
+		start_finished = true;
 		
 		GetNode<AnimatedSprite2D>("AnimatedSprite2D").Modulate = c2;
 		signal.Modulate = c;
@@ -144,7 +146,7 @@ public partial class EnemyAi : CharacterBody2D
 	
 	private void OnBodyEntered()
 	{
-		_playerVariables.Health -= _damage;
+		_playerVariables.Health -= Damage;
 		
 		PlayHitSfx();
 		

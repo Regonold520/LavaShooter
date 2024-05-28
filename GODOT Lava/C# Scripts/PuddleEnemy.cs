@@ -1,6 +1,7 @@
-namespace lavagun.C__Scripts;
+using Godot;
+using System;
 
-public partial class PuddleEnemy : EnemyAi
+public partial class PuddleEnemy : EnemyAI
 {
 	
 }
