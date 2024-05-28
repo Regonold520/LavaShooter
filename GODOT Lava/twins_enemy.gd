@@ -6,6 +6,8 @@ var rng = RandomNumberGenerator.new()
 var SPEED : float
 var start_finished = false
 
+@onready var Pv = $"/root/PlayerVariables"
+
 var drop_scene : PackedScene = preload("res://drop_enemy.tscn")
 
 # Called when the node enters the scene tree for the first time.
@@ -20,7 +22,7 @@ func _ready():
 
 func _animation_sequence():
 	var tween = create_tween()
-	if PlayerVars.is_paused == false:
+	if Pv.IsPaused == false:
 		$Signal.modulate.a8 = 0
 	$AnimatedSprite2D.modulate.a = 0
 	$CollisionShape2D.disabled = true
@@ -62,11 +64,11 @@ func _on_detection_body_exited(body):
 
 func _on_body_entered(body):
 	_on_death()
-	PlayerVars.Health -= 10
+	Pv.Health -= 10
 	
 func _essence():
 	for i in 2:
-		var essence = PlayerVars.Essence.instantiate()
+		var essence = Pv.Essence.instantiate()
 		essence.position = position
 		get_tree().current_scene.add_child(essence)
 		

@@ -7,6 +7,8 @@ var is_mouseover_reload = false
 
 var gun_active = false
 
+@onready var Pv = $"/root/PlayerVariables"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	_gun_idle() # Replace with function body.
@@ -17,20 +19,20 @@ func _process(delta):
 	if !idle_finished:
 		_gun_idle()
 		idle_finished = true
-	if !PlayerVars.wave_intermission:
+	if !Pv.WaveIntermission:
 		var tween = create_tween()
 		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),1)
 		
-	if PlayerVars.wave_intermission and is_mouseover_area and Input.is_action_just_pressed("Input") and !gun_active:
+	if Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and !gun_active:
 		gun_active = true
 		var tween = create_tween()
 		tween.tween_property($Container/ReloadHolder,'position',Vector2(1011,470.25),1)
-	elif PlayerVars.wave_intermission and is_mouseover_area and Input.is_action_just_pressed("Input") and gun_active:
+	elif Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and gun_active:
 		gun_active = false
 		var tween = create_tween()
 		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),1)
 		
-	print(is_mouseover_reload)
+
 	if gun_active and is_mouseover_reload and Input.is_action_just_pressed("Input"):
 		$"../../Player".find_child('GunPoint').find_child('Gun').cooldown = 0.1
 		

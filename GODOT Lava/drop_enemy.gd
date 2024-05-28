@@ -1,15 +1,15 @@
 extends Area2D
 
 var detected = false
-var rand_vector : Vector2
 var rng = RandomNumberGenerator.new()
 var SPEED : float
 var start_finished = false
-var is_start
 
+@onready var Pv = $"/root/PlayerVariables"
+@onready var tween = create_tween()
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
+func _ready(): # NOT REWRITTEN
+	
 	var tween = create_tween()
 	SPEED = randf_range(15,25)
 	
@@ -19,9 +19,9 @@ func _ready():
 	global_position = Vector2(rand_pos_x,rand_pos_y)
 	_animation_sequence()
 	
-func _animation_sequence():
+func _animation_sequence(): # NOT REWRITTEN
 	var tween = create_tween()
-	if PlayerVars.is_paused == false:
+	if Pv.IsPaused == false:
 		$Signal.modulate.a8 = 0
 	$AnimatedSprite2D.modulate.a = 0
 	$CollisionShape2D.disabled = true
@@ -31,10 +31,8 @@ func _animation_sequence():
 	$CollisionShape2D.disabled = false 
 	start_finished = true
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if start_finished == false:
-		$CollisionShape2D.disabled = true
+	
 	if detected == true and start_finished == true:
 		var tween = create_tween()
 		tween.tween_property($AnimatedSprite2D,'modulate:a', 1, 0.4).set_ease(Tween.EASE_OUT)
@@ -66,11 +64,11 @@ func _on_detection_body_exited(body):
 
 func _on_body_entered(body):
 	_on_death()
-	PlayerVars.Health -= 5
+	Pv.Health -= 5
 
 
 func _essence():
-	var essence = PlayerVars.Essence.instantiate()
+	var essence = Pv.Essence.instantiate()
 	essence.position = position
 	get_tree().current_scene.add_child(essence)
 	

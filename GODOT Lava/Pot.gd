@@ -8,6 +8,8 @@ var crop = ''
 var count = 0
 var crop_path = "res://Sprites/Farming/Crops/"
 
+@onready var Pv = $"/root/PlayerVariables"
+
 func _ready():
 	pass # Replace with function body.
 
@@ -46,7 +48,7 @@ func _grow_cycle():
 func _finished_cycle():
 	var ActiveAmmo = GunVars._get_ammo_type()
 	var AmmoAmmount = GunVars.get(ActiveAmmo)
-	if PlayerVars.is_paused == false:
+	if Pv.IsPaused == false:
 		var AmmoChange = AmmoAmmount + 1
 		GunVars.set(ActiveAmmo, AmmoChange)
 	cycle = false

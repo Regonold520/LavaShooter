@@ -11,6 +11,8 @@ var Wave_5_enemies = [Enemies.drop,Enemies.puddle,Enemies.w_sentry]
 
 var enemy : Node
 
+@onready var Pv = $"/root/PlayerVariables"
+
 var Wave = 1
 var End_Wave = 6
 var Wave_time = 100.0
@@ -18,7 +20,7 @@ var Total_enemies = 50.0
 var Active_enemies : int
 var intermission_time = 20.0
 
-var Wave_time_a : PackedFloat64Array = [0,1,65,65,65,60]
+var Wave_time_a : PackedFloat64Array = [0,60,65,65,65,60]
 var Total_enemies_a : PackedFloat64Array = [0,45,35,40,45,40]
 
 var Enemies_s = 0
@@ -27,7 +29,7 @@ func _ready():
 	_wave_start()
 
 func _wave_start():
-	PlayerVars.wave_intermission = false
+	Pv.WaveIntermission = false
 	print('Wave ',Wave)
 	Wave_time = Wave_time_a[Wave] 
 	Total_enemies = Total_enemies_a[Wave]
@@ -43,10 +45,10 @@ func _wave_start():
 	
 func _process(delta):
 	var screensize = get_viewport().size
-	if PlayerVars.wave_intermission == false:
+	if Pv.WaveIntermission == false:
 		$"../Camera2D/MainUI/WaveText".text = '[center] Wave ' + str(Wave) + '[/center]'
 		$"../Camera2D/MainUI/WaveTime".text = '[center]' + str(round($WaveTime.time_left)) + '[/center]'
-	if PlayerVars.wave_intermission:
+	if Pv.WaveIntermission:
 		$"../Camera2D/MainUI/WaveText".text = '[center] Intermission [/center]'
 		$"../Camera2D/MainUI/WaveTime".text = '[center]' + str(round($IntermissionTimer.time_left)) + '[/center]'
 
@@ -101,7 +103,7 @@ func _on_wave_time_timeout():
 	
 
 func _start_intermission():
-	PlayerVars.wave_intermission = true
+	Pv.WaveIntermission = true
 	$IntermissionTimer.start()
 
 

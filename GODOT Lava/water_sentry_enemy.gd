@@ -11,6 +11,8 @@ var possible_spawns = [Enemies.drop]
 
 var health = 3
 
+@onready var Pv = $"/root/PlayerVariables"
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	SPEED = randf_range(15,25)
@@ -23,7 +25,7 @@ func _ready():
 	
 func _animation_sequence():
 	var tween = create_tween()
-	if PlayerVars.is_paused == false:
+	if Pv.IsPaused == false:
 		$Signal.modulate.a8 = 0
 	$AnimatedSprite2D.modulate.a = 0
 	$CollisionShape2D.disabled = true
@@ -61,7 +63,7 @@ func _on_detection_body_exited(body):
 
 func _on_body_entered(body):
 	_on_death()
-	PlayerVars.Health -= 5
+	Pv.Health -= 5
 	
 func _on_death():
 	health -= 1
@@ -74,7 +76,7 @@ func _on_death():
 func _essence():
 	if health == 0:
 		for i in 3:
-			var essence = PlayerVars.Essence.instantiate()
+			var essence = Pv.Essence.instantiate()
 			essence.position = position
 			get_tree().current_scene.add_child(essence)
 	

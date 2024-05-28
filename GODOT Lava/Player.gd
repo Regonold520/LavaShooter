@@ -4,9 +4,13 @@ extends CharacterBody2D
 var is_idle = false
 var tween = Tween.new()
 
-var Health = 100
+@onready var Pv = $"/root/PlayerVariables"
+
+func _ready():
+	pass
 
 func _process(delta):
+	
 	var direction = Input.get_vector('Left','Right','Up','Down')
 	velocity = direction * speed
 	if direction.x > 0:
@@ -14,16 +18,15 @@ func _process(delta):
 	elif direction.x < 0:
 		$Sprite2D.scale.x = 0.184
 	move_and_slide()
-	
-	Health = PlayerVars.Health
 	_gun_rotation()
 	_update_stats()
 	
 
 	
 func _update_stats():
-	$"../Camera2D/MainUI/Health".text =  str(Health)
-	$"../Camera2D/MainUI/Essence".text = str(PlayerVars.Essence_stat)
+	pass
+	$"../Camera2D/MainUI/Health".text =  str(Pv.Health)
+	$"../Camera2D/MainUI/Essence".text = str(Pv.EssenceStat)
 	
 func _gun_rotation():
 	$GunPoint.look_at(get_global_mouse_position())
