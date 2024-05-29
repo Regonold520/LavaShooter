@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cfdrx7c206e4x"]
 
 [ext_resource type="PackedScene" uid="uid://cb84j3jgdxu1x" path="res://pot.tscn" id="1_lpsq2"]
-[ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="4_cacta"]
+[ext_resource type="FontFile" uid="uid://c2emwdq44xydy" path="res://DigitalDisco.ttf" id="4_vahvq"]
 [ext_resource type="Script" path="res://PotOutline.gd" id="4_y7pa4"]
 [ext_resource type="Texture2D" uid="uid://chponchd3ee8v" path="res://Sprites/Farming/Pots/Pot_Outline.png" id="5_qkj0b"]
 
@@ -46,7 +46,7 @@ offset_right = 242.0
 offset_bottom = 119.0
 scale = Vector2(0.662707, 0.684229)
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_cacta")
+theme_override_fonts/normal_font = ExtResource("4_vahvq")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Price[/center]"
@@ -81,7 +81,7 @@ offset_right = 242.0
 offset_bottom = 119.0
 scale = Vector2(0.662707, 0.684229)
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_cacta")
+theme_override_fonts/normal_font = ExtResource("4_vahvq")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Price[/center]"
@@ -116,7 +116,7 @@ offset_right = 242.0
 offset_bottom = 119.0
 scale = Vector2(0.662707, 0.684229)
 mouse_filter = 2
-theme_override_fonts/normal_font = ExtResource("4_cacta")
+theme_override_fonts/normal_font = ExtResource("4_vahvq")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]Price[/center]"

@@ -20,7 +20,7 @@ var Total_enemies = 50.0
 var Active_enemies : int
 var intermission_time = 200.0
 
-var Wave_time_a : PackedFloat64Array = [0,1,65,65,65,60]
+var Wave_time_a : PackedFloat64Array = [0,60,65,65,65,60]
 var Total_enemies_a : PackedFloat64Array = [0,45,35,40,45,40]
 
 var Enemies_s = 0

@@ -24,16 +24,16 @@ func _process(delta):
 		idle_finished = true
 	if !Pv.WaveIntermission:
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),0.25).set_ease(Tween.EASE_OUT)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(1142,740),0.25).set_ease(Tween.EASE_OUT)
 		
 	if Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and !gun_active:
 		gun_active = true
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1011,470.25),0.25).set_ease(Tween.EASE_OUT)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(973,528),0.25).set_ease(Tween.EASE_OUT)
 	elif Pv.WaveIntermission and is_mouseover_area and Input.is_action_just_pressed("Input") and gun_active:
 		gun_active = false
 		var tween = create_tween()
-		tween.tween_property($Container/ReloadHolder,'position',Vector2(1223,470.25),0.25).set_ease(Tween.EASE_OUT)
+		tween.tween_property($Container/ReloadHolder,'position',Vector2(1142,740),0.25).set_ease(Tween.EASE_OUT)
 		
 	if gun_active and is_mouseover_smg and Input.is_action_just_pressed("Input") and smg_bought:
 		$"../../Player".find_child('GunPoint').find_child('Gun').cooldown = 0.35

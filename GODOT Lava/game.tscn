@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
 [ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
-[ext_resource type="FontFile" uid="uid://ds3ryvdrtudud" path="res://Pixellari.ttf" id="3_8ia1s"]
+[ext_resource type="FontFile" uid="uid://c2emwdq44xydy" path="res://DigitalDisco.ttf" id="3_5tdgf"]
 [ext_resource type="Texture2D" uid="uid://b72pvvge05eh" path="res://Sprites/Lava Boi/Heart_UI.png" id="4_ivyuw"]
 [ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
 [ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
@@ -44,7 +44,7 @@ offset_right = 132.216
 offset_bottom = 47.288
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
-theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center] Wave 0 [/center]"
@@ -65,7 +65,7 @@ offset_right = 132.216
 offset_bottom = 46.84
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
-theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
 text = "[center]00:00[/center]"
@@ -79,12 +79,12 @@ texture_filter = 1
 anchors_preset = -1
 anchor_right = 0.332
 anchor_bottom = 0.211
-offset_left = 62.0
+offset_left = 82.0
 offset_top = 9.0
-offset_right = 131.536
+offset_right = 151.536
 offset_bottom = 47.272
-scale = Vector2(0.707786, 0.730772)
-theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+scale = Vector2(1.193, 1.231)
+theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 60
 text = "100"
 fit_content = true
@@ -95,12 +95,12 @@ texture_filter = 1
 anchors_preset = -1
 anchor_right = 0.332
 anchor_bottom = 0.313
-offset_left = 62.0
-offset_top = 75.0
-offset_right = 131.536
-offset_bottom = 47.176
-scale = Vector2(0.707786, 0.730772)
-theme_override_fonts/normal_font = ExtResource("3_8ia1s")
+offset_left = 82.0
+offset_top = 92.0
+offset_right = 151.536
+offset_bottom = 64.176
+scale = Vector2(1.19256, 1.23129)
+theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 60
 text = "0"
 fit_content = true
@@ -111,10 +111,10 @@ anchors_preset = -1
 anchor_right = 0.045
 anchor_bottom = 0.082
 offset_left = 4.0
-offset_top = 5.0
+offset_top = 8.0
 offset_right = 1152.16
-offset_bottom = 1151.86
-scale = Vector2(0.0401163, 0.0401163)
+offset_bottom = 1154.86
+scale = Vector2(0.055, 0.055)
 texture = ExtResource("4_ivyuw")
 
 [node name="TextureRect2" type="TextureRect" parent="Camera2D/MainUI"]
@@ -122,10 +122,10 @@ anchors_preset = -1
 anchor_right = 0.045
 anchor_bottom = 0.181
 offset_left = 4.0
-offset_top = 69.0
+offset_top = 93.0
 offset_right = 1152.16
-offset_bottom = 1151.71
-scale = Vector2(0.0401163, 0.0401163)
+offset_bottom = 1175.71
+scale = Vector2(0.0553447, 0.0553447)
 texture = ExtResource("5_wvfi5")
 
 [node name="GunUI" type="CanvasLayer" parent="Camera2D"]
@@ -146,14 +146,14 @@ grow_horizontal = 0
 grow_vertical = 0
 
 [node name="ReloadHolder" type="Area2D" parent="Camera2D/GunUI/Container"]
-position = Vector2(1223, 473)
+position = Vector2(1142, 740)
 
 [node name="Smg" type="Sprite2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
 position = Vector2(-26, 0)
 texture = ExtResource("7_y60d3")
 
 [node name="Pistol" type="Sprite2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
-position = Vector2(81, 0)
+position = Vector2(85, -83)
 texture = ExtResource("6_l8qt0")
 
 [node name="SmgArea" type="Area2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
@@ -168,12 +168,13 @@ offset_left = -66.0
 offset_top = -83.0
 offset_right = 18.0
 offset_bottom = -32.0
-theme_override_fonts/font = ExtResource("3_8ia1s")
+theme_override_fonts/font = ExtResource("3_5tdgf")
 theme_override_font_sizes/font_size = 50
 text = "100"
 horizontal_alignment = 1
 
 [node name="PistolArea" type="Area2D" parent="Camera2D/GunUI/Container/ReloadHolder"]
+position = Vector2(4, -83)
 
 [node name="PistolCollider" type="CollisionShape2D" parent="Camera2D/GunUI/Container/ReloadHolder/PistolArea"]
 position = Vector2(82, 0)
