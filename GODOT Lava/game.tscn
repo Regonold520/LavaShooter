@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://crnsdgouo73wh"]
+[gd_scene load_steps=15 format=3 uid="uid://crnsdgouo73wh"]
 
 [ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="1_swvio"]
 [ext_resource type="PackedScene" uid="uid://cfdrx7c206e4x" path="res://farming_ui.tscn" id="2_7oqqd"]
 [ext_resource type="FontFile" uid="uid://c2emwdq44xydy" path="res://DigitalDisco.ttf" id="3_5tdgf"]
+[ext_resource type="Script" path="res://MainUI.cs" id="3_6chdt"]
 [ext_resource type="Texture2D" uid="uid://b72pvvge05eh" path="res://Sprites/Lava Boi/Heart_UI.png" id="4_ivyuw"]
 [ext_resource type="Script" path="res://WaveManager.gd" id="4_p8g81"]
 [ext_resource type="Script" path="res://PauseManager.gd" id="5_4pqwp"]
@@ -10,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Pistol.png" id="6_l8qt0"]
 [ext_resource type="Script" path="res://GunUI.gd" id="6_t0otx"]
 [ext_resource type="Texture2D" uid="uid://l1wmpmxrab3i" path="res://Sprites/Weapons/Smg.png" id="7_y60d3"]
+[ext_resource type="PackedScene" uid="uid://dtxtdqlh4ihtx" path="res://boss_1.tscn" id="12_emqjb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y1y6h"]
 size = Vector2(83, 65)
@@ -30,6 +32,7 @@ zoom = Vector2(0.75, 0.75)
 [node name="FarmingUI" parent="Camera2D" instance=ExtResource("2_7oqqd")]
 
 [node name="MainUI" type="CanvasLayer" parent="Camera2D"]
+script = ExtResource("3_6chdt")
 
 [node name="WaveText" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
@@ -44,6 +47,8 @@ offset_right = 132.216
 offset_bottom = 47.288
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
@@ -65,6 +70,8 @@ offset_right = 132.216
 offset_bottom = 46.84
 grow_horizontal = 2
 scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 100
 bbcode_enabled = true
@@ -74,32 +81,79 @@ scroll_active = false
 autowrap_mode = 0
 text_direction = 1
 
+[node name="BossHealth" type="Label" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.339
+anchor_top = 1.0
+anchor_right = 0.617
+anchor_bottom = 1.0
+offset_left = -256.528
+offset_top = -158.0
+offset_right = 616.216
+offset_bottom = 17.0
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("3_5tdgf")
+theme_override_font_sizes/font_size = 100
+text = "BossHealth"
+horizontal_alignment = 1
+text_direction = 1
+
+[node name="BossName" type="Label" parent="Camera2D/MainUI"]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.339
+anchor_top = 1.0
+anchor_right = 0.617
+anchor_bottom = 1.0
+offset_left = -203.528
+offset_top = -93.0
+offset_right = 524.216
+offset_bottom = 82.0
+grow_horizontal = 2
+scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("3_5tdgf")
+theme_override_font_sizes/font_size = 100
+text = "BossName"
+horizontal_alignment = 1
+text_direction = 1
+
 [node name="Health" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
 anchors_preset = -1
 anchor_right = 0.332
 anchor_bottom = 0.211
-offset_left = 82.0
+offset_left = 62.0
 offset_top = 9.0
-offset_right = 151.536
+offset_right = 131.536
 offset_bottom = 47.272
-scale = Vector2(1.193, 1.231)
+scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 60
 text = "100"
 fit_content = true
 scroll_active = false
+autowrap_mode = 0
 
 [node name="Essence" type="RichTextLabel" parent="Camera2D/MainUI"]
 texture_filter = 1
 anchors_preset = -1
 anchor_right = 0.332
 anchor_bottom = 0.313
-offset_left = 82.0
-offset_top = 92.0
-offset_right = 151.536
-offset_bottom = 64.176
-scale = Vector2(1.19256, 1.23129)
+offset_left = 62.0
+offset_top = 75.0
+offset_right = 131.536
+offset_bottom = 47.176
+scale = Vector2(0.707786, 0.730772)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/normal_font = ExtResource("3_5tdgf")
 theme_override_font_sizes/normal_font_size = 60
 text = "0"
@@ -111,10 +165,10 @@ anchors_preset = -1
 anchor_right = 0.045
 anchor_bottom = 0.082
 offset_left = 4.0
-offset_top = 8.0
+offset_top = 5.0
 offset_right = 1152.16
-offset_bottom = 1154.86
-scale = Vector2(0.055, 0.055)
+offset_bottom = 1151.86
+scale = Vector2(0.0401163, 0.0401163)
 texture = ExtResource("4_ivyuw")
 
 [node name="TextureRect2" type="TextureRect" parent="Camera2D/MainUI"]
@@ -122,10 +176,10 @@ anchors_preset = -1
 anchor_right = 0.045
 anchor_bottom = 0.181
 offset_left = 4.0
-offset_top = 93.0
+offset_top = 69.0
 offset_right = 1152.16
-offset_bottom = 1175.71
-scale = Vector2(0.0553447, 0.0553447)
+offset_bottom = 1151.71
+scale = Vector2(0.0401163, 0.0401163)
 texture = ExtResource("5_wvfi5")
 
 [node name="GunUI" type="CanvasLayer" parent="Camera2D"]
@@ -168,6 +222,8 @@ offset_left = -66.0
 offset_top = -83.0
 offset_right = 18.0
 offset_bottom = -32.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
 theme_override_fonts/font = ExtResource("3_5tdgf")
 theme_override_font_sizes/font_size = 50
 text = "100"
@@ -263,6 +319,8 @@ one_shot = true
 [node name="PauseManager" type="Node" parent="."]
 process_mode = 3
 script = ExtResource("5_4pqwp")
+
+[node name="Boss1" parent="." instance=ExtResource("12_emqjb")]
 
 [connection signal="mouse_entered" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_entered"]
 [connection signal="mouse_exited" from="Camera2D/GunUI/Container/ReloadHolder" to="Camera2D/GunUI" method="_on_reload_holder_mouse_exited"]

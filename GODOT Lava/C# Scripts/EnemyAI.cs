@@ -26,7 +26,7 @@ public partial class EnemyAI : CharacterBody2D
 		
 		speed = (float) GD.RandRange(MinSpeed, MaxSpeed);
 		
-		GD.Print($"Spawned in with a speed of {speed} ({MinSpeed} to {MaxSpeed})!");
+		//GD.Print($"Spawned in with a speed of {speed} ({MinSpeed} to {MaxSpeed})!");
 		
 		var rand_pos_x = GD.RandRange(0, GetWindow().Size.X);
 		var rand_pos_y = GD.RandRange(0, GetWindow().Size.Y);
