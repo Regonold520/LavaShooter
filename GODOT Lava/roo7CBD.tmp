@@ -1,0 +1,76 @@
+[gd_scene load_steps=3 format=3 uid="uid://c8gtx6vj8k7bk"]
+
+[ext_resource type="Texture2D" uid="uid://nn8u2lxelsok" path="res://icon.svg" id="1_fyd4p"]
+[ext_resource type="Script" path="res://RoomNode.gd" id="2_8adcv"]
+
+[node name="RoomGenTest" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="StartRoom" type="Node2D" parent="."]
+script = ExtResource("2_8adcv")
+
+[node name="Sprite2D2" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(83, 41)
+scale = Vector2(0.21875, 0.375)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D7" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(83, -41)
+scale = Vector2(0.21875, 0.375)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D8" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(-83, 41)
+scale = Vector2(0.21875, 0.375)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D9" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(-83, -41)
+scale = Vector2(0.21875, 0.375)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D3" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(-53.5, -76.9999)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D4" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(45, -76.9999)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D5" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(-48.5, 76.0001)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_fyd4p")
+
+[node name="Sprite2D6" type="Sprite2D" parent="StartRoom"]
+modulate = Color(1, 0.03, 0.03, 1)
+position = Vector2(50, 76.0001)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_fyd4p")
+
+[node name="North" type="Node2D" parent="StartRoom"]
+position = Vector2(0, -75)
+
+[node name="South" type="Node2D" parent="StartRoom"]
+position = Vector2(0, 77)
+
+[node name="West" type="Node2D" parent="StartRoom"]
+position = Vector2(-82, 0)
+
+[node name="East" type="Node2D" parent="StartRoom"]
+position = Vector2(86, 0)

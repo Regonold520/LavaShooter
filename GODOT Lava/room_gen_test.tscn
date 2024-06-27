@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8gtx6vj8k7bk"]
+
+[ext_resource type="Script" path="res://RoomHolder.gd" id="2_q3lmp"]
+[ext_resource type="PackedScene" uid="uid://b3rbgty0dohqo" path="res://drop_enemy.tscn" id="2_sfpjr"]
+[ext_resource type="PackedScene" uid="uid://d0vq34rsncrwv" path="res://Player.tscn" id="3_n3a1j"]
+[ext_resource type="PackedScene" uid="uid://cqgujudjk5tkk" path="res://Rooms/Room2.tscn" id="3_sibtr"]
+
+[node name="RoomGenTest" type="Node2D"]
+
+[node name="RoomHolder" type="Node2D" parent="."]
+script = ExtResource("2_q3lmp")
+
+[node name="Room2" parent="RoomHolder" instance=ExtResource("3_sibtr")]
+end_door_tile = Vector2i(0, 0)
+start_door_tile = Vector2i(0, 0)
+
+[node name="Player" parent="." instance=ExtResource("3_n3a1j")]
+position = Vector2(-41, -12)
+speed = 100
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)
+
+[node name="DropEnemy" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(25, -23)
+collision_mask = 23
+
+[node name="DropEnemy2" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(65, 9)
+collision_mask = 23
+
+[node name="DropEnemy3" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(0, 5)
+collision_mask = 23
+
+[node name="DropEnemy4" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(40, 37)
+collision_mask = 23
+
+[node name="DropEnemy5" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(33, 7)
+collision_mask = 23
+
+[node name="DropEnemy6" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(73, 39)
+collision_mask = 23
+
+[node name="DropEnemy7" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(62, -20)
+collision_mask = 23
+
+[node name="DropEnemy8" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(102, 12)
+collision_mask = 23
+
+[node name="DropEnemy9" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(57, -49)
+collision_mask = 23
+
+[node name="DropEnemy10" parent="." instance=ExtResource("2_sfpjr")]
+position = Vector2(97, -17)
+collision_mask = 23

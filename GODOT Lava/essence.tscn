@@ -50,21 +50,17 @@ autoplay = "default"
 frame_progress = 0.540697
 
 [node name="Detector" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="PlayerDetector" type="CollisionShape2D" parent="Detector"]
-scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_y8df5")
 
 [node name="Collector" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collector"]
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0xxr0")
 
 [connection signal="body_entered" from="Detector" to="." method="_on_area_2d_body_entered"]

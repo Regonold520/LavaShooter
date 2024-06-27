@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://qad1xoih3snw"]
 
 [ext_resource type="Script" path="res://bullet.gd" id="1_1vw5m"]
-[ext_resource type="Texture2D" uid="uid://bam1cy5omn5m" path="res://Sprites/Weapons/Bullet.png" id="1_b7mra"]
+[ext_resource type="Texture2D" uid="uid://bam1cy5omn5m" path="res://Sprites/Weapons/Ammo/Carrot_Ammo.png" id="1_b7mra"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_57wbj"]
 

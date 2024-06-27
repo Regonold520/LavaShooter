@@ -1,0 +1,143 @@
+[gd_scene load_steps=21 format=3 uid="uid://dtxtdqlh4ihtx"]
+
+[ext_resource type="Script" path="res://C# Scripts/Boss1/Boss1.cs" id="1_7fpl0"]
+[ext_resource type="Script" path="res://C# Scripts/Boss1/StateMachine.cs" id="2_d1c8k"]
+[ext_resource type="Script" path="res://C# Scripts/Boss1/States/Pursue.cs" id="3_6bcin"]
+[ext_resource type="Script" path="res://C# Scripts/Boss1/States/Puddle.cs" id="4_l848c"]
+[ext_resource type="Script" path="res://C# Scripts/Boss1/States/Rise.cs" id="5_w7iv6"]
+[ext_resource type="Script" path="res://C# Scripts/Boss1/States/Sink.cs" id="6_iqix1"]
+[ext_resource type="Texture2D" uid="uid://cn7fc2a5viqhh" path="res://Sprites/Enemies/Boss1/Puddle/Boss1_Puddle_1.png" id="7_wvyu8"]
+[ext_resource type="Texture2D" uid="uid://677aregyiryf" path="res://Sprites/Enemies/Boss1/Puddle/Boss1_Puddle_2.png" id="8_3186d"]
+[ext_resource type="Texture2D" uid="uid://b2drermiam3gk" path="res://Sprites/Enemies/Boss1/Puddle/Boss1_Puddle_3.png" id="9_6glll"]
+[ext_resource type="Texture2D" uid="uid://bc5q6v3xquons" path="res://Sprites/Enemies/Boss1/Sink/Boss1_Sink_5.png" id="10_nislg"]
+[ext_resource type="Texture2D" uid="uid://wnaxm6evjddd" path="res://Sprites/Enemies/Boss1/Sink/Boss1_Sink_4.png" id="11_1k7vi"]
+[ext_resource type="Texture2D" uid="uid://bqclkeuuhk7o5" path="res://Sprites/Enemies/Boss1/Sink/Boss1_Sink_3.png" id="12_wolff"]
+[ext_resource type="Texture2D" uid="uid://ctljtp63umhgi" path="res://Sprites/Enemies/Boss1/Sink/Boss1_Sink_2.png" id="13_fdmip"]
+[ext_resource type="Texture2D" uid="uid://dd46fq5txbhw4" path="res://Sprites/Enemies/Boss1/Sink/Boss1_Sink_1.png" id="14_4wk5g"]
+[ext_resource type="Texture2D" uid="uid://bq0yi7pm0fgnb" path="res://Sprites/Enemies/Boss1/Walk/Boss1_Walk_1.png" id="15_judkh"]
+[ext_resource type="Texture2D" uid="uid://cbivan58kqexq" path="res://Sprites/Enemies/Boss1/Walk/Boss1_Walk_4.png" id="16_u47o4"]
+[ext_resource type="Texture2D" uid="uid://d3qhae4ofgtlc" path="res://Sprites/Enemies/Boss1/Walk/Boss1_Walk_3.png" id="17_33k34"]
+[ext_resource type="Texture2D" uid="uid://b7jsj0a8qj0un" path="res://Sprites/Enemies/Boss1/Walk/Boss1_Walk_2.png" id="18_esmft"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h2ihr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_wvyu8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_3186d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6glll")
+}],
+"loop": true,
+"name": &"Puddle",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_nislg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_1k7vi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wolff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_fdmip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_4wk5g")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_4wk5g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_fdmip")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_wolff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_1k7vi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_nislg")
+}],
+"loop": true,
+"name": &"Sink",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_33k34")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_esmft")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_judkh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_u47o4")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yxk4f"]
+size = Vector2(38.7779, 25.6071)
+
+[node name="Boss1" type="CharacterBody2D"]
+z_index = 5
+position = Vector2(-52.9898, -16.4451)
+script = ExtResource("1_7fpl0")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("2_d1c8k")
+
+[node name="Pursue" type="Node" parent="StateMachine"]
+script = ExtResource("3_6bcin")
+
+[node name="Puddle" type="Node" parent="StateMachine"]
+script = ExtResource("4_l848c")
+
+[node name="Rise" type="Node" parent="StateMachine"]
+script = ExtResource("5_w7iv6")
+
+[node name="Sink" type="Node" parent="StateMachine"]
+script = ExtResource("6_iqix1")
+
+[node name="Animation" type="AnimatedSprite2D" parent="."]
+position = Vector2(3.8147e-06, -12.0631)
+scale = Vector2(0.168237, 0.168237)
+sprite_frames = SubResource("SpriteFrames_h2ihr")
+animation = &"Rise"
+autoplay = "Walk"
+frame_progress = 0.789182
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -12.0631)
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.11663, 13.6157)
+shape = SubResource("RectangleShape2D_yxk4f")
+
+[node name="SinkTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="animation_finished" from="Animation" to="StateMachine/Sink" method="_on_animation_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="BossCollided"]
+[connection signal="body_exited" from="Area2D" to="." method="BossNotCollided"]
+[connection signal="timeout" from="SinkTimer" to="." method="SinkTimeout"]

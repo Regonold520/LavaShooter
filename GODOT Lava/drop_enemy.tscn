@@ -33,9 +33,12 @@ size = Vector2(14, 10)
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
 radius = 1119.19
 
-[node name="DropEnemy" type="Area2D" groups=["enemy"]]
+[node name="DropEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 21
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.001
 script = ExtResource("1_okwsd")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -44,7 +47,7 @@ scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_o8ikx")
 animation = &"Idle"
 autoplay = "Idle"
-frame_progress = 0.500075
+frame_progress = 0.728477
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -67,8 +70,19 @@ texture_filter = 1
 scale = Vector2(0.101529, 0.101529)
 texture = ExtResource("6_t84vv")
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_desired_distance = 0.1
+target_desired_distance = 0.1
+avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.377456, 0.700352, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

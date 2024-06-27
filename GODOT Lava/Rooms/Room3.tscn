@@ -1,0 +1,71 @@
+[gd_scene load_steps=4 format=3 uid="uid://cthu1673fhvbv"]
+
+[ext_resource type="Texture2D" uid="uid://nn8u2lxelsok" path="res://icon.svg" id="1_mdl5v"]
+
+[sub_resource type="GDScript" id="GDScript_yjomh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cm54y"]
+size = Vector2(22, 80)
+
+[node name="Room2" type="Area2D"]
+collision_mask = 4
+script = SubResource("GDScript_yjomh")
+
+[node name="Exit" type="Node2D" parent="."]
+position = Vector2(-79, -4)
+rotation = 1.5708
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(-4, -56)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(-78, -42.716)
+scale = Vector2(0.21875, 0.316938)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D7" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(-77.0002, 33.9995)
+scale = Vector2(0.21875, 0.316938)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(83, 1)
+scale = Vector2(0.21875, 1)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(-53.5, -55)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D4" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(45, -55)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D5" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(-34.4842, 52)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.82056)
+texture = ExtResource("1_mdl5v")
+
+[node name="Sprite2D6" type="Sprite2D" parent="."]
+modulate = Color(0.0666666, 1, 0, 1)
+position = Vector2(50, 52)
+rotation = 1.5708
+scale = Vector2(0.21875, 0.601563)
+texture = ExtResource("1_mdl5v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-78, 1)
+shape = SubResource("RectangleShape2D_cm54y")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

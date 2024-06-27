@@ -1,6 +1,6 @@
 extends Area2D
 
-var speed = 350
+var speed = 550
 
 func _ready():
 	$Sprite2D.texture = load("res://Sprites/Weapons/Ammo/" + GunVars.AmmoType + '_Ammo.png')

@@ -1,0 +1,100 @@
+[gd_scene load_steps=8 format=3 uid="uid://bugndsgiuxeb0"]
+
+[ext_resource type="Script" path="res://Rooms/Room1.gd" id="1_y6rxu"]
+[ext_resource type="Texture2D" uid="uid://bb265qwwwe3nv" path="res://Tileset_1.png" id="2_su4vr"]
+[ext_resource type="Script" path="res://Rooms/DoorCollider.gd" id="3_ncv4h"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ajoj8"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rolqb"]
+size = Vector2(29, 25)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_n6b8k"]
+texture = ExtResource("2_su4vr")
+0:0/0 = 0
+0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+0:0/0/physics_layer_0/angular_velocity = 0.0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-0.875, -0.875, 8, -1, 8, 8, -0.875, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:0/0/physics_layer_0/angular_velocity = 0.0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:0/0/physics_layer_0/angular_velocity = 0.0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:0/0/physics_layer_0/angular_velocity = 0.0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:0/0/physics_layer_0/angular_velocity = 0.0
+2:1/0 = 0
+2:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+2:1/0/physics_layer_0/angular_velocity = 0.0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+3:1/0/physics_layer_0/angular_velocity = 0.0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+4:1/0/physics_layer_0/angular_velocity = 0.0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:1/0 = 0
+5:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
+5:1/0/physics_layer_0/angular_velocity = 0.0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_v3ted"]
+physics_layer_0/collision_layer = 8
+physics_layer_0/collision_mask = 4
+sources/1 = SubResource("TileSetAtlasSource_n6b8k")
+
+[node name="Room1" type="StaticBody2D"]
+collision_layer = 16
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_ajoj8")
+script = ExtResource("1_y6rxu")
+end_door_tile = Vector2i(-3, -7)
+start_door_tile = Vector2i(4, -1)
+end_door_rotation = "south"
+metadata/Type = "E"
+
+[node name="Entrance" type="Node2D" parent="."]
+position = Vector2(-2, -57)
+
+[node name="Exit" type="Node2D" parent="."]
+position = Vector2(-2, 53)
+
+[node name="End" type="Node2D" parent="."]
+position = Vector2(-1, -56)
+
+[node name="DoorCollider" type="Area2D" parent="."]
+position = Vector2(-72, -183)
+rotation = 1.57079
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("3_ncv4h")
+
+[node name="Door" type="CollisionShape2D" parent="DoorCollider"]
+position = Vector2(9.5, -1)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_rolqb")
+one_way_collision_margin = 128.0
+
+[node name="Spawn" type="Node2D" parent="."]
+position = Vector2(106, -15)
+
+[node name="TileMap" type="TileMap" parent="."]
+texture_filter = 1
+scale = Vector2(1.78172, 1.78172)
+tile_set = SubResource("TileSet_v3ted")
+format = 2
+layer_0/z_index = 1
+layer_0/tile_data = PackedInt32Array(196607, 131073, 0, 131072, 131073, 0, 131073, 131073, 0, 131074, 131073, 0, 196606, 131073, 0, 196605, 131073, 0, 131075, 131073, 0, 131076, 1, 805306368, 196604, 1, 1610612736, 131068, 131073, 1342177280, 65532, 131073, 1342177280, -4, 131073, 1342177280, -65540, 131073, 1342177280, 65540, 131073, 1610612736, 4, 131073, 1610612736, -65532, 131073, 1610612737, -131068, 131073, 1610612736, -131076, 131073, 1342177280, -196604, 1, 1342177280, -196608, 196609, 805306368, -196607, 131073, 805306368, -196606, 131073, 805306368, -196605, 131073, 805306368, -393219, 131073, 805306369, -196612, 131073, 1342177280, -262148, 131073, 1342177280, -327684, 131073, 1342177280, -262144, 131073, 1610612736, -327680, 131073, 1610612736, -393216, 131073, 1610612736, -393220, 1, 0, -458752, 1, 1342177280, -393218, 131073, 805306368, -393217, 131073, 805306368, -1, 1, 0, -65536, 1, 1342177280, 0, 1, 805306368, 65535, 1, 1610612736)
+layer_1/navigation_enabled = false
+layer_1/tile_data = PackedInt32Array(-65539, 327681, 0, -3, 327681, 0, 65533, 327681, 0, 131069, 327681, 0, 65534, 327681, 0, -2, 327681, 0, -65538, 327681, 0, -1, 327681, 0, 65535, 327681, 0, 131071, 327681, 0, 131070, 327681, 0, 65536, 327681, 0, 65537, 327681, 0, 65538, 327681, 0, 65539, 327681, 0, 3, 327681, 0, 2, 327681, 0, 1, 327681, 0, 0, 327681, 0, -65536, 327681, 0, -65535, 327681, 0, -65534, 327681, 0, -65533, 327681, 0, -131069, 327681, 0, -131070, 327681, 0, -131071, 327681, 0, -131072, 327681, 0, -65537, 327681, 0, -131075, 327681, 0, -196611, 327681, 0, -262147, 327681, 0, -327683, 327681, 0, -327682, 327681, 0, -327681, 327681, 0, -262145, 327681, 0, -196609, 327681, 0, -131073, 327681, 0, -131074, 327681, 0, -196610, 327681, 0, -262146, 327681, 0)
+
+[connection signal="body_entered" from="DoorCollider" to="." method="_on_door_collider_body_entered"]
