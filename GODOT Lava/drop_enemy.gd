@@ -21,6 +21,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	var player = get_tree().current_scene.find_child('Player')
 	_update_anim(player)
 		
@@ -34,7 +35,6 @@ func _process(delta):
 	else:
 		_on_navigation_agent_2d_velocity_computed(velocity)
 	
-	print(velocity)
 	move_and_slide()
 	
 
@@ -47,7 +47,10 @@ func _update_anim(player):
 	
 
 func _on_detection_body_entered(body):
-	detected = true
+	print(body)
+	if body.name == "Player":
+		_on_death()
+		PlayerVars.Health -= 5
 
 
 func _on_detection_body_exited(body):
@@ -55,14 +58,13 @@ func _on_detection_body_exited(body):
 
 
 func _on_body_entered(body):
-	if body.name == "Player":
-		_on_death()
-		PlayerVars.Health -= 5
+	pass
 
 
 func _essence():
 	var essence = PlayerVars.Essence.instantiate()
-	essence.position = position
+	essence.global_position = global_position
+	print(essence)
 	get_tree().current_scene.add_child(essence)
 	
 func _on_death():

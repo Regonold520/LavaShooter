@@ -31,11 +31,11 @@ animations = [{
 size = Vector2(14, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
-radius = 1119.19
+radius = 12.0416
 
 [node name="DropEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 21
+collision_mask = 5
 motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.001
@@ -59,7 +59,6 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-visible = false
 shape = SubResource("CircleShape2D_bmap6")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
@@ -71,8 +70,6 @@ scale = Vector2(0.101529, 0.101529)
 texture = ExtResource("6_t84vv")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 0.1
-target_desired_distance = 0.1
 avoidance_enabled = true
 debug_enabled = true
 debug_use_custom = true

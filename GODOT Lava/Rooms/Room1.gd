@@ -41,7 +41,7 @@ func _door_open(tile , string):
 			new = 5 - i
 		
 		var rotation = _calc_rotation(string)
-		$NavigationRegion2D/TileMap.set_cell(0 , tile, 1, Vector2(new,1) , rotation)
+		$NavigationRegion2D/TileMap.set_cell(0 , tile, 0, Vector2(new,1) , rotation)
 		
 		await get_tree().create_timer(0.1).timeout
 
