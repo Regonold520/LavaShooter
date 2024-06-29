@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3cxlbsyokoax"]
+
+[ext_resource type="Script" path="res://water_bullet.gd" id="1_du781"]
+[ext_resource type="Texture2D" uid="uid://6frctikj7753" path="res://Sprites/Enemies/Water_Sentry/Turret/Water_Drop.png" id="1_gsym3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ivq6u"]
+
+[node name="WaterBullet" type="Area2D"]
+scale = Vector2(0.516131, 0.516131)
+collision_layer = 2
+collision_mask = 28
+script = ExtResource("1_du781")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+rotation = 1.5708
+scale = Vector2(0.193609, 0.193609)
+texture = ExtResource("1_gsym3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ivq6u")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -24,6 +24,8 @@ func _on_door_collider_body_entered(body):
 
 
 func _process(delta):
+	
+	print(enemy_ammount , " AND " , completed_enemies)
 	if completed_enemies == enemy_ammount and !room_completed:
 		room_completed = true
 		find_child('DoorOpen').play()

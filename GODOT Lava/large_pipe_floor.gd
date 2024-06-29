@@ -1,7 +1,7 @@
 extends Node2D
 
 var is_active = true
-var enemy_pool = [Enemies.twins]
+var enemy_pool = [Enemies.fabricator]
 var wait_time = 2
 
 @export var total_enemies = 2

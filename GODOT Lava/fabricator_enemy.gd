@@ -2,24 +2,36 @@ extends CharacterBody2D
 
 var rng = RandomNumberGenerator.new()
 var start_finished = false
+var fabrication = false
 
 @export var finish_frame = 0
 
-@export var speed = 75
+@export var speed = 50
 var acceleration = 11
 var direction
+
+var health = 5
 
 @onready var agent : NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.animation = "Rise"
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if $AnimatedSprite2D.animation == "Rise" and $AnimatedSprite2D.frame == finish_frame:
 		$AnimatedSprite2D.animation = "Idle"
 		start_finished = true
+		
+	if $AnimatedSprite2D.animation == "Create" and fabrication and $AnimatedSprite2D.frame == 4:
+		$AnimatedSprite2D.animation = "Idle"
+		speed = 50
+		
+		var turret = Enemies.water_turret.instantiate()
+		
+		get_tree().current_scene.add_child(turret)
+		
+		turret.global_position = global_position
 	
 	if !start_finished:
 		$Detection/CollisionShape2D.disabled = true
@@ -56,37 +68,26 @@ func _on_detection_body_entered(body):
 	if body.name == "Player":
 		_on_death()
 		PlayerVars.Health -= 5
-
+	
 func _essence():
 	var essence = PlayerVars.Essence.instantiate()
-	essence.global_position = global_position
-	print(essence)
+	essence.position = position
 	get_tree().current_scene.add_child(essence)
-	
-	
+		
 func _on_death():
-	var player = get_tree().current_scene.find_child('Player')
-	player.find_child('EnemyDeath').play()
+	health -= 1
 	
-	get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
+	if health == 0:
+		var audio = Enemies.enemy_audio.instantiate()
+		get_tree().current_scene.add_child(audio)
+		
+		var player = get_tree().current_scene.find_child('Player')
+		player.find_child('EnemyDeath').play()
+		
+		get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
+		
+		queue_free()
 	
-	var pipe_scene : PackedScene = load("res://small_pipe_floor.tscn")
-	
-	var pipe = pipe_scene.instantiate()
-	
-	get_tree().current_scene.find_child("RoomHolder").get_child(0).add_child(pipe)
-	
-	pipe.global_position = global_position
-	
-	pipe.enemy_pool = [Enemies.drop]
-	pipe.wait_time = 0.0
-	pipe.total_enemies = 3
-	
-	pipe.find_child("WaterSprite").play()
-	
-	pipe.find_child("PipeSprite").queue_free()
-	
-	queue_free()
 
 
 func _on_timer_timeout():
@@ -96,3 +97,9 @@ func _on_timer_timeout():
 
 func _on_navigation_agent_2d_velocity_computed(safe_velocity):
 	velocity = safe_velocity
+
+
+func _on_turret_creation_timeout():
+	speed = 0
+	$AnimatedSprite2D.animation = "Create"
+	fabrication = true

@@ -1,0 +1,144 @@
+[gd_scene load_steps=18 format=3 uid="uid://kh2yftiiu2ca"]
+
+[ext_resource type="Script" path="res://fabricator_enemy.gd" id="1_fmer1"]
+[ext_resource type="Texture2D" uid="uid://3ssd6etoprss" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_1.png" id="2_bg8sv"]
+[ext_resource type="Texture2D" uid="uid://bkffy6g7e7d82" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_2.png" id="3_cden5"]
+[ext_resource type="Texture2D" uid="uid://cxteka5g6hklc" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_3.png" id="4_g84gf"]
+[ext_resource type="Texture2D" uid="uid://chs81dxnmrt6i" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_4.png" id="5_efjg4"]
+[ext_resource type="Texture2D" uid="uid://exsd7l0267h7" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_5.png" id="6_tx0vy"]
+[ext_resource type="Texture2D" uid="uid://bsg53dmv3t4yk" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Idle_6.png" id="7_yfu6j"]
+[ext_resource type="Texture2D" uid="uid://do52rapcm6p3v" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_1.png" id="8_1o0kw"]
+[ext_resource type="Texture2D" uid="uid://c4htyct8i2gv7" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_2.png" id="9_e7w43"]
+[ext_resource type="Texture2D" uid="uid://0587r45mxok0" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_3.png" id="10_3brty"]
+[ext_resource type="Texture2D" uid="uid://biomyv6d4o2a4" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_4.png" id="11_8oi7u"]
+[ext_resource type="Texture2D" uid="uid://dxnmjt6bm03ol" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_5.png" id="12_a3cbr"]
+[ext_resource type="Texture2D" uid="uid://7oet3iflfpr" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_6.png" id="13_8epa6"]
+[ext_resource type="Texture2D" uid="uid://bndq74pivl3j8" path="res://Sprites/Enemies/Water_Sentry/Fabricator_Rise_7.png" id="14_ahqi3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_ahqi3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_a3cbr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3brty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_e7w43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_8epa6")
+}],
+"loop": true,
+"name": &"Create",
+"speed": 10.07
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bg8sv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_cden5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_g84gf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_efjg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_tx0vy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_yfu6j")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_1o0kw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_e7w43")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_3brty")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_8oi7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_a3cbr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_8epa6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_ahqi3")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
+size = Vector2(14, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
+radius = 12.0416
+
+[node name="FabricatorEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 13
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.01
+script = ExtResource("1_fmer1")
+finish_frame = 6
+metadata/type = "enemy"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+sprite_frames = SubResource("SpriteFrames_o8ikx")
+animation = &"Create"
+autoplay = "Rise"
+frame_progress = 0.175161
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ndmxe")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_bmap6")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.377456, 0.700352, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="TurretCreation" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="TurretCreation" to="." method="_on_turret_creation_timeout"]

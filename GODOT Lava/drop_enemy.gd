@@ -13,13 +13,6 @@ var direction
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.animation = "Rise"
-	
-	var tween = create_tween()
-	
-	var rand_pos_x = rng.randf_range(0,0)
-	var rand_pos_y = rng.randf_range(0,0)
-	
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
