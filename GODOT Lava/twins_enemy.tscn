@@ -1,13 +1,19 @@
-[gd_scene load_steps=10 format=3 uid="uid://cojs3xdtd4gug"]
+[gd_scene load_steps=16 format=3 uid="uid://devgb6y3pekm0"]
 
 [ext_resource type="Script" path="res://twins_enemy.gd" id="1_up4ec"]
 [ext_resource type="Texture2D" uid="uid://dwq1f36gsgn31" path="res://Sprites/Enemies/Twins/Twins_1.png" id="2_cdq3m"]
 [ext_resource type="Texture2D" uid="uid://d0qw5cq0tkdv3" path="res://Sprites/Enemies/Twins/Twins_2.png" id="3_100cd"]
 [ext_resource type="Texture2D" uid="uid://cdkdl2w7cf8kw" path="res://Sprites/Enemies/Twins/Twins_3.png" id="4_bkl7o"]
 [ext_resource type="Texture2D" uid="uid://c8glfa44mkglr" path="res://Sprites/Enemies/Twins/Twins_4.png" id="5_6j6ac"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_iesdi"]
+[ext_resource type="Texture2D" uid="uid://cgaeh1kawc1l8" path="res://Sprites/Enemies/Twins/Twins_Rise_1.png" id="6_ne4ei"]
+[ext_resource type="Texture2D" uid="uid://cyqltf5lvvb5h" path="res://Sprites/Enemies/Twins/Twins_Rise_2.png" id="7_v4lg4"]
+[ext_resource type="Texture2D" uid="uid://cvej6m3cubowm" path="res://Sprites/Enemies/Twins/Twins_Rise_3.png" id="8_k2uvn"]
+[ext_resource type="Texture2D" uid="uid://dff5ukjrc28vk" path="res://Sprites/Enemies/Twins/Twins_Rise_4.png" id="9_rxdfq"]
+[ext_resource type="Texture2D" uid="uid://yeqbu3udtkxd" path="res://Sprites/Enemies/Twins/Twins_Rise_5.png" id="10_nbnj6"]
+[ext_resource type="Texture2D" uid="uid://e6ndhvfv5eqg" path="res://Sprites/Enemies/Twins/Twins_Rise_6.png" id="11_kowb4"]
+[ext_resource type="Texture2D" uid="uid://dna63iqseayy5" path="res://Sprites/Enemies/Twins/Twins_Rise_7.png" id="12_nhudx"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_qe8be"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -23,31 +29,63 @@ animations = [{
 "texture": ExtResource("5_6j6ac")
 }],
 "loop": true,
-"name": &"default",
-"speed": 7.0
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_ne4ei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_v4lg4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_k2uvn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rxdfq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_nbnj6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_kowb4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_nhudx")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
-size = Vector2(25, 25)
+size = Vector2(14, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
-radius = 1119.19
+radius = 12.0416
 
-[node name="TwinsEnemy" type="Area2D" groups=["enemy"]]
+[node name="TwinsEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.01
 script = ExtResource("1_up4ec")
+finish_frame = 6
+metadata/type = "enemy"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.184, 0.184)
-sprite_frames = SubResource("SpriteFrames_qe8be")
-autoplay = "default"
-frame = 1
-frame_progress = 0.916318
+sprite_frames = SubResource("SpriteFrames_o8ikx")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.171921
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, 0.5)
+z_index = 1
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ndmxe")
 
 [node name="Detection" type="Area2D" parent="."]
@@ -55,19 +93,19 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-visible = false
 shape = SubResource("CircleShape2D_bmap6")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Signal" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 0.501961)
-z_index = -1
-texture_filter = 1
-scale = Vector2(0.125307, 0.125307)
-texture = ExtResource("6_iesdi")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.377456, 0.700352, 1)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

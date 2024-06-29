@@ -15,7 +15,8 @@ var start_door_triggered = false
 var end_door_triggered = false
 
 func  _ready():
-	pass
+	find_child('DoorClose').play()
+	$NavigationRegion2D.bake_navigation_polygon()
 
 func _on_door_collider_body_entered(body):
 	if room_completed:
@@ -25,6 +26,7 @@ func _on_door_collider_body_entered(body):
 func _process(delta):
 	if completed_enemies == enemy_ammount and !room_completed:
 		room_completed = true
+		find_child('DoorOpen').play()
 	
 	if room_completed and !end_door_triggered:
 		_door_open(end_door_tile , "end")

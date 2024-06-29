@@ -35,7 +35,7 @@ radius = 215.834
 
 [node name="Essence" type="RigidBody2D"]
 position = Vector2(-1.90735e-06, 9.53674e-07)
-scale = Vector2(0.143699, 0.148366)
+scale = Vector2(0.184, 0.189)
 collision_layer = 8
 collision_mask = 8
 physics_material_override = SubResource("PhysicsMaterial_w1klj")
@@ -43,8 +43,9 @@ gravity_scale = 3.5
 script = ExtResource("1_xqptc")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 z_index = -1
-scale = Vector2(0.489897, 0.489897)
+scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_pfsnm")
 autoplay = "default"
 frame_progress = 0.540697

@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://drnjb7xb2fey2"]
+
+[ext_resource type="Script" path="res://large_pipe_floor.gd" id="1_217hb"]
+[ext_resource type="SpriteFrames" uid="uid://cm3es58iymoxo" path="res://water_frames.tres" id="2_q60wk"]
+[ext_resource type="Texture2D" uid="uid://bqsl47i4li1xc" path="res://WaterDeco_6.png" id="3_c2dny"]
+
+[node name="LagePipe" type="Node2D"]
+scale = Vector2(0.184, 0.184)
+script = ExtResource("1_217hb")
+
+[node name="WaterSprite" type="AnimatedSprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 38.0435)
+scale = Vector2(1.44615, 1.44615)
+sprite_frames = ExtResource("2_q60wk")
+animation = &"Grow"
+autoplay = "Grow"
+frame = 4
+frame_progress = 0.947659
+
+[node name="PipeSprite" type="Sprite2D" parent="."]
+z_index = 1
+texture = ExtResource("3_c2dny")
+
+[node name="EnemySpawns" type="Node2D" parent="."]
+
+[node name="Node2D" type="Node2D" parent="EnemySpawns"]
+position = Vector2(-65.2174, 38.0435)
+
+[node name="Node2D2" type="Node2D" parent="EnemySpawns"]
+position = Vector2(-3.8147e-06, 86.9565)
+
+[node name="Node2D3" type="Node2D" parent="EnemySpawns"]
+position = Vector2(65.2174, 38.0435)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -2,7 +2,7 @@ extends Node
 
 @export var AmmoType = 'Carrot'
 
-@export var Carrots = 10
+@export var Carrots = 99999
 
 var stop_shoot = false
 

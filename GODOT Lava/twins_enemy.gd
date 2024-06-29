@@ -1,48 +1,54 @@
-extends Area2D
+extends CharacterBody2D
 
-var detected = false
-var rand_vector : Vector2
 var rng = RandomNumberGenerator.new()
-var SPEED : float
 var start_finished = false
 
-var drop_scene : PackedScene = preload("res://drop_enemy.tscn")
+@export var finish_frame = 0
 
+@export var speed = 75
+var acceleration = 11
+var direction
+
+@onready var agent : NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	SPEED = 34
+	$AnimatedSprite2D.animation = "Rise"
 	
-	var rand_pos_x = rng.randf_range(-348,1432)
-	var rand_pos_y = rng.randf_range(795,-253)
-	
-	global_position = Vector2(rand_pos_x,rand_pos_y)
-	_animation_sequence()
-
-func _animation_sequence():
 	var tween = create_tween()
-	if PlayerVars.is_paused == false:
-		$Signal.modulate.a8 = 0
-	$AnimatedSprite2D.modulate.a = 0
-	$CollisionShape2D.disabled = true
 	
-	tween.tween_property($Signal,'modulate:a', 1, 1)
-	await get_tree().create_timer(2).timeout
-	$CollisionShape2D.disabled = false 
-	start_finished = true
+	var rand_pos_x = rng.randf_range(0,0)
+	var rand_pos_y = rng.randf_range(0,0)
+	
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if detected == true and start_finished == true:
-		var tween = create_tween()
-		tween.tween_property($AnimatedSprite2D,'modulate:a', 1, 0.4).set_ease(Tween.EASE_OUT)
-		$Signal.modulate.a8 = 0
+	if $AnimatedSprite2D.animation == "Rise" and $AnimatedSprite2D.frame == finish_frame:
+		$AnimatedSprite2D.animation = "Idle"
+		start_finished = true
+	
+	if !start_finished:
+		$Detection/CollisionShape2D.disabled = true
+	if start_finished:
+		$Detection/CollisionShape2D.disabled = false
+	
+	if start_finished:
+	
 		var player = get_tree().current_scene.find_child('Player')
 		_update_anim(player)
-		var distance := position.distance_to(player.position)
-		var tween_time = distance / SPEED
-		
-		tween.tween_property($".",'position', player.position,tween_time)
+			
+		direction = agent.get_next_path_position() - global_position
+		direction = direction.normalized()
 
+		velocity = velocity.lerp(direction * speed, acceleration * delta)
+		
+		if agent.avoidance_enabled:
+			agent.set_velocity(velocity)
+		else:
+			_on_navigation_agent_2d_velocity_computed(velocity)
+		
+		move_and_slide()
+	
 
 
 func _update_anim(player):
@@ -53,44 +59,46 @@ func _update_anim(player):
 	
 
 func _on_detection_body_entered(body):
-	detected = true
+	if body.name == "Player":
+		_on_death()
+		PlayerVars.Health -= 5
 
-
-func _on_detection_body_exited(body):
-	detected = false
-
-
-func _on_body_entered(body):
-	_on_death()
-	PlayerVars.Health -= 10
-	
 func _essence():
-	for i in 2:
-		var essence = PlayerVars.Essence.instantiate()
-		essence.position = position
-		get_tree().current_scene.add_child(essence)
-		
+	var essence = PlayerVars.Essence.instantiate()
+	essence.global_position = global_position
+	print(essence)
+	get_tree().current_scene.add_child(essence)
+	
+	
 func _on_death():
-	var audio = Enemies.enemy_audio.instantiate()
-	get_tree().current_scene.add_child(audio)
+	var player = get_tree().current_scene.find_child('Player')
+	player.find_child('EnemyDeath').play()
+	
+	get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
+	
+	var pipe_scene : PackedScene = load("res://small_pipe_floor.tscn")
+	
+	var pipe = pipe_scene.instantiate()
+	
+	get_tree().current_scene.find_child("RoomHolder").get_child(0).add_child(pipe)
+	
+	pipe.global_position = global_position
+	
+	pipe.enemy_pool = [Enemies.drop]
+	pipe.wait_time = 0.0
+	pipe.total_enemies = 3
+	
+	pipe.find_child("WaterSprite").play()
+	
+	pipe.find_child("PipeSprite").queue_free()
 	
 	queue_free()
-	
-	var drop1 = drop_scene.instantiate()
-	var drop2 = drop_scene.instantiate()
-	get_tree().current_scene.add_child(drop1)
-	get_tree().current_scene.add_child(drop2)
-	
-	drop1.position = position + Vector2(45,0)
-	drop2.position = position + Vector2(-45,0)
-	
-	var signal1 = drop1.find_child('Signal')
-	var signal2 = drop2.find_child('Signal')
-	
-	signal1.modulate.r8 = 0
-	signal1.modulate.g8 = 140
-	signal1.modulate.b8 = 255
-	
-	signal2.modulate.r8 = 0
-	signal2.modulate.g8 = 140
-	signal2.modulate.b8 = 255
+
+
+func _on_timer_timeout():
+	var player = get_tree().current_scene.find_child('Player')
+	agent.target_position = player.global_position
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	velocity = safe_velocity

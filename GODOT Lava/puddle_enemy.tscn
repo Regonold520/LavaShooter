@@ -1,12 +1,16 @@
-[gd_scene load_steps=9 format=3 uid="uid://wlr5sh363dc5"]
+[gd_scene load_steps=13 format=3 uid="uid://31lw3eurw413"]
 
-[ext_resource type="Script" path="res://puddle_enemy.gd" id="1_i7t1o"]
+[ext_resource type="Script" path="res://drop_enemy.gd" id="1_6mqed"]
 [ext_resource type="Texture2D" uid="uid://da8nn3kad78rq" path="res://Sprites/Enemies/Puddle/Puddle_1.png" id="2_8kar2"]
 [ext_resource type="Texture2D" uid="uid://cbl7ke6rquteq" path="res://Sprites/Enemies/Puddle/Puddle_2.png" id="3_lsaxa"]
 [ext_resource type="Texture2D" uid="uid://df18ly8l3jfmj" path="res://Sprites/Enemies/Puddle/Puddle_3.png" id="4_wryt2"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="5_lwbbm"]
+[ext_resource type="Texture2D" uid="uid://bhfdb6ucit43d" path="res://Sprites/Enemies/Puddle/Puddle_Rise_1.png" id="5_f0ted"]
+[ext_resource type="Texture2D" uid="uid://ircwnehyc2nf" path="res://Sprites/Enemies/Puddle/Puddle_Rise_2.png" id="6_ius4l"]
+[ext_resource type="Texture2D" uid="uid://ces57yla6cvvs" path="res://Sprites/Enemies/Puddle/Puddle_Rise_3.png" id="7_aatcf"]
+[ext_resource type="Texture2D" uid="uid://bjmde21x3g8p0" path="res://Sprites/Enemies/Puddle/Puddle_Rise_4.png" id="8_5e8fp"]
+[ext_resource type="Texture2D" uid="uid://dcv5fe7hd5o3" path="res://Sprites/Enemies/Puddle/Puddle_Rise_5.png" id="9_ectq5"]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_ithyj"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -19,28 +23,53 @@ animations = [{
 "texture": ExtResource("4_wryt2")
 }],
 "loop": true,
-"name": &"default",
-"speed": 5.0
+"name": &"Idle",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_f0ted")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_ius4l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_aatcf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5e8fp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ectq5")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
 size = Vector2(14, 10)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
-radius = 1119.19
+radius = 12.0416
 
-[node name="PuddleEnemy" type="Area2D" groups=["enemy"]]
+[node name="PuddleEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 5
-script = ExtResource("1_i7t1o")
+collision_mask = 13
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.01
+script = ExtResource("1_6mqed")
+finish_frame = 4
+speed = 100
+metadata/type = "enemy"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.184, 0.184)
-sprite_frames = SubResource("SpriteFrames_ithyj")
-autoplay = "default"
-frame = 2
-frame_progress = 0.414364
+sprite_frames = SubResource("SpriteFrames_o8ikx")
+animation = &"Idle"
+autoplay = "Rise"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -52,19 +81,19 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
-visible = false
 shape = SubResource("CircleShape2D_bmap6")
 debug_color = Color(0, 0.6, 0.701961, 0)
 
-[node name="Signal" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 0.501961)
-z_index = -1
-texture_filter = 1
-scale = Vector2(0.0812611, 0.0812611)
-texture = ExtResource("5_lwbbm")
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.377456, 0.700352, 1)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
 [connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
-[connection signal="body_shape_entered" from="Detection" to="." method="_on_detection_body_shape_entered"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

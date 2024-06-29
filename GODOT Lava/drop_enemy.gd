@@ -5,7 +5,7 @@ var start_finished = false
 
 @export var finish_frame = 0
 
-@export var speed = 50
+@export var speed = 75
 var acceleration = 11
 var direction
 
@@ -62,20 +62,23 @@ func _on_detection_body_entered(body):
 	if body.name == "Player":
 		_on_death()
 		PlayerVars.Health -= 5
-
+	
 func _essence():
 	var essence = PlayerVars.Essence.instantiate()
-	essence.global_position = global_position
-	print(essence)
+	essence.position = position
 	get_tree().current_scene.add_child(essence)
-	
+		
 func _on_death():
+	var audio = Enemies.enemy_audio.instantiate()
+	get_tree().current_scene.add_child(audio)
+	
 	var player = get_tree().current_scene.find_child('Player')
 	player.find_child('EnemyDeath').play()
 	
 	get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
 	
 	queue_free()
+	
 
 
 func _on_timer_timeout():

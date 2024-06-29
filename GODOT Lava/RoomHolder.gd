@@ -1,6 +1,7 @@
 extends Node2D
 
-var room_pool = ["res://Rooms/Room1.tscn"]
+var room_pool = ["res://Rooms/Room1.tscn" , "res://Rooms/Room2.tscn" , "res://Rooms/Room3.tscn" , "res://Rooms/Room4.tscn"]
+var last_room = "res://Rooms/Room1.tscn"
 
 var rng = RandomNumberGenerator.new()
 # Called when the node enters the scene tree for the first time.

@@ -1,49 +1,53 @@
-extends Area2D
+extends CharacterBody2D
 
-var detected = false
-var rand_vector : Vector2
 var rng = RandomNumberGenerator.new()
-var SPEED : float
 var start_finished = false
 
+@export var finish_frame = 0
 
+@export var speed = 75
+var acceleration = 11
+var direction
+
+@onready var agent : NavigationAgent2D = $NavigationAgent2D
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$AnimatedSprite2D.animation = "Rise"
+	
 	var tween = create_tween()
-	SPEED = randf_range(30,45)
 	
-	var rand_pos_x = rng.randf_range(-348,1432)
-	var rand_pos_y = rng.randf_range(795,-253)
+	var rand_pos_x = rng.randf_range(0,0)
+	var rand_pos_y = rng.randf_range(0,0)
 	
-	global_position = Vector2(rand_pos_x,rand_pos_y)
-	
-	_animation_sequence()
-	
-func _animation_sequence():
-	var tween = create_tween()
-	if PlayerVars.is_paused == false:
-		$Signal.modulate.a8 = 0
-	$AnimatedSprite2D.modulate.a = 0
-	$CollisionShape2D.disabled = true
-	
-	tween.tween_property($Signal,'modulate:a', 1, 1)
-	await get_tree().create_timer(2).timeout
-	$CollisionShape2D.disabled = false 
-	start_finished = true
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if detected == true and start_finished == true:
-		var tween = create_tween()
-		tween.tween_property($AnimatedSprite2D,'modulate:a', 1, 0.4).set_ease(Tween.EASE_OUT)
-		$Signal.modulate.a8 = 0
+	if $AnimatedSprite2D.animation == "Rise" and $AnimatedSprite2D.frame == finish_frame:
+		$AnimatedSprite2D.animation = "Idle"
+		start_finished = true
+	
+	if !start_finished:
+		$Detection/CollisionShape2D.disabled = true
+	if start_finished:
+		$Detection/CollisionShape2D.disabled = false
+	
+	if start_finished:
+	
 		var player = get_tree().current_scene.find_child('Player')
 		_update_anim(player)
-		tween = create_tween()
-		var distance := position.distance_to(player.position)
-		var tween_time = distance / SPEED
+			
+		direction = agent.get_next_path_position() - global_position
+		direction = direction.normalized()
+
+		velocity = velocity.lerp(direction * speed, acceleration * delta)
 		
-		tween.tween_property($".",'position', player.position,tween_time)
+		if agent.avoidance_enabled:
+			agent.set_velocity(velocity)
+		else:
+			_on_navigation_agent_2d_velocity_computed(velocity)
+		
+		move_and_slide()
 	
 
 
@@ -55,24 +59,29 @@ func _update_anim(player):
 	
 
 func _on_detection_body_entered(body):
-	detected = true
+	if body.name == "Player":
+		_on_death()
+		PlayerVars.Health -= 5
 
-
-func _on_detection_body_exited(body):
-	detected = false
-
-
-func _on_body_entered(body):
-	_on_death()
-	PlayerVars.Health -= 5
-	
 func _essence():
 	var essence = PlayerVars.Essence.instantiate()
-	essence.position = position
+	essence.global_position = global_position
+	print(essence)
 	get_tree().current_scene.add_child(essence)
 	
 func _on_death():
 	var player = get_tree().current_scene.find_child('Player')
 	player.find_child('EnemyDeath').play()
 	
+	get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
+	
 	queue_free()
+
+
+func _on_timer_timeout():
+	var player = get_tree().current_scene.find_child('Player')
+	agent.target_position = player.global_position
+
+
+func _on_navigation_agent_2d_velocity_computed(safe_velocity):
+	velocity = safe_velocity

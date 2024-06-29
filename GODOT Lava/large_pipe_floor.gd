@@ -1,10 +1,10 @@
 extends Node2D
 
 var is_active = true
-var enemy_pool = [Enemies.drop , Enemies.puddle]
+var enemy_pool = [Enemies.twins]
 var wait_time = 2
 
-@export var total_enemies = 3
+@export var total_enemies = 2
 var current_enemies = 0
 
 var rng = RandomNumberGenerator.new()
@@ -39,7 +39,7 @@ func _process(delta):
 
 func _on_timer_timeout():
 	if is_active and current_enemies < total_enemies:
-		var chosen = enemy_pool[rng.randi_range(0 , enemy_pool.size() - 1)]
+		var chosen = enemy_pool[rng.randi_range(0 , 0)]
 		var enemy = chosen.instantiate()
 		
 		get_tree().current_scene.add_child(enemy)
