@@ -1,11 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://b3rbgty0dohqo"]
+[gd_scene load_steps=14 format=3 uid="uid://b3rbgty0dohqo"]
 
 [ext_resource type="Script" path="res://drop_enemy.gd" id="1_okwsd"]
 [ext_resource type="Texture2D" uid="uid://8ml0gx00pxd3" path="res://Sprites/Enemies/Drop/Drop_Idle1.png" id="2_m47c8"]
 [ext_resource type="Texture2D" uid="uid://bf8fsje436j3p" path="res://Sprites/Enemies/Drop/Drop_Idle2.png" id="3_fpx3h"]
 [ext_resource type="Texture2D" uid="uid://cpj4mnggdq7dm" path="res://Sprites/Enemies/Drop/Drop_Idle3.png" id="4_hy6k7"]
 [ext_resource type="Texture2D" uid="uid://chgv1b6s3q7gw" path="res://Sprites/Enemies/Drop/Drop_Idle4.png" id="5_gnc4n"]
-[ext_resource type="Texture2D" uid="uid://d3ctck8cquhc4" path="res://Sprites/Enemies/Enemy_signal.png" id="6_t84vv"]
+[ext_resource type="Texture2D" uid="uid://1c23tsyryy20" path="res://Sprites/Enemies/Drop/Drop_Rise_1.png" id="6_rqeap"]
+[ext_resource type="Texture2D" uid="uid://e5j7jltf77oo" path="res://Sprites/Enemies/Drop/Drop_Rise_2.png" id="7_p6ucj"]
+[ext_resource type="Texture2D" uid="uid://cy6tk5nftt0sy" path="res://Sprites/Enemies/Drop/Drop_Rise_3.png" id="8_5gos0"]
+[ext_resource type="Texture2D" uid="uid://cx30ssfbu1mg7" path="res://Sprites/Enemies/Drop/Drop_Rise_4.png" id="9_6tqmw"]
+[ext_resource type="Texture2D" uid="uid://chgl680e1tfgp" path="res://Sprites/Enemies/Drop/Drop_Rise_5.png" id="10_q87vr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
 animations = [{
@@ -25,6 +29,26 @@ animations = [{
 "loop": true,
 "name": &"Idle",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_rqeap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_p6ucj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_5gos0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_6tqmw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_q87vr")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 8.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
@@ -35,19 +59,21 @@ radius = 12.0416
 
 [node name="DropEnemy" type="CharacterBody2D" groups=["enemy"]]
 collision_layer = 2
-collision_mask = 5
+collision_mask = 13
 motion_mode = 1
 wall_min_slide_angle = 0.0
-safe_margin = 0.001
+safe_margin = 0.01
 script = ExtResource("1_okwsd")
+finish_frame = 4
+metadata/type = "enemy"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_o8ikx")
-animation = &"Idle"
-autoplay = "Idle"
-frame_progress = 0.728477
+animation = &"Rise"
+autoplay = "Rise"
+frame_progress = 0.711078
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
@@ -61,13 +87,6 @@ collision_mask = 4
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
 shape = SubResource("CircleShape2D_bmap6")
 debug_color = Color(0, 0.6, 0.701961, 0)
-
-[node name="Signal" type="Sprite2D" parent="."]
-modulate = Color(1, 0, 0, 0.501961)
-z_index = -1
-texture_filter = 1
-scale = Vector2(0.101529, 0.101529)
-texture = ExtResource("6_t84vv")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
 avoidance_enabled = true

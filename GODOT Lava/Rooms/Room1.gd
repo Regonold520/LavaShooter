@@ -6,7 +6,10 @@ extends StaticBody2D
 @export var end_door_rotation : String = "east"
 @export var start_door_rotation : String = "west"
 
-var room_completed = true
+var enemy_ammount : int
+var completed_enemies : int
+
+var room_completed = false
 
 var start_door_triggered = false
 var end_door_triggered = false
@@ -20,6 +23,9 @@ func _on_door_collider_body_entered(body):
 
 
 func _process(delta):
+	if completed_enemies == enemy_ammount and !room_completed:
+		room_completed = true
+	
 	if room_completed and !end_door_triggered:
 		_door_open(end_door_tile , "end")
 	if !room_completed and !start_door_triggered:

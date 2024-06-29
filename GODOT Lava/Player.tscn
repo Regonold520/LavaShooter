@@ -47,6 +47,7 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 collision_layer = 4
 collision_mask = 10
 script = ExtResource("1_y1mu5")
@@ -56,6 +57,7 @@ position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_820f4")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 texture_filter = 1
 scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_ari48")

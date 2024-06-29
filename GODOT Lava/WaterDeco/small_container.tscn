@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://nheg25pek2nv"]
+
+[ext_resource type="Texture2D" uid="uid://cajbqab062ou4" path="res://WaterDeco_4.png" id="1_hs67m"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_im2ws"]
+size = Vector2(92.3913, 76.087)
+
+[node name="SmallContainer" type="StaticBody2D"]
+y_sort_enabled = true
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+collision_layer = 8
+collision_mask = 6
+
+[node name="Collider" type="CollisionShape2D" parent="."]
+position = Vector2(2.71739, 21.7391)
+shape = SubResource("RectangleShape2D_im2ws")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+texture = ExtResource("1_hs67m")
+
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 15.0

@@ -34,6 +34,7 @@ self_modulate = Color(1, 1, 1, 0)
 navigation_polygon = SubResource("NavigationPolygon_oounv")
 
 [node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
+z_index = -1
 texture_filter = 1
 scale = Vector2(1.78172, 1.78172)
 tile_set = ExtResource("2_q0a7b")

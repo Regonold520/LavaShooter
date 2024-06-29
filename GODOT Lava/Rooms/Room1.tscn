@@ -1,14 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://batefldinld43"]
+[gd_scene load_steps=11 format=3 uid="uid://batefldinld43"]
 
 [ext_resource type="Script" path="res://Rooms/Room1.gd" id="1_y6rxu"]
 [ext_resource type="TileSet" uid="uid://dasdagv25fusk" path="res://Rooms/Room1.tres" id="2_5xovv"]
 [ext_resource type="Script" path="res://Rooms/DoorCollider.gd" id="3_ncv4h"]
+[ext_resource type="PackedScene" uid="uid://nheg25pek2nv" path="res://WaterDeco/small_container.tscn" id="4_gabg5"]
+[ext_resource type="PackedScene" uid="uid://b5qcg20or457l" path="res://WaterDeco/large_container.tscn" id="5_gd7wc"]
+[ext_resource type="PackedScene" uid="uid://caho3udchbjg4" path="res://small_pipe_h.tscn" id="6_mjlh0"]
+[ext_resource type="PackedScene" uid="uid://btrerm4ykdpkd" path="res://small_pipe_v.tscn" id="7_dlefb"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ajoj8"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_l6glw"]
-vertices = PackedVector2Array(-523, 791, -409, -174, -409, 238, 409, 352, 543, 352, 535, 778, 409, 723, -324, 723, -324, 238, 247, -67, 238, -67, 238, -76, 247, -76, 556, -393, 552, -143, 552, -324, 409, -381, 302, -381, 409, -324, 295, -19, 295, -124, 418, -190, 418, 218, 275, -190, 190, -124, 275, 218, 190, -19, 275, 589, 96, 589, 96, 304, -10, 304, -10, 589, -190, 589, -190, 104, -275, 104, -275, -190, -190, -190, -190, -247, 275, -247)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 6), PackedInt32Array(6, 5, 0, 7), PackedInt32Array(7, 0, 2, 8), PackedInt32Array(9, 10, 11, 12), PackedInt32Array(13, 14, 15), PackedInt32Array(16, 17, 13), PackedInt32Array(16, 13, 15, 18), PackedInt32Array(19, 20, 21, 22), PackedInt32Array(23, 21, 20, 24), PackedInt32Array(19, 22, 25, 26), PackedInt32Array(25, 27, 28, 29), PackedInt32Array(30, 31, 32, 33), PackedInt32Array(33, 34, 35, 36, 24, 26), PackedInt32Array(36, 37, 38, 23, 24), PackedInt32Array(30, 33, 26, 25, 29)])
+vertices = PackedVector2Array(218, -304, 218, -153, 76, -153, -76, -304, -76, 19, 76, -47, 218, 19, 218, -47, 556, -393, 535, 778, 267, 67, 267, -96, -523, 791, -124, 67, -388, -346, -124, -352, 267, -352, 124, -96, 124, -104, 267, -104)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 3, 2, 5), PackedInt32Array(6, 4, 5, 7), PackedInt32Array(8, 9, 10, 11), PackedInt32Array(10, 9, 12, 13), PackedInt32Array(13, 12, 14, 15), PackedInt32Array(15, 14, 8), PackedInt32Array(16, 15, 8), PackedInt32Array(11, 17, 18, 19), PackedInt32Array(8, 11, 19), PackedInt32Array(16, 8, 19)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-397, -356, -535, 802, 545, 788, 567, -404)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
@@ -34,6 +38,7 @@ self_modulate = Color(1, 1, 1, 0)
 navigation_polygon = SubResource("NavigationPolygon_l6glw")
 
 [node name="TileMap" type="TileMap" parent="NavigationRegion2D"]
+z_index = -1
 texture_filter = 1
 scale = Vector2(1.78172, 1.78172)
 tile_set = ExtResource("2_5xovv")
@@ -57,5 +62,44 @@ position = Vector2(9.5, -1)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_qbpct")
 one_way_collision_margin = 128.0
+
+[node name="Deco" type="Node2D" parent="."]
+
+[node name="SmallContainer" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(78, -111)
+
+[node name="LargeContainer" parent="Deco" instance=ExtResource("5_gd7wc")]
+position = Vector2(72, -96)
+
+[node name="SmallContainer2" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(219, 17)
+
+[node name="LargeContainer2" parent="Deco" instance=ExtResource("5_gd7wc")]
+position = Vector2(213, -53)
+
+[node name="SmallContainer3" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(-76, 14)
+
+[node name="LargeContainer3" parent="Deco" instance=ExtResource("5_gd7wc")]
+position = Vector2(-30, -268)
+
+[node name="SmallContainer4" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(-17, -258)
+
+[node name="SmallContainer5" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(-39, -251)
+
+[node name="SmallContainer6" parent="Deco" instance=ExtResource("4_gabg5")]
+position = Vector2(217, -156)
+
+[node name="SmallPipe2" parent="." instance=ExtResource("6_mjlh0")]
+position = Vector2(-71, -105)
+total_enemies = 1
+
+[node name="SmallPipe3" parent="." instance=ExtResource("6_mjlh0")]
+position = Vector2(-71, -168)
+
+[node name="SmallPipe" parent="." instance=ExtResource("7_dlefb")]
+position = Vector2(64, -299)
 
 [connection signal="body_entered" from="DoorCollider" to="." method="_on_door_collider_body_entered"]

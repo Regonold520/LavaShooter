@@ -7,7 +7,7 @@
 
 [node name="Bullet" type="Area2D"]
 scale = Vector2(-0.289, -0.289)
-collision_mask = 2
+collision_mask = 26
 script = ExtResource("1_1vw5m")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

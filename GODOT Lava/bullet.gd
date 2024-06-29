@@ -10,7 +10,12 @@ func _process(delta):
 
 
 func _on_body_entered(body):
-	if body.name != "Player":
+	if body.get_meta("type") == "enemy":
 		body._on_death()
 		body._essence()
-		queue_free()
+		
+	queue_free()
+	
+
+func _on_area_entered(area):
+	print("skibidia")
