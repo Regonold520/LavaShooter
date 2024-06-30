@@ -14,7 +14,7 @@ func _process(delta):
 	if mouse_hovering:
 		info.get_child(1).text = "Name: " + item_name
 		info.get_child(2).text = "Description: " + decription
-		info.get_child(3).text = "Price: " + str(price) + " Essence"
+		info.get_child(3).text = "Price: " + "FREE"
 		
 		if Input.is_action_just_pressed("Input"):
 			if type == "Weapon":

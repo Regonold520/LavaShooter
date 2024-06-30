@@ -18,6 +18,14 @@ func _process(delta):
 		elif direction.x < 0:
 			$Sprite2D.scale.x = 0.184
 		move_and_slide()
+		
+		if Input.is_action_pressed("Sprint") and velocity != Vector2(0,0):
+			speed = 135
+			$Sprite2D.speed_scale = 1.3
+		if !Input.is_action_pressed("Sprint") and velocity != Vector2(0,0):
+			speed = 100
+			$Sprite2D.speed_scale = 1
+	
 	
 	Health = PlayerVars.Health
 	_gun_rotation()
