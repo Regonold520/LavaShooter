@@ -7,9 +7,9 @@ func _process(delta):
 	position += move_vec * delta
 
 func _on_body_entered(body):
-	print(body)
 	if body.get_meta("type") == "player":
 		PlayerVars.Health -= 5
+		body.find_child("EnemyDeath").play()
 		queue_free()
 		
 	if body.get_meta("type") != "player":

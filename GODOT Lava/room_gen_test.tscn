@@ -17,3 +17,11 @@ speed = 100
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 zoom = Vector2(3, 3)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="EnemyCheck" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[connection signal="timeout" from="EnemyCheck" to="RoomHolder" method="_on_enemy_check_timeout"]

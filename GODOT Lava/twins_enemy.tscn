@@ -72,6 +72,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.01
 script = ExtResource("1_up4ec")
+health = 2
 finish_frame = 6
 metadata/type = "enemy"
 

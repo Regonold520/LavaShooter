@@ -1,0 +1,136 @@
+[gd_scene load_steps=19 format=3 uid="uid://ccyp3hbsqxptp"]
+
+[ext_resource type="Script" path="res://sniper_enemy.gd" id="1_pisdc"]
+[ext_resource type="Texture2D" uid="uid://cjc2wsyabe56m" path="res://Sprites/Enemies/Sniper/Sniper_Compress_1.png" id="2_tcanr"]
+[ext_resource type="Texture2D" uid="uid://d31ijk6l60yci" path="res://Sprites/Enemies/Sniper/Sniper_Compress_2.png" id="3_lakoc"]
+[ext_resource type="Texture2D" uid="uid://d2njxujn7ie8c" path="res://Sprites/Enemies/Sniper/Sniper_Compress_3.png" id="4_70xf2"]
+[ext_resource type="Texture2D" uid="uid://d6plekjpu2dw" path="res://Sprites/Enemies/Sniper/Sniper_Compress_4.png" id="5_q7rh1"]
+[ext_resource type="Texture2D" uid="uid://c1hhnnguwjvl4" path="res://Sprites/Enemies/Sniper/Sniper_Idle_1.png" id="6_55ecj"]
+[ext_resource type="Texture2D" uid="uid://rseen31wgvtb" path="res://Sprites/Enemies/Sniper/Sniper_Idle_2.png" id="7_8qu1u"]
+[ext_resource type="Texture2D" uid="uid://clw8mrtvkmhc5" path="res://Sprites/Enemies/Sniper/Sniper_Idle_3.png" id="8_ug3lk"]
+[ext_resource type="Texture2D" uid="uid://crp876d2m61gy" path="res://Sprites/Enemies/Sniper/Sniper_Idle_4.png" id="9_rhomq"]
+[ext_resource type="Texture2D" uid="uid://rsoae2g3ek7" path="res://Sprites/Enemies/Sniper/Sniper_Rise_1.png" id="10_vlybd"]
+[ext_resource type="Texture2D" uid="uid://bkpmdmm4mrw06" path="res://Sprites/Enemies/Sniper/Sniper_Rise_2.png" id="11_m8qwr"]
+[ext_resource type="Texture2D" uid="uid://d4awqlk48nen5" path="res://Sprites/Enemies/Sniper/Sniper_Rise_3.png" id="12_h3x5x"]
+[ext_resource type="Texture2D" uid="uid://05m3lugjopfs" path="res://Sprites/Enemies/Sniper/Sniper_Rise_4.png" id="13_mw2kp"]
+[ext_resource type="Texture2D" uid="uid://bwr40a0qeoder" path="res://Sprites/Enemies/Sniper/Sniper_Rise_5.png" id="14_fetpu"]
+[ext_resource type="Texture2D" uid="uid://c3t8me8j8w7a" path="res://Sprites/Enemies/Sniper/Sniper_Rise_6.png" id="15_whxrt"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o8ikx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_tcanr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_lakoc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_70xf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_q7rh1")
+}],
+"loop": true,
+"name": &"Compress",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_55ecj")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_8qu1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_ug3lk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_rhomq")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_vlybd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_m8qwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_h3x5x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_mw2kp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_fetpu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_whxrt")
+}],
+"loop": true,
+"name": &"Rise",
+"speed": 9.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ndmxe"]
+size = Vector2(14, 10)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bmap6"]
+radius = 12.0416
+
+[node name="SniperEnemy" type="CharacterBody2D" groups=["enemy"]]
+collision_layer = 2
+collision_mask = 13
+motion_mode = 1
+wall_min_slide_angle = 0.0
+safe_margin = 0.01
+script = ExtResource("1_pisdc")
+finish_frame = 5
+metadata/type = "enemy"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.184, 0.184)
+sprite_frames = SubResource("SpriteFrames_o8ikx")
+animation = &"Compress"
+autoplay = "Rise"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 1
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_ndmxe")
+
+[node name="Detection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Detection"]
+shape = SubResource("CircleShape2D_bmap6")
+debug_color = Color(0, 0.6, 0.701961, 0)
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+avoidance_enabled = true
+time_horizon_obstacles = 1.14
+max_speed = 70.0
+avoidance_layers = 2
+avoidance_mask = 2
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0.377456, 0.700352, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.05
+autostart = true
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
+[connection signal="body_exited" from="Detection" to="." method="_on_detection_body_exited"]
+[connection signal="velocity_computed" from="NavigationAgent2D" to="." method="_on_navigation_agent_2d_velocity_computed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot_timer_timeout"]

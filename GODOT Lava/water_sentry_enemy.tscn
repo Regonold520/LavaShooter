@@ -93,6 +93,9 @@ texture = ExtResource("12_jucq8")
 wait_time = 5.0
 autostart = true
 
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 0.6
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="area_entered" from="Detection" to="." method="_on_detection_area_entered"]
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]

@@ -71,9 +71,8 @@ metadata/type = "enemy"
 texture_filter = 1
 scale = Vector2(0.184, 0.184)
 sprite_frames = SubResource("SpriteFrames_o8ikx")
-animation = &"Rise"
+animation = &"Idle"
 autoplay = "Rise"
-frame_progress = 0.711078
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1

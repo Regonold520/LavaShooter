@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://d0vq34rsncrwv"]
+[gd_scene load_steps=13 format=3 uid="uid://d0vq34rsncrwv"]
 
 [ext_resource type="Script" path="res://Player.gd" id="1_y1mu5"]
 [ext_resource type="Texture2D" uid="uid://dfgsgjdhyrpml" path="res://Sprites/Lava Boi/Lava_Idle1.png" id="2_jaj55"]
@@ -7,8 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dtnb0oweee15e" path="res://Sprites/Lava Boi/Lava_Walk2.png" id="3_pa50k"]
 [ext_resource type="Texture2D" uid="uid://bhgrtynhwsvkh" path="res://Sprites/Lava Boi/Lava_Walk3.png" id="4_hykhl"]
 [ext_resource type="Texture2D" uid="uid://dhe2051woc7ok" path="res://Sprites/Lava Boi/Lava_Walk4.png" id="5_jr5rd"]
-[ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Rifle.png" id="6_2uajk"]
-[ext_resource type="Script" path="res://Gun.gd" id="9_camyv"]
+[ext_resource type="PackedScene" uid="uid://d02tvcr3lrnr3" path="res://Scenes/Weapons/Pistol.tscn" id="8_1uvt1"]
 [ext_resource type="AudioStream" uid="uid://c4vpvt36m0yoy" path="res://laserShoot.wav" id="10_ekfio"]
 [ext_resource type="AudioStream" uid="uid://odkeyba2pcka" path="res://hitHurt.wav" id="11_p66hi"]
 
@@ -67,24 +66,9 @@ autoplay = "Idle"
 frame_progress = 0.906479
 
 [node name="GunPoint" type="Node2D" parent="."]
+z_index = 1
 
-[node name="Gun" type="Node2D" parent="GunPoint"]
-position = Vector2(0, -13)
-rotation = 1.5708
-scale = Vector2(0.149795, 0.149795)
-script = ExtResource("9_camyv")
-
-[node name="Cooldown" type="Timer" parent="GunPoint/Gun"]
-one_shot = true
-
-[node name="FirePoint" type="Node2D" parent="GunPoint/Gun"]
-position = Vector2(-53.4063, 0.00019333)
-
-[node name="GunSprite" type="Sprite2D" parent="GunPoint/Gun"]
-texture_filter = 1
-position = Vector2(1.90735e-06, -4.76837e-07)
-scale = Vector2(1.01515, 1.01515)
-texture = ExtResource("6_2uajk")
+[node name="Pistol" parent="GunPoint" instance=ExtResource("8_1uvt1")]
 
 [node name="AnimChange" type="Timer" parent="."]
 wait_time = 0.2
@@ -96,5 +80,8 @@ stream = ExtResource("10_ekfio")
 [node name="EnemyDeath" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_p66hi")
 
-[connection signal="timeout" from="GunPoint/Gun/Cooldown" to="GunPoint/Gun" method="_on_cooldown_timeout"]
+[node name="NavigationObstacle2D" type="NavigationObstacle2D" parent="."]
+radius = 149.51
+avoidance_layers = 2
+
 [connection signal="timeout" from="AnimChange" to="." method="_on_anim_change_timeout"]

@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://d02tvcr3lrnr3"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Pistol.gd" id="1_48va3"]
+[ext_resource type="Texture2D" uid="uid://dng8xi0g7v7e7" path="res://Sprites/Weapons/Pistol.png" id="2_xyow8"]
+
+[node name="Pistol" type="Node2D"]
+position = Vector2(-4.54747e-13, -15)
+rotation = 1.5708
+scale = Vector2(0.149795, 0.149795)
+script = ExtResource("1_48va3")
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="FirePoint" type="Node2D" parent="."]
+position = Vector2(-3.8147e-06, -2.91038e-10)
+
+[node name="GunSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(26.7032, -9.71422e-05)
+scale = Vector2(1.01515, 1.01515)
+texture = ExtResource("2_xyow8")
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

@@ -1,7 +1,7 @@
 extends Node2D
 
 var is_active = true
-var enemy_pool = [Enemies.drop , Enemies.puddle]
+var enemy_pool = [Enemies.drop , Enemies.puddle , Enemies.sniper]
 var wait_time = 2
 
 @export var total_enemies = 3

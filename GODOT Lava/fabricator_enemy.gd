@@ -1,21 +1,6 @@
-extends CharacterBody2D
+extends Enemy
 
-var rng = RandomNumberGenerator.new()
-var start_finished = false
 var fabrication = false
-
-@export var finish_frame = 0
-
-@export var speed = 50
-var acceleration = 11
-var direction
-
-var health = 5
-
-@onready var agent : NavigationAgent2D = $NavigationAgent2D
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	$AnimatedSprite2D.animation = "Rise"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -54,52 +39,9 @@ func _process(delta):
 			_on_navigation_agent_2d_velocity_computed(velocity)
 		
 		move_and_slide()
-	
-
-
-func _update_anim(player):
-	if player.position > position:
-		$AnimatedSprite2D.scale.x = -0.184
-	if player.position < position:
-		$AnimatedSprite2D.scale.x = 0.184
-	
-
-func _on_detection_body_entered(body):
-	if body.name == "Player":
-		_on_death()
-		PlayerVars.Health -= 5
-	
-func _essence():
-	var essence = PlayerVars.Essence.instantiate()
-	essence.position = position
-	get_tree().current_scene.add_child(essence)
-		
-func _on_death():
-	health -= 1
-	
-	if health == 0:
-		var audio = Enemies.enemy_audio.instantiate()
-		get_tree().current_scene.add_child(audio)
-		
-		var player = get_tree().current_scene.find_child('Player')
-		player.find_child('EnemyDeath').play()
-		
-		get_parent().find_child("RoomHolder").get_child(0).completed_enemies += 1
-		
-		queue_free()
-	
-
-
-func _on_timer_timeout():
-	var player = get_tree().current_scene.find_child('Player')
-	agent.target_position = player.global_position
-
-
-func _on_navigation_agent_2d_velocity_computed(safe_velocity):
-	velocity = safe_velocity
-
 
 func _on_turret_creation_timeout():
+	get_tree().current_scene.find_child("RoomHolder").get_child(0).enemy_ammount += 1
 	speed = 0
 	$AnimatedSprite2D.animation = "Create"
 	fabrication = true

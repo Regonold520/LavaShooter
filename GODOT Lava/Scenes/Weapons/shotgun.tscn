@@ -1,0 +1,25 @@
+[gd_scene load_steps=3 format=3 uid="uid://b4eenylfmep8e"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Shotgun.gd" id="1_xuu61"]
+[ext_resource type="Texture2D" uid="uid://b2l3dqec5xqac" path="res://Sprites/Weapons/Shotgun.png" id="2_cmhjc"]
+
+[node name="Shotgun" type="Node2D"]
+position = Vector2(-4.54747e-13, -15)
+rotation = 1.5708
+scale = Vector2(0.149795, 0.149795)
+script = ExtResource("1_xuu61")
+cooldown = 0.6
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="FirePoint" type="Node2D" parent="."]
+position = Vector2(-53.4063, 0.00019333)
+
+[node name="GunSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1.90735e-06, -4.76837e-07)
+scale = Vector2(1.01515, 1.01515)
+texture = ExtResource("2_cmhjc")
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

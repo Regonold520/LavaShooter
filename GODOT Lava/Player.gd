@@ -4,16 +4,20 @@ extends CharacterBody2D
 var is_idle = false
 var tween = Tween.new()
 
+var lock_movement = false
+
 var Health = 100
 
 func _process(delta):
-	var direction = Input.get_vector('Left','Right','Up','Down')
-	velocity = direction * speed
-	if direction.x > 0:
-		$Sprite2D.scale.x = -0.184
-	elif direction.x < 0:
-		$Sprite2D.scale.x = 0.184
-	move_and_slide()
+	
+	if !lock_movement:
+		var direction = Input.get_vector('Left','Right','Up','Down')
+		velocity = direction * speed
+		if direction.x > 0:
+			$Sprite2D.scale.x = -0.184
+		elif direction.x < 0:
+			$Sprite2D.scale.x = 0.184
+		move_and_slide()
 	
 	Health = PlayerVars.Health
 	_gun_rotation()
@@ -29,7 +33,7 @@ func _update_stats():
 func _gun_rotation():
 	$GunPoint.look_at(get_global_mouse_position())
 	$GunPoint.rotation_degrees += 90
-	var flip_pos = $GunPoint.global_position - $GunPoint/Gun.global_position
+	var flip_pos = $GunPoint.global_position - $GunPoint.get_child(0).global_position
 	
 	
 	if flip_pos.x > 0:

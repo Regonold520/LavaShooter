@@ -1,7 +1,7 @@
 extends Node2D
 
 var is_active = true
-var enemy_pool = [Enemies.fabricator]
+var enemy_pool = [Enemies.fabricator , Enemies.twins]
 var wait_time = 2
 
 @export var total_enemies = 2
@@ -39,7 +39,7 @@ func _process(delta):
 
 func _on_timer_timeout():
 	if is_active and current_enemies < total_enemies:
-		var chosen = enemy_pool[rng.randi_range(0 , 0)]
+		var chosen = enemy_pool[rng.randi_range(0 , 1)]
 		var enemy = chosen.instantiate()
 		
 		get_tree().current_scene.add_child(enemy)
@@ -50,4 +50,3 @@ func _on_timer_timeout():
 		
 	if current_enemies == total_enemies and is_active:
 		is_active = false
-		print("incremented")

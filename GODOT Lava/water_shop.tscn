@@ -1,0 +1,154 @@
+[gd_scene load_steps=12 format=3 uid="uid://bxa65yhqxwi4s"]
+
+[ext_resource type="Script" path="res://water_shop.gd" id="1_a57iw"]
+[ext_resource type="Texture2D" uid="uid://chwd8hs13tmnu" path="res://Ship_1.png" id="1_fr8ap"]
+[ext_resource type="Texture2D" uid="uid://bbsak2sgirti2" path="res://Ship_2.png" id="2_4b15l"]
+[ext_resource type="Script" path="res://Slot.gd" id="4_5xqn5"]
+[ext_resource type="Texture2D" uid="uid://beyoyallwgng2" path="res://Shop_Item_UI2.png" id="4_26u2r"]
+[ext_resource type="Texture2D" uid="uid://stt3ee8b5ynq" path="res://Shop_Description_UI2.png" id="5_vqq1o"]
+[ext_resource type="FontFile" uid="uid://dha74ntiyh1rl" path="res://Minercraftory.ttf" id="6_jv3d6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jx1p0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fr8ap")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_4b15l")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dd3jo"]
+size = Vector2(293.478, 168.478)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_22ykq"]
+radius = 147.842
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6wel"]
+size = Vector2(120.354, 120.354)
+
+[node name="WaterShop" type="Area2D"]
+scale = Vector2(0.184, 0.184)
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("1_a57iw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jx1p0")
+autoplay = "default"
+frame_progress = 0.859004
+
+[node name="Area2D" type="StaticBody2D" parent="."]
+collision_layer = 8
+collision_mask = 6
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-5.18301e-06, 46.1957)
+shape = SubResource("RectangleShape2D_dd3jo")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 114.13)
+shape = SubResource("CircleShape2D_22ykq")
+
+[node name="Holder" type="Node2D" parent="."]
+visible = false
+z_index = 100
+scale = Vector2(1.89659, 1.89659)
+
+[node name="Slot1" type="Area2D" parent="Holder"]
+position = Vector2(-141.304, -114.13)
+script = ExtResource("4_5xqn5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Holder/Slot1"]
+scale = Vector2(0.386136, 0.386136)
+texture = ExtResource("4_26u2r")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Holder/Slot1"]
+scale = Vector2(0.45, 0.45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Slot1"]
+position = Vector2(0.891495, -0.492447)
+shape = SubResource("RectangleShape2D_p6wel")
+
+[node name="Slot2" type="Area2D" parent="Holder"]
+position = Vector2(141.304, -114.13)
+script = ExtResource("4_5xqn5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Holder/Slot2"]
+scale = Vector2(0.386136, 0.386136)
+texture = ExtResource("4_26u2r")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Holder/Slot2"]
+scale = Vector2(0.45, 0.45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Slot2"]
+position = Vector2(0.891495, -0.492447)
+shape = SubResource("RectangleShape2D_p6wel")
+
+[node name="Slot3" type="Area2D" parent="Holder"]
+position = Vector2(0, -157.609)
+script = ExtResource("4_5xqn5")
+
+[node name="Sprite2D" type="Sprite2D" parent="Holder/Slot3"]
+scale = Vector2(0.386136, 0.386136)
+texture = ExtResource("4_26u2r")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Holder/Slot3"]
+scale = Vector2(0.45, 0.45)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Holder/Slot3"]
+position = Vector2(0.891495, -0.492447)
+shape = SubResource("RectangleShape2D_p6wel")
+
+[node name="DescriptionBox" type="Node2D" parent="Holder"]
+position = Vector2(-40.1179, 5.73112)
+
+[node name="Sprite2D3" type="Sprite2D" parent="Holder/DescriptionBox"]
+position = Vector2(-174.799, 80.2357)
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("5_vqq1o")
+
+[node name="Name" type="Label" parent="Holder/DescriptionBox"]
+offset_left = -292.0
+offset_top = -29.0
+offset_right = -57.0
+offset_bottom = 192.0
+scale = Vector2(0.286, 0.286)
+theme_override_fonts/font = ExtResource("6_jv3d6")
+theme_override_font_sizes/font_size = 40
+text = "Name: Sniper"
+
+[node name="Description" type="Label" parent="Holder/DescriptionBox"]
+offset_left = -292.0
+offset_top = 6.0
+offset_right = 529.0
+offset_bottom = 566.0
+scale = Vector2(0.28594, 0.28594)
+theme_override_fonts/font = ExtResource("6_jv3d6")
+theme_override_font_sizes/font_size = 40
+text = "Description: A long ranged weapon with high damage"
+autowrap_mode = 2
+
+[node name="Price" type="Label" parent="Holder/DescriptionBox"]
+offset_left = -289.422
+offset_top = 169.068
+offset_right = 531.578
+offset_bottom = 232.068
+scale = Vector2(0.286, 0.286)
+theme_override_fonts/font = ExtResource("6_jv3d6")
+theme_override_font_sizes/font_size = 40
+text = "Price: 5 Essence"
+autowrap_mode = 2
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="mouse_entered" from="Holder/Slot1" to="Holder/Slot1" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Holder/Slot1" to="Holder/Slot1" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Holder/Slot2" to="Holder/Slot2" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Holder/Slot2" to="Holder/Slot2" method="_on_mouse_exited"]
+[connection signal="mouse_entered" from="Holder/Slot3" to="Holder/Slot3" method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="Holder/Slot3" to="Holder/Slot3" method="_on_mouse_exited"]

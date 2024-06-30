@@ -1,0 +1,30 @@
+{
+	"Weapons": {
+		"1": {
+			"Name": "Sniper",
+			"Texture": "res://Sprites/Weapons/Sniper.png",
+			"Price": 5,
+			"Decription": "A long ranged weapon with high damage",
+			"Type": "Weapon",
+			"Item_Scene": "res://Scenes/Weapons/Sniper.tscn"
+		},
+		
+		"2": {
+			"Name": "Shotgun",
+			"Texture": "res://Sprites/Weapons/Shotgun.png",
+			"Price": 5,
+			"Decription": "A short ranged weapon with high damage and three bullets at once",
+			"Type": "Weapon",
+			"Item_Scene": "res://Scenes/Weapons/Shotgun.tscn"
+		},
+		
+		"3": {
+			"Name": "Rifle",
+			"Texture": "res://Sprites/Weapons/Rifle.png",
+			"Price": 10,
+			"Decription": "A medium ranged weapon with medium damage and a fast fire rate",
+			"Type": "Weapon",
+			"Item_Scene": "res://Scenes/Weapons/Rifle.tscn"
+		}
+	}
+}

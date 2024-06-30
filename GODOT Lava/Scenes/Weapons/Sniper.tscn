@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://8gktc0hc548r"]
+
+[ext_resource type="Script" path="res://Scenes/Weapons/Sniper.gd" id="1_0cfkl"]
+[ext_resource type="Texture2D" uid="uid://dog74eanr2n25" path="res://Sprites/Weapons/Sniper.png" id="2_53t3a"]
+
+[node name="Sniper" type="Node2D"]
+position = Vector2(-4.54747e-13, -15)
+rotation = 1.5708
+scale = Vector2(0.149795, 0.149795)
+script = ExtResource("1_0cfkl")
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="FirePoint" type="Node2D" parent="."]
+position = Vector2(-53.4063, 0.00019333)
+
+[node name="GunSprite" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-26.7032, 9.61883e-05)
+scale = Vector2(1.01515, 1.01515)
+texture = ExtResource("2_53t3a")
+
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]

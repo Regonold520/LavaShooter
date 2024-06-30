@@ -9,7 +9,7 @@ extends StaticBody2D
 var enemy_ammount : int
 var completed_enemies : int
 
-var room_completed = false
+@export var room_completed = false
 
 var start_door_triggered = false
 var end_door_triggered = false
@@ -25,7 +25,7 @@ func _on_door_collider_body_entered(body):
 
 func _process(delta):
 	
-	print(enemy_ammount , " AND " , completed_enemies)
+	
 	if completed_enemies == enemy_ammount and !room_completed:
 		room_completed = true
 		find_child('DoorOpen').play()

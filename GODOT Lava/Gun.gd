@@ -3,7 +3,7 @@ extends Node2D
 var Bullet = preload("res://bullet.tscn")
 var can_shoot = true
 
-@export var cooldown = 1.0
+@export var cooldown = 0.3
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

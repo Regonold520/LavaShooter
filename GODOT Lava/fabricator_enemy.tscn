@@ -100,6 +100,7 @@ motion_mode = 1
 wall_min_slide_angle = 0.0
 safe_margin = 0.01
 script = ExtResource("1_fmer1")
+health = 5
 finish_frame = 6
 metadata/type = "enemy"
 
@@ -134,7 +135,7 @@ wait_time = 0.05
 autostart = true
 
 [node name="TurretCreation" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.5
 autostart = true
 
 [connection signal="body_entered" from="Detection" to="." method="_on_detection_body_entered"]
