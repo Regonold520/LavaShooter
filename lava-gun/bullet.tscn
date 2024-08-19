@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://bub28pliw08td"]
+
+[ext_resource type="Script" path="res://Bullet.cs" id="1_a1b8f"]
+[ext_resource type="Texture2D" uid="uid://kx6vjx6gha66" path="res://Sprites/Weapons/Ammo/Bullet.png" id="2_b883t"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f0o48"]
+size = Vector2(20, 10)
+
+[node name="Bullet" type="Area2D"]
+script = ExtResource("1_a1b8f")
+
+[node name="Texture" type="Sprite2D" parent="."]
+scale = Vector2(-0.572587, 0.572587)
+texture = ExtResource("2_b883t")
+
+[node name="Expiration" type="Timer" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_f0o48")

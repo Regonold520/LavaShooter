@@ -1,5 +1,160 @@
-[gd_scene format=3 uid="uid://k3inkj60gelt"]
+[gd_scene load_steps=15 format=3 uid="uid://k3inkj60gelt"]
+
+[ext_resource type="Script" path="res://Player.cs" id="1_kaops"]
+[ext_resource type="Texture2D" uid="uid://dfgsgjdhyrpml" path="res://Sprites/LavaGuy/Lava_Idle1.png" id="2_mi48j"]
+[ext_resource type="Texture2D" uid="uid://twiu8fjx4une" path="res://Sprites/LavaGuy/Lava_Idle2.png" id="3_ta6sh"]
+[ext_resource type="Texture2D" uid="uid://c7h8whtioa13" path="res://Sprites/LavaGuy/Lava_Walk1.png" id="4_aalmi"]
+[ext_resource type="Texture2D" uid="uid://dtnb0oweee15e" path="res://Sprites/LavaGuy/Lava_Walk2.png" id="5_cgkig"]
+[ext_resource type="Texture2D" uid="uid://bhgrtynhwsvkh" path="res://Sprites/LavaGuy/Lava_Walk3.png" id="6_fxm3j"]
+[ext_resource type="Texture2D" uid="uid://dhe2051woc7ok" path="res://Sprites/LavaGuy/Lava_Walk4.png" id="7_heun7"]
+[ext_resource type="Texture2D" uid="uid://jtxhy5qyiuw6" path="res://Sprites/Weapons/Rifle.png" id="8_cwsrx"]
+[ext_resource type="Script" path="res://Weapon.cs" id="8_ohk8l"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1cbyu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mi48j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ta6sh")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_aalmi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_cgkig")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_fxm3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_heun7")
+}],
+"loop": true,
+"name": &"Walk",
+"speed": 9.0
+}]
+
+[sub_resource type="Animation" id="Animation_iferb"]
+resource_name = "Shoot"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.7),
+"transitions": PackedFloat32Array(0.133972, 1.31951, 6.9644),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(20, -20), Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.7),
+"transitions": PackedFloat32Array(0.133972, 1.31951, 6.9644),
+"update": 0,
+"values": [0.0, 0.567232, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_nedrr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Texture:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Texture:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lrbvt"]
+_data = {
+"RESET": SubResource("Animation_nedrr"),
+"Shoot": SubResource("Animation_iferb")
+}
+
+[sub_resource type="Gradient" id="Gradient_mfn3r"]
+offsets = PackedFloat32Array(0, 0.373333)
+colors = PackedColorArray(0.94902, 0.0823529, 0, 1, 1, 1, 1, 0)
 
 [node name="MainScene" type="Node2D"]
+texture_filter = 1
 
 [node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_kaops")
+
+[node name="Texture" type="AnimatedSprite2D" parent="Player"]
+sprite_frames = SubResource("SpriteFrames_1cbyu")
+animation = &"Idle"
+autoplay = "Idle"
+frame_progress = 0.871006
+
+[node name="AnimTimer" type="Timer" parent="Player/Texture"]
+wait_time = 0.1
+autostart = true
+
+[node name="WeaponHolder" type="Node2D" parent="Player"]
+
+[node name="Rifle" type="Node2D" parent="Player/WeaponHolder"]
+position = Vector2(-101, 0)
+script = ExtResource("8_ohk8l")
+
+[node name="Texture" type="Sprite2D" parent="Player/WeaponHolder/Rifle"]
+texture = ExtResource("8_cwsrx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/WeaponHolder/Rifle"]
+libraries = {
+"": SubResource("AnimationLibrary_lrbvt")
+}
+
+[node name="ShootParticles" type="CPUParticles2D" parent="Player/WeaponHolder/Rifle"]
+position = Vector2(-45, -6)
+scale = Vector2(-1, 1)
+emitting = false
+one_shot = true
+explosiveness = 1.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 323.23
+initial_velocity_max = 474.75
+scale_amount_min = 7.0
+scale_amount_max = 7.0
+split_scale = true
+scale_curve_x = null
+scale_curve_y = null
+color = Color(0.94902, 0.0823529, 0, 1)
+color_ramp = SubResource("Gradient_mfn3r")
+
+[node name="FirePoint" type="Marker2D" parent="Player/WeaponHolder/Rifle"]
+position = Vector2(-35, -10)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.525, 0.525)

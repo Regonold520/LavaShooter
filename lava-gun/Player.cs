@@ -1,0 +1,91 @@
+using Godot;
+using System;
+
+public partial class Player : CharacterBody2D
+{
+	public float Speed = 300.0f;
+	private Vector2 direction;
+
+	public override void _Ready()
+	{
+		var timer = (Timer) FindChild("Texture").FindChild("AnimTimer");
+
+		timer.Timeout += AnimTimer;
+	}
+
+	public override void _PhysicsProcess(double delta)
+	{
+		direction = Input.GetVector("Left", "Right", "Up", "Down");
+		
+		Velocity = direction * Speed;
+
+		MoveAndSlide();
+		HandleTexture();
+		HandleWeapon();
+	}
+
+	private void HandleTexture()
+	{
+		var texture = (AnimatedSprite2D) FindChild("Texture");
+		
+		if (direction.X > 0)
+		{
+			texture.Scale = new Vector2(-1 , 1);
+		}
+		if (direction.X < 0)
+		{
+			texture.Scale = new Vector2(1 , 1);
+		}
+		
+	}
+
+	private void AnimTimer()
+	{
+		var texture = (AnimatedSprite2D) FindChild("Texture");
+		
+		if (Velocity != new Vector2(0, 0))
+		{
+			texture.Animation = "Walk";
+		}
+		else
+		{
+			texture.Animation = "Idle";
+		}
+	}
+
+
+	private void HandleWeapon()
+	{
+		var texture = (AnimatedSprite2D) FindChild("Texture");
+		
+		var WeaponPoint = (Node2D)FindChild("WeaponHolder");
+		var Weapon = (Node2D) WeaponPoint.GetChild(0);
+		
+		WeaponPoint.LookAt(GetGlobalMousePosition());
+		WeaponPoint.RotationDegrees -= 180;
+		var flip_pos = WeaponPoint.GlobalPosition - Weapon.GlobalPosition;
+		
+		if (Velocity == new Vector2(0, 0))
+		{
+			if (flip_pos.X > 0)
+			{
+				texture.Scale = new Vector2(1, 1);
+			}
+			if (flip_pos.X <= 0)
+			{
+				texture.Scale = new Vector2(-1, 1);
+			}
+		}
+	
+	
+		if (flip_pos.X < 0)
+		{
+			WeaponPoint.Scale = new Vector2(1, -1);
+		}
+
+		else if (flip_pos.X > 0)
+		{
+			WeaponPoint.Scale = new Vector2(1, 1);
+		}
+	}
+}
