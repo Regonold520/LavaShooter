@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://cepymdg7necah"]
+
+[ext_resource type="Texture2D" uid="uid://dwd3yhgs4p1p4" path="res://Sprites/Weapons/Ammo/Shoot_particle.png" id="1_iehpj"]
+[ext_resource type="Script" path="res://Particles/WeaponParticles/Particle.cs" id="1_y2vsk"]
+
+[sub_resource type="Gradient" id="Gradient_mfn3r"]
+offsets = PackedFloat32Array(0, 0.373333)
+colors = PackedColorArray(0.94902, 0.0823529, 0, 1, 1, 1, 1, 0)
+
+[node name="ShootParticles" type="CPUParticles2D"]
+position = Vector2(-45, -6)
+scale = Vector2(-1, 1)
+emitting = false
+one_shot = true
+explosiveness = 1.0
+texture = ExtResource("1_iehpj")
+gravity = Vector2(0, 0)
+initial_velocity_min = 323.23
+initial_velocity_max = 474.75
+angular_velocity_min = -130.91
+angular_velocity_max = 232.73
+scale_amount_min = 0.5
+scale_amount_max = 0.5
+split_scale = true
+scale_curve_x = null
+scale_curve_y = null
+color = Color(0.94902, 0.0823529, 0, 1)
+color_ramp = SubResource("Gradient_mfn3r")
+script = ExtResource("1_y2vsk")

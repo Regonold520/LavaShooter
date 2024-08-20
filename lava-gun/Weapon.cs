@@ -5,26 +5,42 @@ using System.Security.AccessControl;
 public partial class Weapon : Node2D
 {
 	private AnimationPlayer animation;
-	private CpuParticles2D particles;
 	private Marker2D firepoint;
+	private Timer cooldownTimer;
 	
 	private PackedScene BulletScene = GD.Load<PackedScene>("res://bullet.tscn");
+	private PackedScene ParticlesScene = GD.Load<PackedScene>("res://Particles/WeaponParticles/shoot_particles.tscn");
+	
+	[Export]
+	public float cooldown = 2f;
+
+	private bool canShoot = true;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		animation = (AnimationPlayer) FindChild("AnimationPlayer");
-		particles = (CpuParticles2D) FindChild("ShootParticles");
+		animation.SpeedScale = cooldown / cooldown / cooldown;
+		
 		firepoint = (Marker2D) FindChild("FirePoint");
+		
+		cooldownTimer = (Timer)FindChild("Cooldown");
+		cooldownTimer.WaitTime = cooldown;
+		cooldownTimer.Timeout += CooldownFinshed;
+		cooldownTimer.Start();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("Click"))
+		if (Input.IsActionJustPressed("Click") && canShoot)
 		{
+			canShoot = false;
+			
 			animation.Play("Shoot");
-			particles.Emitting = true;
+			var particle = (CpuParticles2D) ParticlesScene.Instantiate();
+			firepoint.AddChild(particle);
+			particle.Emitting = true;
 
 			var bullet = BulletScene.Instantiate();
 			GetTree().CurrentScene.AddChild(bullet);
@@ -32,6 +48,13 @@ public partial class Weapon : Node2D
 			bullet.Set("rotation_degrees", GlobalRotationDegrees - 180);
 			bullet.Set("expiration", 20);
 			bullet.Set("speed", 2000f);
+			
+			cooldownTimer.Start();
 		}
+	}
+
+	private void CooldownFinshed()
+	{
+		canShoot = true;
 	}
 }

@@ -4,6 +4,8 @@ using System;
 public partial class Player : CharacterBody2D
 {
 	public float Speed = 300.0f;
+	private float sensitivity = 1250.0f;
+	
 	private Vector2 direction;
 
 	public override void _Ready()
@@ -22,6 +24,23 @@ public partial class Player : CharacterBody2D
 		MoveAndSlide();
 		HandleTexture();
 		HandleWeapon();
+		HandleController(delta);
+	}
+
+	private void HandleController(double delta)
+	{
+		float rightStickX = Input.GetActionStrength("StickR") - Input.GetActionStrength("StickL");
+		float rightStickY = Input.GetActionStrength("StickD") - Input.GetActionStrength("StickU");
+
+		// Calculate the mouse movement
+		Vector2 mouseMovement = new Vector2(rightStickX, rightStickY) * sensitivity * new Vector2((float) delta ,(float) delta);
+
+		// Get the current mouse position
+		Vector2 currentMousePos = GetViewport().GetMousePosition();
+
+		// Update the mouse position
+		Vector2 newMousePos = currentMousePos + mouseMovement;
+		Input.WarpMouse(newMousePos);
 	}
 
 	private void HandleTexture()
