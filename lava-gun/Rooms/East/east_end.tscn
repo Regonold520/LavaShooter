@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://dvce6ytiq4lc1"]
+
+[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_lybve"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_epanf"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rx2x"]
+texture = ExtResource("2_lybve")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuvsj"]
+texture = ExtResource("3_epanf")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_mjv84"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_8rx2x")
+sources/1 = SubResource("TileSetAtlasSource_vuvsj")
+
+[node name="EastRoom" type="Node2D"]
+scale = Vector2(10, 10)
+
+[node name="Entrance" type="Marker2D" parent="."]
+position = Vector2(0.000404358, 0.000404358)
+
+[node name="Floor" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(-40, -64)
+tile_set = SubResource("TileSet_mjv84")
+
+[node name="Walls" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(-40, -49)
+tile_map_data = PackedByteArray(0, 0, 2, 0, 3, 0, 1, 0, 2, 0, 0, 0, 0, 0, 1, 0, 3, 0, 1, 0, 2, 0, 0, 0, 0, 0, 3, 0, 3, 0, 1, 0, 2, 0, 0, 0, 0, 0, 0, 0, 3, 0, 1, 0, 2, 0, 0, 0, 0, 0, 4, 0, 3, 0, 1, 0, 2, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_mjv84")

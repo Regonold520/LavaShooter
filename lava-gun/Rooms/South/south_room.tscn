@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://561ed478dy1h"]
+[gd_scene load_steps=9 format=4 uid="uid://561ed478dy1h"]
 
 [ext_resource type="Script" path="res://Room.cs" id="1_jprlw"]
 [ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_7etfs"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_ufc5x"]
+[ext_resource type="FontFile" uid="uid://cwmrjr01v25g8" path="res://Pixel.ttf" id="4_uud7q"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kbaiy"]
 texture = ExtResource("2_7etfs")
@@ -16,10 +18,36 @@ texture = ExtResource("2_7etfs")
 4:1/0 = 0
 5:1/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_823y5"]
-sources/0 = SubResource("TileSetAtlasSource_kbaiy")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rpq8"]
+texture = ExtResource("3_ufc5x")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[node name="SouthRoom" type="Node2D"]
+[sub_resource type="TileSet" id="TileSet_823y5"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_kbaiy")
+sources/1 = SubResource("TileSetAtlasSource_8rpq8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jgoms"]
+size = Vector2(211, 137)
+
+[node name="SouthRoom" type="Area2D"]
+scale = Vector2(10, 10)
 script = ExtResource("1_jprlw")
 roomDir = "South"
 
@@ -32,14 +60,29 @@ position = Vector2(0, 0.000160217)
 position = Vector2(152, 104)
 metadata/dir = "South"
 
-[node name="Walls" type="TileMapLayer" parent="."]
-texture_filter = 1
-position = Vector2(32, 24)
-tile_map_data = PackedByteArray("AAD+//z/AAACAAAAADD///z/AAACAAAAADAAAPz/AAACAAAAADABAPz/AAACAAAAADACAPz/AAACAAAAADADAPz/AAACAAAAADAEAPz/AAACAAAAADAFAPz/AAACAAAAADAGAPz/AAACAAAAADAHAPz/AAACAAAAADAIAPz/AAACAAAAADAJAPz/AAACAAAAADAKAPz/AAACAAAAADALAP3/AAACAAAAAGALAP7/AAACAAAAAGALAP//AAACAAAAAGALAAAAAAACAAAAAGALAAEAAAACAAAAAGALAAIAAAACAAAAAGALAAMAAAACAAAAAGAKAAQAAAACAAAAAAAJAAQAAAADAAAAAGAFAAQAAAADAAAAAAAEAAMAAAACAAAAAFAEAAIAAAACAAAAAFAEAAEAAAACAAAAAFADAAAAAAACAAAAAAACAAAAAAACAAAAAAABAAAAAAACAAAAAAAAAAAAAAACAAAAAAD//wAAAAACAAAAAAD+/wAAAAACAAAAAAAEAAQAAAAAAAAAAGALAAQAAAAAAAAAADALAPz/AAAAAAAAAFAEAAAAAAADAAAAAAA=")
-tile_set = SubResource("TileSet_823y5")
-
 [node name="Floor" type="TileMapLayer" parent="."]
 texture_filter = 1
 position = Vector2(32, 24)
 tile_map_data = PackedByteArray("AAD+//3/AAAFAAAAAAD+//7/AAAFAAAAAAD+////AAAFAAAAAAD///3/AAAFAAAAAAD///7/AAAFAAAAAAD/////AAAFAAAAAAAAAP3/AAAFAAAAAAAAAP7/AAAFAAAAAAAAAP//AAAFAAAAAAABAP3/AAAFAAAAAAABAP7/AAAFAAAAAAABAP//AAAFAAAAAAACAP3/AAAFAAAAAAACAP7/AAAFAAAAAAACAP//AAAFAAAAAAADAP3/AAAFAAAAAAADAP7/AAAFAAAAAAADAP//AAAFAAAAAAAEAP3/AAAFAAAAAAAEAP7/AAAFAAAAAAAEAP//AAAFAAAAAAAFAP3/AAAFAAAAAAAFAP7/AAAFAAAAAAAFAP//AAAFAAAAAAAGAP3/AAAFAAAAAAAGAP7/AAAFAAAAAAAGAP//AAAFAAAAAAAHAP3/AAAFAAAAAAAHAP7/AAAFAAAAAAAHAP//AAAFAAAAAAAIAP3/AAAFAAAAAAAIAP7/AAAFAAAAAAAIAP//AAAFAAAAAAAJAP3/AAAFAAAAAAAJAP7/AAAFAAAAAAAJAP//AAAFAAAAAAAKAP3/AAAFAAAAAAAKAP7/AAAFAAAAAAAKAP//AAAFAAAAAAAFAAAAAAAFAAAAAAAFAAEAAAAFAAAAAAAFAAIAAAAFAAAAAAAFAAMAAAAFAAAAAAAGAAAAAAAFAAAAAAAGAAEAAAAFAAAAAAAGAAIAAAAFAAAAAAAGAAMAAAAFAAAAAAAHAAAAAAAFAAAAAAAHAAEAAAAFAAAAAAAHAAIAAAAFAAAAAAAHAAMAAAAFAAAAAAAIAAAAAAAFAAAAAAAIAAEAAAAFAAAAAAAIAAIAAAAFAAAAAAAIAAMAAAAFAAAAAAAJAAAAAAAFAAAAAAAJAAEAAAAFAAAAAAAJAAIAAAAFAAAAAAAJAAMAAAAFAAAAAAAKAAAAAAAFAAAAAAAKAAEAAAAFAAAAAAAKAAIAAAAFAAAAAAAKAAMAAAAFAAAAAAAGAAQAAAAFAAAAAAAHAAQAAAAFAAAAAAAIAAQAAAAFAAAAAAA=")
 tile_set = SubResource("TileSet_823y5")
+
+[node name="Walls" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(32, 24)
+tile_map_data = PackedByteArray("AAD+//z/AQACAAAAAAD///z/AQACAAAAAAAAAPz/AQACAAAAAAABAPz/AQACAAAAAAACAPz/AQACAAAAAAADAPz/AQACAAAAAAAEAPz/AQACAAAAAAAFAPz/AQACAAAAAAAGAPz/AQACAAAAAAAHAPz/AQACAAAAAAAIAPz/AQACAAAAAAAJAPz/AQACAAAAAAAKAPz/AQACAAAAAAALAP3/AQADAAAAABALAP7/AQADAAAAABALAP//AQADAAAAABALAAAAAQADAAAAABALAAEAAQADAAAAABALAAIAAQADAAAAABALAAMAAQADAAAAABAKAAQAAQAHAAAAAAAJAAQAAQAFAAAAAAAFAAQAAQAFAAAAABAEAAMAAQADAAAAAAAEAAIAAQADAAAAAAAEAAEAAQADAAAAAAADAAAAAQAHAAAAAAACAAAAAQAHAAAAAAABAAAAAQAHAAAAAAAAAAAAAQAHAAAAAAD//wAAAQAHAAAAAAD+/wAAAQAHAAAAAAAEAAQAAQAEAAAAAAALAAQAAQAEAAAAABALAPz/AQABAAAAABAEAAAAAQAFAAAAABA=")
+tile_set = SubResource("TileSet_823y5")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(107.5, 33.5)
+shape = SubResource("RectangleShape2D_jgoms")
+
+[node name="ChainDisplay" type="Label" parent="."]
+texture_filter = 1
+offset_left = 94.3
+offset_top = 4.8
+offset_right = 220.3
+offset_bottom = 55.8
+theme_override_fonts/font = ExtResource("4_uud7q")
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1

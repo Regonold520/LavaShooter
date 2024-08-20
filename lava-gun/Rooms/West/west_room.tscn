@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=4 uid="uid://vbjgvfxbdx3k"]
+[gd_scene load_steps=9 format=4 uid="uid://vbjgvfxbdx3k"]
 
 [ext_resource type="Script" path="res://Room.cs" id="1_vdm6v"]
 [ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_h6g6c"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_ccdc1"]
+[ext_resource type="FontFile" uid="uid://cwmrjr01v25g8" path="res://Pixel.ttf" id="4_t7iho"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sk53v"]
 texture = ExtResource("2_h6g6c")
@@ -16,10 +18,36 @@ texture = ExtResource("2_h6g6c")
 4:1/0 = 0
 5:1/0 = 0
 
-[sub_resource type="TileSet" id="TileSet_unsee"]
-sources/0 = SubResource("TileSetAtlasSource_sk53v")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cj2l8"]
+texture = ExtResource("3_ccdc1")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[node name="WestRoom" type="Node2D"]
+[sub_resource type="TileSet" id="TileSet_unsee"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_sk53v")
+sources/1 = SubResource("TileSetAtlasSource_cj2l8")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ntugc"]
+size = Vector2(162, 178)
+
+[node name="WestRoom" type="Area2D"]
+scale = Vector2(10, 10)
 script = ExtResource("1_vdm6v")
 roomDir = "West"
 
@@ -31,14 +59,29 @@ roomDir = "West"
 position = Vector2(-104, 152)
 metadata/dir = "West"
 
-[node name="Walls" type="TileMapLayer" parent="."]
-texture_filter = 1
-position = Vector2(-104, 80)
-tile_map_data = PackedByteArray("AAAAAAYAAAACAAAAAAABAAYAAAACAAAAAAACAAYAAAACAAAAAAADAAYAAAACAAAAAAAEAAYAAAACAAAAAAAFAAYAAAACAAAAAAAGAAYAAAACAAAAAAAHAAYAAAACAAAAAAAIAAYAAAACAAAAAAAJAAYAAAACAAAAAAAKAAUAAAACAAAAAGAKAAQAAAACAAAAAGAKAAMAAAACAAAAAGAKAAIAAAACAAAAAGAKAAEAAAACAAAAAGAKAAAAAAACAAAAAGAKAP//AAACAAAAAGAKAP7/AAACAAAAAGAKAP3/AAACAAAAAGAKAPz/AAACAAAAAGAJAPv/AAACAAAAADAIAPv/AAADAAAAADAEAPv/AAADAAAAAFADAPv/AAACAAAAADACAPz/AAACAAAAAFACAP3/AAACAAAAAFACAP7/AAACAAAAAFACAP//AAACAAAAAFACAAAAAAACAAAAAFACAAEAAAACAAAAAFACAAIAAAADAAAAAFABAAIAAAACAAAAADAAAAIAAAACAAAAADACAPv/AAAAAAAAAAAKAPv/AAAAAAAAAFAKAAYAAAAAAAAAADA=")
-tile_set = SubResource("TileSet_unsee")
-
 [node name="Floor" type="TileMapLayer" parent="."]
 texture_filter = 1
 position = Vector2(-104, 80)
 tile_map_data = PackedByteArray("AAAAAAMAAAAFAAAAAAAAAAQAAAAFAAAAAAAAAAUAAAAFAAAAAAABAAMAAAAFAAAAAAABAAQAAAAFAAAAAAABAAUAAAAFAAAAAAACAAMAAAAFAAAAAAACAAQAAAAFAAAAAAACAAUAAAAFAAAAAAADAAMAAAAFAAAAAAADAAQAAAAFAAAAAAADAAUAAAAFAAAAAAAEAAMAAAAFAAAAAAAEAAQAAAAFAAAAAAAEAAUAAAAFAAAAAAAFAAMAAAAFAAAAAAAFAAQAAAAFAAAAAAAFAAUAAAAFAAAAAAAGAAMAAAAFAAAAAAAGAAQAAAAFAAAAAAAGAAUAAAAFAAAAAAAHAAMAAAAFAAAAAAAHAAQAAAAFAAAAAAAHAAUAAAAFAAAAAAAIAAMAAAAFAAAAAAAIAAQAAAAFAAAAAAAIAAUAAAAFAAAAAAAJAAMAAAAFAAAAAAAJAAQAAAAFAAAAAAAJAAUAAAAFAAAAAAADAPz/AAAFAAAAAAADAP3/AAAFAAAAAAADAP7/AAAFAAAAAAADAP//AAAFAAAAAAADAAAAAAAFAAAAAAADAAEAAAAFAAAAAAADAAIAAAAFAAAAAAAEAPz/AAAFAAAAAAAEAP3/AAAFAAAAAAAEAP7/AAAFAAAAAAAEAP//AAAFAAAAAAAEAAAAAAAFAAAAAAAEAAEAAAAFAAAAAAAEAAIAAAAFAAAAAAAFAPz/AAAFAAAAAAAFAP3/AAAFAAAAAAAFAP7/AAAFAAAAAAAFAP//AAAFAAAAAAAFAAAAAAAFAAAAAAAFAAEAAAAFAAAAAAAFAAIAAAAFAAAAAAAGAPz/AAAFAAAAAAAGAP3/AAAFAAAAAAAGAP7/AAAFAAAAAAAGAP//AAAFAAAAAAAGAAAAAAAFAAAAAAAGAAEAAAAFAAAAAAAGAAIAAAAFAAAAAAAHAPz/AAAFAAAAAAAHAP3/AAAFAAAAAAAHAP7/AAAFAAAAAAAHAP//AAAFAAAAAAAHAAAAAAAFAAAAAAAHAAEAAAAFAAAAAAAHAAIAAAAFAAAAAAAIAPz/AAAFAAAAAAAIAP3/AAAFAAAAAAAIAP7/AAAFAAAAAAAIAP//AAAFAAAAAAAIAAAAAAAFAAAAAAAIAAEAAAAFAAAAAAAIAAIAAAAFAAAAAAAJAPz/AAAFAAAAAAAJAP3/AAAFAAAAAAAJAP7/AAAFAAAAAAAJAP//AAAFAAAAAAAJAAAAAAAFAAAAAAAJAAEAAAAFAAAAAAAJAAIAAAAFAAAAAAAFAPv/AAAFAAAAAAAGAPv/AAAFAAAAAAAHAPv/AAAFAAAAAAA=")
 tile_set = SubResource("TileSet_unsee")
+
+[node name="Walls" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(-104, 80)
+tile_map_data = PackedByteArray("AAAAAAYAAQAHAAAAAAABAAYAAQAHAAAAAAACAAYAAQAHAAAAAAADAAYAAQAHAAAAAAAEAAYAAQAHAAAAAAAFAAYAAQAHAAAAAAAGAAYAAQAHAAAAAAAHAAYAAQAHAAAAAAAIAAYAAQAHAAAAAAAJAAYAAQAHAAAAAAAKAAUAAQADAAAAABAKAAQAAQADAAAAABAKAAMAAQADAAAAABAKAAIAAQADAAAAABAKAAEAAQADAAAAABAKAAAAAQADAAAAABAKAP//AQADAAAAABAKAP7/AQADAAAAABAKAP3/AQADAAAAABAKAPz/AQADAAAAABAJAPv/AQACAAAAAAAIAPv/AQAGAAAAABAEAPv/AQAGAAAAAAADAPv/AQACAAAAAAACAPz/AQADAAAAAAACAP3/AQADAAAAAAACAP7/AQADAAAAAAACAP//AQADAAAAAAACAAAAAQADAAAAAAACAAEAAQADAAAAAAACAAIAAQAGAAAAAAABAAIAAQACAAAAAAAAAAIAAQACAAAAAAACAPv/AQABAAAAAAAKAPv/AQABAAAAABAKAAYAAQAEAAAAABA=")
+tile_set = SubResource("TileSet_unsee")
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2(-21, 91)
+shape = SubResource("RectangleShape2D_ntugc")
+
+[node name="ChainDisplay" type="Label" parent="."]
+texture_filter = 1
+offset_left = -64.6
+offset_top = 72.1
+offset_right = 61.4
+offset_bottom = 123.1
+theme_override_fonts/font = ExtResource("4_t7iho")
+theme_override_font_sizes/font_size = 50
+text = "1"
+horizontal_alignment = 1

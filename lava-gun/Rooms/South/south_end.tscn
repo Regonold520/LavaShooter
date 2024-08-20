@@ -1,0 +1,65 @@
+[gd_scene load_steps=6 format=3 uid="uid://uplmcjycr3ui"]
+
+[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_yy672"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_woqhk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_kbaiy"]
+texture = ExtResource("2_yy672")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rpq8"]
+texture = ExtResource("3_woqhk")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+5:0/0 = 0
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+6:0/0 = 0
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+7:0/0 = 0
+7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[sub_resource type="TileSet" id="TileSet_823y5"]
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+sources/0 = SubResource("TileSetAtlasSource_kbaiy")
+sources/1 = SubResource("TileSetAtlasSource_8rpq8")
+
+[node name="SouthRoom" type="Node2D"]
+scale = Vector2(10, 10)
+
+[node name="Entrance" type="Marker2D" parent="."]
+position = Vector2(0, 0.000160217)
+
+[node name="Exits" type="Node2D" parent="."]
+
+[node name="Exit1" type="Marker2D" parent="Exits"]
+position = Vector2(152, 104)
+metadata/dir = "South"
+
+[node name="Floor" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(32, 24)
+tile_set = SubResource("TileSet_823y5")
+
+[node name="Walls" type="TileMapLayer" parent="."]
+texture_filter = 1
+position = Vector2(16, 24)
+tile_map_data = PackedByteArray(0, 0, 254, 255, 252, 255, 1, 0, 3, 0, 0, 0, 0, 16, 254, 255, 0, 0, 1, 0, 3, 0, 0, 0, 0, 16, 254, 255, 253, 255, 1, 0, 3, 0, 0, 0, 0, 16, 254, 255, 254, 255, 1, 0, 3, 0, 0, 0, 0, 16, 254, 255, 255, 255, 1, 0, 3, 0, 0, 0, 0, 16)
+tile_set = SubResource("TileSet_823y5")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://k3inkj60gelt"]
+[gd_scene load_steps=16 format=3 uid="uid://k3inkj60gelt"]
 
 [ext_resource type="Script" path="res://Player.cs" id="1_kaops"]
 [ext_resource type="Texture2D" uid="uid://dfgsgjdhyrpml" path="res://Sprites/LavaGuy/Lava_Idle1.png" id="2_mi48j"]
@@ -103,10 +103,17 @@ _data = {
 "Shoot": SubResource("Animation_iferb")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1tgai"]
+size = Vector2(59, 48)
+
 [node name="MainScene" type="Node2D"]
 texture_filter = 1
 
+[node name="RoomGenerator" type="Node2D" parent="."]
+script = ExtResource("10_qex16")
+
 [node name="Player" type="CharacterBody2D" parent="."]
+collision_layer = 2
 script = ExtResource("1_kaops")
 
 [node name="Texture" type="AnimatedSprite2D" parent="Player"]
@@ -140,9 +147,10 @@ position = Vector2(-21, -10)
 
 [node name="Cooldown" type="Timer" parent="Player/WeaponHolder/Rifle"]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(1.35, 1.35)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(-0.5, 19)
+shape = SubResource("RectangleShape2D_1tgai")
 
-[node name="RoomGenerator" type="Node2D" parent="."]
-visible = false
-script = ExtResource("10_qex16")
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(10, 10)
+zoom = Vector2(0.105, 0.105)

@@ -3,7 +3,7 @@ using System;
 
 public partial class Player : CharacterBody2D
 {
-	public float Speed = 300.0f;
+	public float Speed = 500.0f;
 	private float sensitivity = 1250.0f;
 	
 	private Vector2 direction;
