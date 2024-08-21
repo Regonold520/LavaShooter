@@ -1,10 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://by3lisfhbcha2"]
+[gd_scene load_steps=6 format=3 uid="uid://b4crsbv3e0hlm"]
 
-[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_wwff0"]
-[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_k8x7j"]
+[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="1_ajbeg"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="2_tootj"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_frl2n"]
-texture = ExtResource("2_wwff0")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sk53v"]
+texture = ExtResource("1_ajbeg")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -16,8 +16,8 @@ texture = ExtResource("2_wwff0")
 4:1/0 = 0
 5:1/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cdv4s"]
-texture = ExtResource("3_k8x7j")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_cj2l8"]
+texture = ExtResource("2_tootj")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
@@ -35,13 +35,13 @@ texture = ExtResource("3_k8x7j")
 7:0/0 = 0
 7:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
-[sub_resource type="TileSet" id="TileSet_xy3ks"]
+[sub_resource type="TileSet" id="TileSet_unsee"]
 physics_layer_0/collision_layer = 1
 physics_layer_0/collision_mask = 2
-sources/0 = SubResource("TileSetAtlasSource_frl2n")
-sources/2 = SubResource("TileSetAtlasSource_cdv4s")
+sources/0 = SubResource("TileSetAtlasSource_sk53v")
+sources/1 = SubResource("TileSetAtlasSource_cj2l8")
 
-[node name="NorthRoom" type="Node2D"]
+[node name="WestRoom" type="Node2D"]
 z_index = 1
 
 [node name="Entrance" type="Marker2D" parent="."]
@@ -49,20 +49,16 @@ z_index = 1
 [node name="Exits" type="Node2D" parent="."]
 
 [node name="Exit1" type="Marker2D" parent="Exits"]
-position = Vector2(-144, 32)
+position = Vector2(-104, 152)
 metadata/dir = "West"
-
-[node name="Exit2" type="Marker2D" parent="Exits"]
-position = Vector2(-72, -119)
-metadata/dir = "South"
 
 [node name="Floor" type="TileMapLayer" parent="."]
 texture_filter = 1
-position = Vector2(-80, 40)
-tile_set = SubResource("TileSet_xy3ks")
+position = Vector2(-104, 80)
+tile_set = SubResource("TileSet_unsee")
 
 [node name="Walls" type="TileMapLayer" parent="."]
 texture_filter = 1
-position = Vector2(-64, 40)
-tile_map_data = PackedByteArray(0, 0, 4, 0, 255, 255, 2, 0, 3, 0, 0, 0, 0, 0, 4, 0, 251, 255, 2, 0, 3, 0, 0, 0, 0, 0, 4, 0, 252, 255, 2, 0, 3, 0, 0, 0, 0, 0, 4, 0, 253, 255, 2, 0, 3, 0, 0, 0, 0, 0, 4, 0, 254, 255, 2, 0, 3, 0, 0, 0, 0, 0)
-tile_set = SubResource("TileSet_xy3ks")
+position = Vector2(-104, 64)
+tile_map_data = PackedByteArray(0, 0, 4, 0, 251, 255, 1, 0, 7, 0, 0, 0, 0, 0, 8, 0, 251, 255, 1, 0, 7, 0, 0, 0, 0, 0, 5, 0, 251, 255, 1, 0, 7, 0, 0, 0, 0, 0, 6, 0, 251, 255, 1, 0, 7, 0, 0, 0, 0, 0, 7, 0, 251, 255, 1, 0, 7, 0, 0, 0, 0, 0)
+tile_set = SubResource("TileSet_unsee")

@@ -151,6 +151,6 @@ position = Vector2(-21, -10)
 position = Vector2(-0.5, 19)
 shape = SubResource("RectangleShape2D_1tgai")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(10, 10)
 zoom = Vector2(0.105, 0.105)

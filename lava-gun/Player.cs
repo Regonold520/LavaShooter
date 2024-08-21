@@ -29,6 +29,8 @@ public partial class Player : CharacterBody2D
 
 	private void HandleController(double delta)
 	{
+		return;
+		
 		float rightStickX = Input.GetActionStrength("StickR") - Input.GetActionStrength("StickL");
 		float rightStickY = Input.GetActionStrength("StickD") - Input.GetActionStrength("StickU");
 

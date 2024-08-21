@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://dvce6ytiq4lc1"]
 
-[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="2_lybve"]
-[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="3_epanf"]
+[ext_resource type="Texture2D" uid="uid://cp3rj5uas8kk8" path="res://Sprites/Tiles/Tileset_1.png" id="1_a202n"]
+[ext_resource type="Texture2D" uid="uid://bt7aeawswa7ns" path="res://Sprites/Tiles/NewTileset.png" id="2_oki14"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8rx2x"]
-texture = ExtResource("2_lybve")
+texture = ExtResource("1_a202n")
 0:0/0 = 0
 1:0/0 = 0
 2:0/0 = 0
@@ -17,7 +17,7 @@ texture = ExtResource("2_lybve")
 5:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vuvsj"]
-texture = ExtResource("3_epanf")
+texture = ExtResource("2_oki14")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
