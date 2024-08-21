@@ -1,17 +1,23 @@
 using Godot;
-using System;
 
 public partial class Room : Area2D
 {
 	public int maxChain;
 	public int currentChain;
+
+	public Node2D lastExit;
+	public Area2D lastRoom;
+	private Node2D room;
 	
 	[Export]
 	private string roomDir = "";
-
-	private Node2D room;
+	
 	public override void _Ready()
 	{
+		if (lastRoom != null)
+		{
+			GD.Print(lastRoom.Name);
+		}
 		AreaEntered += RoomDetected;
 		
 		FindChild("ChainDisplay").Set("text", currentChain.ToString());
@@ -29,7 +35,6 @@ public partial class Room : Area2D
 		}
 		else if (currentChain == 0)
 		{
-
 			Check0Chain();
 		}
 	}
@@ -40,12 +45,15 @@ public partial class Room : Area2D
 
 		if (areaChain > currentChain)
 		{
+			lastRoom.Call("CheckSpecificChain", lastExit);
+			
 			QueueFree();
 		}
 	}
 
 	private void Check0Chain()
 	{
+		
 		for (int i = 0; i < FindChild("Exits").GetChildCount(); i++)
 		{
 			var currentExit = (Node2D)FindChild("Exits").GetChild(i - 1);
@@ -56,42 +64,91 @@ public partial class Room : Area2D
 
 				var roomScene = GD.Load<PackedScene>("res://Rooms/West/west_end.tscn");
 				room = (Node2D)roomScene.Instantiate();
+				
+				currentExit.AddChild(room);
 
 				room.GlobalPosition = currentExit.GlobalPosition;
-
-				GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
 			}
 			if (exitDir == "West")
 			{
 
 				var roomScene = GD.Load<PackedScene>("res://Rooms/North/north_end.tscn");
 				room = (Node2D)roomScene.Instantiate();
+				
+				currentExit.AddChild(room);
 
 				room.GlobalPosition = currentExit.GlobalPosition;
-
-				GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
 			}
 			if (exitDir == "East")
 			{
 
 				var roomScene = GD.Load<PackedScene>("res://Rooms/South/south_end.tscn");
 				room = (Node2D)roomScene.Instantiate();
+				
+				currentExit.AddChild(room);
 
 				room.GlobalPosition = currentExit.GlobalPosition;
-
-				GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
 			}
 			if (exitDir == "North")
 			{
 
 				var roomScene = GD.Load<PackedScene>("res://Rooms/East/east_end.tscn");
 				room = (Node2D)roomScene.Instantiate();
+				
+				currentExit.AddChild(room);
 
 				room.GlobalPosition = currentExit.GlobalPosition;
-
-				GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
 			}
 		}
+		
+	}
+	
+	private void CheckSpecificChain(Node2D currentExit)
+	{
+
+		var exitDir = (string)currentExit.GetMeta("dir");
+		
+		if (exitDir == "South")
+		{
+
+			var roomScene = GD.Load<PackedScene>("res://Rooms/West/west_end.tscn");
+			room = (Node2D)roomScene.Instantiate();
+			
+			currentExit.AddChild(room);
+
+			room.GlobalPosition = currentExit.GlobalPosition;
+		}
+		if (exitDir == "West")
+		{
+
+			var roomScene = GD.Load<PackedScene>("res://Rooms/North/north_end.tscn");
+			room = (Node2D)roomScene.Instantiate();
+			
+			currentExit.AddChild(room);
+
+			room.GlobalPosition = currentExit.GlobalPosition;
+		}
+		if (exitDir == "East")
+		{
+
+			var roomScene = GD.Load<PackedScene>("res://Rooms/South/south_end.tscn");
+			room = (Node2D)roomScene.Instantiate();
+			
+			currentExit.AddChild(room);
+
+			room.GlobalPosition = currentExit.GlobalPosition;
+		}
+		if (exitDir == "North")
+		{
+
+			var roomScene = GD.Load<PackedScene>("res://Rooms/East/east_end.tscn");
+			room = (Node2D)roomScene.Instantiate();
+			
+			currentExit.AddChild(room);
+
+			room.GlobalPosition = currentExit.GlobalPosition;
+		}
+	
 		
 	}
 
@@ -108,6 +165,9 @@ public partial class Room : Area2D
 
 				room.Set("maxChain", maxChain);
 				room.Set("currentChain", currentChain - 1);
+				
+				room.Set("lastExit", exit);
+				room.Set("lastRoom", this);
 
 				room.GlobalPosition = exit.GlobalPosition;
 
@@ -123,6 +183,9 @@ public partial class Room : Area2D
 			room.Set("maxChain", maxChain);
 			room.Set("currentChain", currentChain - 1);
 			
+			room.Set("lastExit", exit);
+			room.Set("lastRoom", this);
+			
 			room.GlobalPosition = exit.GlobalPosition;
 			
 			GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
@@ -136,6 +199,9 @@ public partial class Room : Area2D
 			room.Set("maxChain", maxChain);
 			room.Set("currentChain", currentChain - 1);
 			
+			room.Set("lastExit", exit);
+			room.Set("lastRoom", this);
+			
 			room.GlobalPosition = exit.GlobalPosition;
 			
 			GetTree().CurrentScene.FindChild("RoomGenerator").AddChild(room);
@@ -148,6 +214,9 @@ public partial class Room : Area2D
 			
 			room.Set("maxChain", maxChain);
 			room.Set("currentChain", currentChain - 1);
+			
+			room.Set("lastExit", exit);
+			room.Set("lastRoom", this);
 			
 			room.GlobalPosition = exit.GlobalPosition;
 			

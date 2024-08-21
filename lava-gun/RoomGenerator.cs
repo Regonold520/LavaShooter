@@ -4,7 +4,7 @@ using System;
 public partial class RoomGenerator : Node2D
 {
 
-	private int maxChain = 4;
+	private int maxChain = 2;
 	
 	private PackedScene testRoom = GD.Load<PackedScene>("res://Rooms/Start/start_room_1.tscn");
 	private Node2D room;

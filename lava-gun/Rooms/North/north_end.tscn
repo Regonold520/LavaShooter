@@ -42,7 +42,7 @@ sources/0 = SubResource("TileSetAtlasSource_frl2n")
 sources/2 = SubResource("TileSetAtlasSource_cdv4s")
 
 [node name="NorthRoom" type="Node2D"]
-scale = Vector2(10, 10)
+z_index = 1
 
 [node name="Entrance" type="Marker2D" parent="."]
 
